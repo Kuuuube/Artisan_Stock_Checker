@@ -184,10 +184,8 @@ def fx_zero():
 
 def fx_raiden():
     models = ["17"]
-    #hardnesses = ["0","2"]
-    #sizes = ["2","3","4"]
-    hardnesses = ["0"]
-    sizes = ["4"]
+    hardnesses = ["0","2"]
+    sizes = ["2","3","4"]
     colors = ["8"]
     return [models,hardnesses,sizes,colors]
 
