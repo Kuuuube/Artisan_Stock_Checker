@@ -47,7 +47,6 @@ utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
 
 in_cart_list = []
 only_stock_list = []
-only_cart_list = []
 cart = False
 
 def check_cart(stock_check):
