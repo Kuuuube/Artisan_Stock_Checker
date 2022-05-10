@@ -84,10 +84,9 @@ def stock_checker(request_data):
             stock_check = requests.post(request_url, data)
             stock_regex = re.search("^[0-z]+(?=\/)",stock_check.text)
             
-            cart = check_cart(stock_check.text)
-            
             #in stock
             if stock_regex == None or stock_regex.group(0) != "NON":
+                cart = check_cart(stock_check.text)
                 if cart == True:
                     stock_message = "Stock check: True, Cart check: True, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
                     in_cart_list.append(dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]])
@@ -98,13 +97,8 @@ def stock_checker(request_data):
                     print(stock_message)
             #out of stock
             else:
-                if cart == True:
-                    stock_message = "Stock check: False, Cart check: True, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
-                    only_cart_list.append(dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]])
-                    print(stock_message)
-                else:
-                    stock_message = "Stock check: False, Cart check: False, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
-                    print(stock_message)
+                stock_message = "Stock check: False, Cart check: False, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
+                print(stock_message)
                 
         except Exception as e:
             print("Request failed:")
@@ -204,11 +198,6 @@ if len(in_cart_list) < 1:
 if len(only_stock_list) > 0:
     print("\n\n\nMousepads that are in stock and cannot be added to cart:")
     for item in only_stock_list:
-        print(item)
-
-if len(only_cart_list) > 0:
-    print("\n\n\nMousepads that are not in stock and can be added to cart:")
-    for item in only_cart_list:
         print(item)
 
 input()
