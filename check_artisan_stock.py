@@ -4,64 +4,6 @@ import itertools
 import time
 from datetime import datetime,timezone
 
-#**Language:** (Has no effect on checking stock)
-#english: kuni on
-#japanese: kuni
-
-#**Mouse Feet Model:**
-#ZERO Issiki: sir 100
-#ZERO Nisiki: sir 101
-#ZERO Sansiki: sir 103
-#ZERO Yonsiki: sir 104
-#dull mouse feet: sir 106
-#heavy mouse feet: sir 107
-
-#**Mouse Feet Size:**
-#mouse feet: size 0
-
-#**Mouse Feet Colors:**
-#mouse feet: color 0
-
-#**Mouse Feet Size:**
-#mouse feet: size 0
-
-#**Mousepad Model:**
-#cs zero: sir 1x
-#fx hayate: sir 11x
-#fx hayate otsu: sir 12x
-#fx hayate kou: sir 13x
-#fx hien: sir 14x
-#fx hien ve: sir 15x
-#fx zero: sir 16x
-#fx raiden: sir 17x
-#fx shidenkai: sir 18x
-
-#**FX Mousepad Hardness:**
-#xsoft: sir xx0
-#soft (hien VE): sir xx0
-#soft: sir xx1
-#mid: sir xx2
-
-#**CS Mousepad Hardness:**
-#xsoft: sir x3
-#soft: sir x4
-#mid: sir x2
-
-#**Mousepad Size:**
-#S: size 1
-#M: size 2
-#L: size 3
-#XL: size 4
-
-#**Mousepad Colors:**
-#brown: color 8
-#pink: color 7
-#white: color 6
-#black: color 5
-#black (hayate kou and shidenkai): color 3
-#blue: color 2
-#red: color 1
-
 request_url = "https://www.artisan-jp.com/get_syouhin.php"
 cart_url = "https://www.artisan-jp.com/stock_recheck.php"
 
