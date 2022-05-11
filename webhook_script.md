@@ -34,7 +34,7 @@ pip install discord
 
     `{Link}` sends a link to the mousepad's store page'
 
-4. Optionally, edit `delay = ` in `config.cfg` to change the delay in seconds between checking stock. This delay is called twice so the real delay will be double the set delay.
+4. Optionally, edit `delay = ` in `config.cfg` to change the delay in seconds between checking stock. This delay is called a second time for the cart check when an item passes the intial stock check.
 
 5. Run `check_artisan_stock_webhook.py`
 
