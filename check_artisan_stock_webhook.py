@@ -33,6 +33,7 @@ def check_cart(stock_check):
         combined_request = ",".join(split_request)
         
         cookies = {"cart":combined_request, "disc": "1", "lung": "jpf", "souryou": "800,SAL"}
+        time.sleep(float(set_delay))
         add_to_cart = requests.post(cart_url, cookies=cookies)
         if combined_request == add_to_cart.text:
             cart = True
