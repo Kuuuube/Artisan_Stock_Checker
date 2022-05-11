@@ -12,15 +12,15 @@ cart_url = "https://www.artisan-jp.com/stock_recheck.php"
 
 utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
 
-in_cart_list = []
-only_stock_list = []
-cart = False
-set_delay = config_handler.read("stock","delay")
-
 dict_mousepad_models = artisan_mousepads.mousepad_models()
 dict_hardnesses = artisan_mousepads.mousepad_hardnesses()
 dict_sizes = artisan_mousepads.mousepad_sizes()
 dict_colors = artisan_mousepads.mousepad_colors()
+
+in_cart_list = []
+only_stock_list = []
+cart = False
+set_delay = config_handler.read("stock","delay")
 
 def check_cart(stock_check):
     try:
@@ -60,23 +60,23 @@ def stock_checker(request_data):
             if stock_regex == None or stock_regex.group(0) != "NON":
                 cart = check_cart(stock_check.text)
                 if cart == True:
-                    stock_message = "Stock check: True, Cart check: True, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
+                    stock_message = utc_time + ", Stock check: True, Cart check: True, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
                     in_cart_list.append(dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]])
                     webhook_handler.webhook_sender(item)
                     print(stock_message)
                 else:
-                    stock_message = "Stock check: True, Cart check: False, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
+                    stock_message = utc_time + ", Stock check: True, Cart check: False, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
                     only_stock_list.append(dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]])
                     print(stock_message)
             #out of stock
             else:
-                stock_message = "Stock check: False, Cart check: False, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
+                stock_message = utc_time + ", Stock check: False, Cart check: False, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
                 print(stock_message)
                 
         except Exception as e:
             print("Request failed:")
             print(e)
-            stock_message = "Stock check: Request failed, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
+            stock_message = utc_time + ", Stock check: Request failed, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
         try:
             with open ("artisan_stock_record_" + utc_time + ".txt", "a") as stock_record:
                 stock_record.write(stock_message)
@@ -87,7 +87,7 @@ def stock_checker(request_data):
             input()
             
         #15 second delay since this will constantly be looping
-        time.sleep(int(set_delay))
+        time.sleep(float(set_delay))
 
 function_list = artisan_mousepads.active_functions()
 
