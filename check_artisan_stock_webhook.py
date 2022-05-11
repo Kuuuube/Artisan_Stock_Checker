@@ -6,6 +6,7 @@ from datetime import datetime,timezone
 import webhook_handler
 import artisan_mousepads
 import config_handler
+import stock_state_tracker
 
 request_url = "https://www.artisan-jp.com/get_syouhin.php"
 cart_url = "https://www.artisan-jp.com/stock_recheck.php"
@@ -71,6 +72,7 @@ def stock_checker(request_data):
             #out of stock
             else:
                 stock_message = utc_time + ", Stock check: False, Cart check: False, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
+                stock_state_tracker.find_item_state(item,"False")
                 print(stock_message)
                 
         except Exception as e:
@@ -94,15 +96,3 @@ function_list = artisan_mousepads.active_functions()
 while True:
     for element in function_list:
         stock_checker(element())
-
-    print("Mousepads that are in stock and can be added to cart:")
-    for item in in_cart_list:
-        print(item)
-            
-    if len(in_cart_list) < 1:
-        print("Nothing is in stock")
-
-    if len(only_stock_list) > 0:
-        print("\n\n\nMousepads that are in stock and cannot be added to cart:")
-        for item in only_stock_list:
-            print(item)
