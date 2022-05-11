@@ -198,3 +198,31 @@ def fx_shidenkai():
     colors = ["8","9"]
     return [models,hardnesses,sizes,colors]
     ```
+
+4. Add new entries to `default_stock_state` in `config_handler.py` for the new mousepad. The stock states are formatted in the following way: `{Model}{Hardness}{Size}{Color}`. These also use the lookup numbers not the human readable names. For example, to add the pad color used in the previous example, all combinations of the models, hardnesses, sizes, and colors would be added:
+    ```python
+    def default_stock_state(config_file):
+    backup_bad_config(config_file)
+        
+    defaults = ConfigParser()
+    defaults["modelhardnesssizecolor"] = {
+        "1315": "False",
+        "1325": "False",
+        ...
+        "18247": "False",
+        "17028": "False",
+        "17038": "False",
+        "17048": "False",
+        "17029": "False",
+        "17039": "False",
+        "17049": "False",
+        "17228": "False",
+        "17238": "False",
+        "17248": "False",
+        "17229": "False",
+        "17239": "False",
+        "17249": "False",
+    }
+    ```
+
+5. Add the same new stock state entries to `stock_state.cfg` or delete it and it will be regenerated to the defaults set up in step 5.
