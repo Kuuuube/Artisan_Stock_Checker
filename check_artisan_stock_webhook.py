@@ -88,7 +88,6 @@ def stock_checker(request_data):
             print(e)
             input()
             
-        #15 second delay since this will constantly be looping
         time.sleep(float(set_delay))
 
 function_list = artisan_mousepads.active_functions()
