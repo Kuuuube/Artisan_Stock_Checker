@@ -225,4 +225,4 @@ def fx_shidenkai():
     }
     ```
 
-5. Add the same new stock state entries to `stock_state.cfg` or delete it and it will be regenerated to the defaults set up in step 5.
+5. Add the same new stock state entries to `stock_state.cfg` or delete it and it will be regenerated to the defaults set up in step 4.
