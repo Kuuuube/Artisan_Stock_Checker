@@ -3,66 +3,24 @@ import re
 import itertools
 import time
 from datetime import datetime,timezone
-from discord import Webhook, RequestsWebhookAdapter
+import webhook_handler
+import artisan_mousepads
+import config_handler
 
 request_url = "https://www.artisan-jp.com/get_syouhin.php"
 cart_url = "https://www.artisan-jp.com/stock_recheck.php"
-
-#when adding a new mousepad model it must be added into the models dictionary
-#new pads will likely fit existing hardness, size, and colors so those may not need to be edited
-dict_mousepad_models = {
-    "1" : "CS Zero",
-    "11" : "FX Hayate",
-    "12" : "FX Hayate Otsu",
-    "13" : "FX Hayate Kou",
-    "14" : "FX Hien",
-    "15" : "FX Hien VE",
-    "16" : "FX Zero",
-    "17" : "FX Raiden",
-    "18" : "FX Shidenkai"
-}
-dict_hardnesses = {
-    "0" : "XSoft",
-    "1" : "Soft",
-    "2" : "Mid",
-    "3" : "XSoft",
-    "4" : "Soft"
-}
-dict_sizes = {
-    "1" : "S",
-    "2" : "M",
-    "3" : "L",
-    "4" : "XL"
-}
-dict_colors = {
-    "1" : "Red",
-    "2" : "Blue",
-    "3" : "Black",
-    "5" : "Black",
-    "6" : "White",
-    "7" : "Pink",
-    "8" : "Brown"
-}
 
 utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
 
 in_cart_list = []
 only_stock_list = []
 cart = False
+set_delay = config_handler.read("stock","delay")
 
-def webhook(item):
-    #put your webhook url inside the quotes for the url string
-    url = ""
-    
-    #put the message content that you want to use in the content string
-    #item is the product name
-    #if you want the webhook to ping you put your userid after <@
-    #this format is not required and you can make it anything you want
-    content = "<@>" + item
-    
-    webhook = Webhook.from_url(url, adapter=RequestsWebhookAdapter())
-    webhook.send(content=content)
-    time.sleep(1)
+dict_mousepad_models = artisan_mousepads.mousepad_models()
+dict_hardnesses = artisan_mousepads.mousepad_hardnesses()
+dict_sizes = artisan_mousepads.mousepad_sizes()
+dict_colors = artisan_mousepads.mousepad_colors()
 
 def check_cart(stock_check):
     try:
@@ -104,7 +62,7 @@ def stock_checker(request_data):
                 if cart == True:
                     stock_message = "Stock check: True, Cart check: True, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
                     in_cart_list.append(dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]])
-                    webhook(in_cart_list[-1])
+                    webhook_handler.webhook_sender(item)
                     print(stock_message)
                 else:
                     stock_message = "Stock check: True, Cart check: False, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
@@ -128,77 +86,10 @@ def stock_checker(request_data):
             print(e)
             input()
             
-        #1 second delay to be polite
-        time.sleep(15)
+        #15 second delay since this will constantly be looping
+        time.sleep(int(set_delay))
 
-#functions for returning each pad's specifics
-#refer to the dictionaries when editing these
-def cs_zero():
-    models = ["1"]
-    hardnesses = ["3","4","2"]
-    sizes = ["1","2","3","4"]
-    colors = ["5"]
-    return [models,hardnesses,sizes,colors]
-
-def fx_hayate():
-    models = ["11"]
-    hardnesses = ["0","1","2"]
-    sizes = ["2","3","4"]
-    colors = ["5"]
-    return [models,hardnesses,sizes,colors]
-
-def fx_hayate_otsu():
-    models = ["12"]
-    hardnesses = ["0","1","2"]
-    sizes = ["2","3","4"]
-    colors = ["1","5"]
-    return [models,hardnesses,sizes,colors]
-
-def fx_hayate_kou():
-    models = ["13"]
-    hardnesses = ["0","1","2"]
-    sizes = ["2","3","4"]
-    colors = ["3"]
-    return [models,hardnesses,sizes,colors]
-
-def fx_hien():
-    models = ["14"]
-    hardnesses = ["0","1","2"]
-    sizes = ["1","2","3","4"]
-    colors = ["1","5"]
-    return [models,hardnesses,sizes,colors]
-
-def fx_hien_ve():
-    models = ["15"]
-    hardnesses = ["0"]
-    sizes = ["1","2","3"]
-    colors = ["1","2","5"]
-    return [models,hardnesses,sizes,colors]
-
-def fx_zero():
-    models = ["16"]
-    hardnesses = ["0","1","2"]
-    sizes = ["1","2","3","4"]
-    colors = ["5"]
-    return [models,hardnesses,sizes,colors]
-
-def fx_raiden():
-    models = ["17"]
-    hardnesses = ["0","2"]
-    sizes = ["2","3","4"]
-    colors = ["8"]
-    return [models,hardnesses,sizes,colors]
-
-def fx_shidenkai():
-    models = ["18"]
-    hardnesses = ["0","2"]
-    sizes = ["1","2","3","4"]
-    colors = ["3","6","7"]
-    return [models,hardnesses,sizes,colors]
-
-#list of all items to check stock for
-#to skip checking items they can be removed from this list
-function_list = [cs_zero,fx_hayate,fx_hayate_otsu,fx_hayate_kou,fx_hien,fx_hien_ve,fx_zero,fx_raiden,fx_shidenkai]
+function_list = artisan_mousepads.active_functions()
 
 while True:
     for element in function_list:
