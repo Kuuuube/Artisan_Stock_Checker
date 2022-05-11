@@ -16,20 +16,20 @@ def webhook_sender(item):
     Color = dict_colors[item[3]]
     Link = dict_links[item[0]]
     
-    url = config_handler.read("webhook","url")
+    url = config_handler.read("config.cfg","webhook","url")
     
-    content = config_handler.read("webhook","content")
+    content = config_handler.read("config.cfg","webhook","content")
 
     roles_dict = {
-        "1" : config_handler.read("webhook_role_pings","role_CS_Zero"),
-        "11" : config_handler.read("webhook_role_pings","role_FX_Hayate"),
-        "12" : config_handler.read("webhook_role_pings","role_FX_Hayate_Otsu"),
-        "13" : config_handler.read("webhook_role_pings","role_FX_Hayate_Kou"),
-        "14" : config_handler.read("webhook_role_pings","role_FX_Hien"),
-        "15" : config_handler.read("webhook_role_pings","role_FX_Hien_VE"),
-        "16" : config_handler.read("webhook_role_pings","role_FX_Zero"),
-        "17" : config_handler.read("webhook_role_pings","role_FX_Raiden"),
-        "18" : config_handler.read("webhook_role_pings","role_FX_Shidenkai")
+        "1" : config_handler.read("config.cfg","webhook_role_pings","role_CS_Zero"),
+        "11" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Hayate"),
+        "12" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Hayate_Otsu"),
+        "13" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Hayate_Kou"),
+        "14" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Hien"),
+        "15" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Hien_VE"),
+        "16" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Zero"),
+        "17" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Raiden"),
+        "18" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Shidenkai")
         }
 
     variable_dict = {

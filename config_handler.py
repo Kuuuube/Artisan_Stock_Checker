@@ -2,15 +2,13 @@ from configparser import ConfigParser
 import sys
 import time
 
-config_file = "config.cfg"
-
-def config_info():
+def config_info(config_file):
     config = ConfigParser()
     config.read(config_file)
     config.sections()
     return config
 
-def default_config():
+def default_config(config_file):
     defaults = ConfigParser()
     defaults["stock"] = {
     "delay": "1",
@@ -36,24 +34,24 @@ def default_config():
     with open(config_file, 'w') as conf:
         defaults.write(conf)
 
-def read(section,name):
+def read(config_file,section,name):
     function_success = False
     while function_success == False:
         try:
-            config = config_info()
+            config = config_info(config_file)
             return config.get(section,name)
             function_success == True
         except Exception as e:
             print(e)
             print("Config corrupted. Reverting to default.")
-            default_config()
+            default_config(config_file)
             time.sleep(1)
 
-def write(section,name,value):
+def write(config_file,section,name,value):
     function_success = False
     while function_success == False:
         try:
-            config = config_info()
+            config = config_info(config_file)
             config[section][name] = value
             with open(config_file, 'w') as conf:
                 config.write(conf)
@@ -61,5 +59,5 @@ def write(section,name,value):
         except Exception as e:
             print(e)
             print("Config corrupted. Reverting to default.")
-            default_config()
+            default_config(config_file)
             time.sleep(1)

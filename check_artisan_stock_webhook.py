@@ -20,7 +20,7 @@ dict_colors = artisan_mousepads.mousepad_colors()
 in_cart_list = []
 only_stock_list = []
 cart = False
-set_delay = config_handler.read("stock","delay")
+set_delay = config_handler.read("config.cfg","stock","delay")
 
 def check_cart(stock_check):
     try:
