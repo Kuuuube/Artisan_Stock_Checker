@@ -25,7 +25,7 @@ def default_config(config_file):
     
     defaults = ConfigParser()
     defaults["stock"] = {
-        "delay": "1",
+        "delay": "5",
     }
 
     defaults["webhook"] = {
