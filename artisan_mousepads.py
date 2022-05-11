@@ -47,7 +47,6 @@ def mousepad_colors():
 
 #uses the same numbers as mousepad_models to find links
 def mousepad_links():
-def mousepad_links():
     dict_links = {
         "1" : "https://www.artisan-jp.com/cs-zero-eng.html",
         "11" : "https://www.artisan-jp.com/fx-hayate-eng.html",
@@ -58,7 +57,7 @@ def mousepad_links():
         "16" : "https://www.artisan-jp.com/fx-zero-eng.html",
         "17" : "https://www.artisan-jp.com/fx-raiden-eng.html",
         "18" : "https://www.artisan-jp.com/fx-shidenkai-eng.html"
-        }
+    }
     return dict_links
 
 #functions for returning each pad's specifics
