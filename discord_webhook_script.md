@@ -1,4 +1,4 @@
-# Webhook Script
+# Discord Webhook Script
 
 ## Dependencies
 
@@ -32,7 +32,7 @@ pip install discord
 
     `{Color}` sends the mousepad color.
 
-    `{Link}` sends a link to the mousepad's store page'
+    `{Link}` sends a link to the mousepad's store page.
 
 4. Optionally, edit `delay = ` in `config.cfg` to change the delay in seconds between checking stock. This delay is called a second time for the cart check when an item passes the intial stock check.
 

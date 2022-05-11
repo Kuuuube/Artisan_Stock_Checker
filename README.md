@@ -6,7 +6,7 @@ Scripts to check stock of Artisan mousepads.
 
 Single run stock checking in command line. 
 
-## [Discord Webhook Script](webhook_script.md)
+## [Discord Webhook Script](discord_webhook_script.md)
 
 Automated stock checking and notifying through discord webhook.
 
