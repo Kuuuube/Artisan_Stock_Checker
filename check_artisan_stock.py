@@ -93,16 +93,31 @@ function_list = artisan_mousepads.active_functions()
 for element in function_list:
     stock_checker(element())
 
-print("\n\n\nMousepads that are in stock and can be added to cart:")
-for item in in_cart_list:
-    print(item)
+try:
+    with open ("artisan_stock_summary_" + utc_time + ".txt", "a") as stock_summary:
+        stock_summary.write("Mousepads that are in stock and can be added to cart:")
+        print("\n\n\nMousepads that are in stock and can be added to cart:")
+        for item in in_cart_list:
+            stock_summary.write("\n")
+            stock_summary.write(item)
+            print(item)
         
-if len(in_cart_list) < 1:
-    print("Nothing is in stock")
+        if len(in_cart_list) < 1:
+            stock_summary.write("\n")
+            stock_summary.write("Nothing is in stock")
+            print("Nothing is in stock")
 
-if len(only_stock_list) > 0:
-    print("\n\n\nMousepads that are in stock and cannot be added to cart:")
-    for item in only_stock_list:
-        print(item)
+        if len(only_stock_list) > 0:
+            stock_summary.write("\n\n\nMousepads that are in stock and cannot be added to cart:")
+            print("\n\n\nMousepads that are in stock and cannot be added to cart:")
+            for item in only_stock_list:
+                stock_summary.write("\n")
+                stock_summary.write(item)
+                print(item)
+
+except Exception as e:
+    print("Could not open or write to file:")
+    print(e)
+    input()
 
 input()
