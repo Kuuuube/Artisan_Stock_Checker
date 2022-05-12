@@ -88,7 +88,6 @@ def stock_checker(request_data):
         except Exception as e:
             print("Could not open or write to file:")
             print(e)
-            input()
             
         time.sleep(float(set_delay))
 
