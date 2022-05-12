@@ -209,7 +209,6 @@ def read_section(config_file,section):
             function_success == True
         except Exception as e:
             print(e)
-            print("Config or Stock State corrupted. Reverting to default.")
             if config_file == "config.cfg":
                 print("Config corrupted. Reverting to default.")
                 default_config(config_file)
