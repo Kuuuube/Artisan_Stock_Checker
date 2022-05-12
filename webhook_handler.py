@@ -1,5 +1,5 @@
-from discord import Webhook, RequestsWebhookAdapter
 import re
+import requests
 import config_handler
 import artisan_mousepads
 import stock_state_tracker
@@ -45,6 +45,11 @@ def webhook_sender(item):
 
         for key in variable_dict.keys():
             content = re.sub(key, variable_dict[key], content)
+
+        content = content.replace(r'\n', '\n')
+
+        data = {
+            "content" : content
+        }
         
-        webhook = Webhook.from_url(url, adapter=RequestsWebhookAdapter())
-        webhook.send(content=content)
+        webhook = requests.post(url,json=data)
