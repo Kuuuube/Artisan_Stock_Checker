@@ -52,4 +52,4 @@ def webhook_sender(item):
             "content" : content
         }
         
-        webhook = requests.post(url,json=data)
+        requests.post(url,json=data)

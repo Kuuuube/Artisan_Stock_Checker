@@ -16,8 +16,6 @@ dict_hardnesses = artisan_mousepads.mousepad_hardnesses()
 dict_sizes = artisan_mousepads.mousepad_sizes()
 dict_colors = artisan_mousepads.mousepad_colors()
 
-in_cart_list = []
-only_stock_list = []
 cart = False
 set_delay = config_handler.read("config.cfg","stock","delay")
 
@@ -64,12 +62,10 @@ def stock_checker(request_data):
                 cart = check_cart(stock_check.text)
                 if cart == True:
                     stock_message = utc_time_print + ", Stock check: True, Cart check: True, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
-                    in_cart_list.append(dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]])
                     webhook_handler.webhook_sender(item)
                     print(stock_message)
                 else:
                     stock_message = utc_time_print + ", Stock check: True, Cart check: False, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
-                    only_stock_list.append(dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]])
                     print(stock_message)
             #out of stock
             else:
