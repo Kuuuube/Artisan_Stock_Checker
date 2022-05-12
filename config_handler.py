@@ -30,7 +30,7 @@ def default_config(config_file):
 
     defaults["webhook"] = {
         "url": "",
-        "content": "{Role Ping} In Stock! Model: {Model}, Hardness: {Hardness}, Size: {Size}, Color: {Color}, Link: {Link}",
+        "content": "{Role Ping} In Stock!\\nModel: {Model}, Hardness: {Hardness}, Size: {Size}, Color: {Color}\\nLink: {Link}",
     }
     
     defaults["webhook_role_pings"] = {
