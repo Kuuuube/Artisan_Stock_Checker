@@ -16,6 +16,7 @@ dict_colors = artisan_mousepads.mousepad_colors()
 
 in_cart_list = []
 only_stock_list = []
+no_stock_list = []
 cart = False
 set_delay = config_handler.read("config.cfg","stock","delay")
 
@@ -71,6 +72,7 @@ def stock_checker(request_data):
             #out of stock
             else:
                 stock_message = utc_time_print + ", Stock check: False, Cart check: False, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
+                no_stock_list.append(dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]])
                 print(stock_message)
                 
         except Exception as e:
@@ -111,6 +113,14 @@ try:
             stock_summary.write("\n\n\nMousepads that are in stock and cannot be added to cart:")
             print("\n\n\nMousepads that are in stock and cannot be added to cart:")
             for item in only_stock_list:
+                stock_summary.write("\n")
+                stock_summary.write(item)
+                print(item)
+
+        if len(no_stock_list) > 0:
+            stock_summary.write("\n\n\nMousepads that are not in stock:")
+            print("\n\n\nMousepads that are not in stock:")
+            for item in no_stock_list:
                 stock_summary.write("\n")
                 stock_summary.write(item)
                 print(item)
