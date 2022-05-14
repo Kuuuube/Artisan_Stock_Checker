@@ -30,7 +30,7 @@ pip install requests
 
     `{Link}` sends a link to the mousepad's store page.
 
-4. Optionally, edit `delay = ` in `config.cfg` to change the delay in seconds between checking stock. This delay is called a second time for the cart check when an item passes the intial stock check.
+4. Optionally, edit the delays in `config.cfg` to change the delay in seconds between checking stock, checking cart, and request fail.
 
 5. Run `check_artisan_stock_webhook.py`
 
