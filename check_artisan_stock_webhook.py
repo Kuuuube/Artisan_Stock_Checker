@@ -17,7 +17,9 @@ dict_sizes = artisan_mousepads.mousepad_sizes()
 dict_colors = artisan_mousepads.mousepad_colors()
 
 cart = False
-set_delay = config_handler.read("config.cfg","stock","delay")
+stock_delay = config_handler.read("config.cfg","stock","stock_delay")
+cart_delay = config_handler.read("config.cfg","stock","cart_delay")
+request_fail_delay = config_handler.read("config.cfg","stock","request_fail_delay")
 
 utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
 
@@ -31,7 +33,7 @@ def check_cart(stock_check):
         combined_request = ",".join(split_request)
         
         cookies = {"cart":combined_request, "disc": "1", "lung": "jpf", "souryou": "800,SAL"}
-        time.sleep(float(set_delay))
+        time.sleep(float(cart_delay))
         add_to_cart = requests.post(cart_url, cookies=cookies)
         if combined_request == add_to_cart.text:
             cart = True
@@ -77,6 +79,9 @@ def stock_checker(request_data):
             print("Request failed:")
             print(e)
             stock_message = utc_time_print + ", Stock check: Request failed, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
+            print(stock_message)
+            print("Waiting: " + str(request_fail_delay))
+            time.sleep(float(request_fail_delay))
         try:
             with open ("artisan_stock_record_" + utc_time + ".txt", "a") as stock_record:
                 stock_record.write(stock_message)
@@ -85,7 +90,7 @@ def stock_checker(request_data):
             print("Could not open or write to file:")
             print(e)
             
-        time.sleep(float(set_delay))
+        time.sleep(float(stock_delay))
 
 function_list = artisan_mousepads.active_functions()
 
