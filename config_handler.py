@@ -27,6 +27,7 @@ def default_config(config_file):
     defaults["stock"] = {
         "stock_delay": "5",
         "cart_delay": "5",
+        "batch_delay": "0",
         "request_fail_delay": "60",
     }
 

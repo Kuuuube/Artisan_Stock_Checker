@@ -19,6 +19,7 @@ dict_colors = artisan_mousepads.mousepad_colors()
 cart = False
 stock_delay = config_handler.read("config.cfg","stock","stock_delay")
 cart_delay = config_handler.read("config.cfg","stock","cart_delay")
+batch_delay = config_handler.read("config.cfg","stock","batch_delay")
 request_fail_delay = config_handler.read("config.cfg","stock","request_fail_delay")
 
 utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
@@ -38,6 +39,7 @@ def cart_check_func(stock_check):
         cookies = {"cart":combined_request, "disc": "1", "lung": "jpf", "souryou": "800,SAL"}
 
         #delay before request due to check cart being called right after the stock check request
+        print("Cart delay. Waiting: " + str(cart_delay) + " seconds")
         time.sleep(float(cart_delay))
         add_to_cart = requests.post(cart_url, cookies=cookies)
         
@@ -90,7 +92,7 @@ def stock_check_func(request_data):
             print(e)
             stock_message = utc_time_print + ", Stock check: Request failed, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
             print(stock_message)
-            print("Waiting: " + str(request_fail_delay) + " seconds")
+            print("Request fail delay. Waiting: " + str(request_fail_delay) + " seconds")
             time.sleep(float(request_fail_delay))
             
         try:
@@ -101,11 +103,17 @@ def stock_check_func(request_data):
         except Exception as e:
             print("Could not open or write to file:")
             print(e)
-            
+        
+        print("Stock delay. Waiting: " + str(stock_delay) + " seconds")
         time.sleep(float(stock_delay))
+
+#verify that the webhook url is set and valid
+webhook_handler.verify_webhook()
 
 function_list = artisan_mousepads.active_functions()
 
 while True:
     for element in function_list:
         stock_check_func(element())
+        print("Batch delay. Waiting: " + str(batch_delay) + " seconds")
+        time.sleep(float(batch_delay))
