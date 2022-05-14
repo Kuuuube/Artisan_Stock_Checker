@@ -14,7 +14,7 @@ pip install requests
 
 1. Run `check_artisan_stock.py`
 
-2. Optionally, edit `delay = ` in `config.cfg` to change the delay in seconds between checking stock. This delay is called a second time for the cart check when an item passes the intial stock check. (`config.cfg` will be generated after starting the script)
+2. Optionally, edit the delays in `config.cfg` to change the delay in seconds between checking stock, checking cart, and request fail. (`config.cfg` is generated after starting the script once)
 
     `stock_delay` adds a delay at the end of the stock check for a pad. For out of stock items this delay is after the stock request. For in stock items this delay is after the cart request and after the `cart_delay`.
 
