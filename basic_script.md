@@ -12,9 +12,17 @@ pip install requests
 
 ## Usage
 
-Run `check_artisan_stock.py`
+1. Run `check_artisan_stock.py`
 
-Optionally, edit `delay = ` in `config.cfg` to change the delay in seconds between checking stock. This delay is called a second time for the cart check when an item passes the intial stock check. (`config.cfg` will be generated after starting the script)
+2. Optionally, edit `delay = ` in `config.cfg` to change the delay in seconds between checking stock. This delay is called a second time for the cart check when an item passes the intial stock check. (`config.cfg` will be generated after starting the script)
+
+    `stock_delay` adds a delay at the end of the stock check for a pad. For out of stock items this delay is after the stock request. For in stock items this delay is after the cart request and after the `cart_delay`.
+
+    `cart_delay` adds a delay before checking whether an item can be added to cart. Only used if an item is found in stock.
+
+    `batch_delay` is unused in the basic script. It is for the webhook only.
+
+    `request_fail_delay` adds a delay after a request fails before resuming the sending of requests.
 
 ## Removing stock checks
 
