@@ -57,7 +57,7 @@ def mousepad_links():
         "16" : "https://www.artisan-jp.com/fx-zero-eng.html",
         "17" : "https://www.artisan-jp.com/fx-raiden-eng.html",
         "18" : "https://www.artisan-jp.com/fx-shidenkai-eng.html"
-        }
+    }
     return dict_links
 
 #functions for returning each pad's specifics
