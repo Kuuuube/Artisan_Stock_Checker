@@ -32,7 +32,7 @@ def webhook_sender(item):
             "16" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Zero"),
             "17" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Raiden"),
             "18" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Shidenkai")
-            }
+        }
 
         variable_dict = {
             "{Model}" : Model,

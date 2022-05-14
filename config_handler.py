@@ -16,6 +16,7 @@ def backup_bad_config(config_file):
         with open(config_file, 'r') as conf, open(config_file + ".bak" + hash_value, "w") as backup:
             for line in conf:
                 backup.write(line)
+                
     except Exception:
         pass
 
@@ -51,7 +52,7 @@ def default_config(config_file):
 
 def default_stock_state(config_file):
     backup_bad_config(config_file)
-        
+    
     defaults = ConfigParser()
     defaults["modelhardnesssizecolor"] = {
         "1315": "False",
@@ -189,6 +190,7 @@ def read(config_file,section,name):
             config = config_info(config_file)
             return config.get(section,name)
             function_success == True
+            
         except Exception as e:
             print(e)
             if config_file == "config.cfg":
@@ -209,6 +211,7 @@ def read_section(config_file,section):
                 section_list.append(item)
             return section_list
             function_success == True
+            
         except Exception as e:
             print(e)
             if config_file == "config.cfg":
@@ -228,6 +231,7 @@ def write(config_file,section,name,value):
             with open(config_file, 'w') as conf:
                 config.write(conf)
             function_success = True
+            
         except Exception as e:
             print(e)
             if config_file == "config.cfg":
