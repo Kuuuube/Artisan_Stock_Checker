@@ -36,7 +36,7 @@ pip install requests
 
     `cart_delay` adds a delay before checking whether an item can be added to cart. Only used if an item is found in stock.
 
-    `batch_delay` adds a delay between checking the full list of pads. Only used between the last item and the list and the first item in the list when looping back.
+    `batch_delay` adds a delay between checking the full list of pads. Only used between the last item in the list and the first item in the list when looping back to the first item.
 
     `request_fail_delay` adds a delay after a request fails before resuming the sending of requests.
 
