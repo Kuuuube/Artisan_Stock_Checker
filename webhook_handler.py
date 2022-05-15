@@ -2,7 +2,6 @@ import re
 import requests
 import config_handler
 import artisan_mousepads
-import stock_state_tracker
 
 def webhook_sender(item,stock_state):
     if stock_state == True:

@@ -38,7 +38,6 @@ def read_state_file(json_file,dict_key):
                 return "False"
             
         except Exception as e:
-            print(e)
             if json_file == "stock_state.json":
                 print("Stock states corrupted. Reverting to default.")
                 default_json(json_file)
