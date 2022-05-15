@@ -115,5 +115,5 @@ function_list = artisan_mousepads.active_functions()
 while True:
     for element in function_list:
         stock_check_func(element())
-        print("Batch delay. Waiting: " + str(batch_delay) + " seconds")
-        time.sleep(float(batch_delay))
+    print("Batch delay. Waiting: " + str(batch_delay) + " seconds")
+    time.sleep(float(batch_delay))
