@@ -5,7 +5,6 @@ import hashlib
 def config_info(config_file):
     config = ConfigParser()
     config.read(config_file)
-    config.sections()
     return config
 
 def backup_bad_config(config_file):
