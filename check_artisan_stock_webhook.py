@@ -31,16 +31,18 @@ def stock_check_runner(request_data):
         
         if stock_info[0] == "True":
             cart_info = stock_checker.cart_check_func(stock_info[1])
-            print("Cart delay. Waiting: " + str(cart_delay) + " seconds")
-            time.sleep(float(cart_delay))
-
+            
             if cart_info == "True":
                 stock_state = stock_state_tracker.find_item_state(item,"True")
                 webhook_handler.webhook_sender(item,stock_state)
                 
             else:
                 stock_state_tracker.find_item_state(item,"False")
-                
+
+            #cart delay here to allow webhook to send without this delay before it
+            print("Cart delay. Waiting: " + str(cart_delay) + " seconds")
+            time.sleep(float(cart_delay))
+            
         elif stock_info[0] == "Request failed":
             print("Request fail delay. Waiting: " + str(request_fail_delay) + " seconds")
             time.sleep(float(request_fail_delay))
