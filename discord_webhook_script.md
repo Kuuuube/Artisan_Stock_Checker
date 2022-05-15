@@ -12,11 +12,11 @@ pip install requests
 
 ## Usage
 
-1. Run `check_artisan_stock_webhook.py` then close it to generate default settings file
+1. Run `check_artisan_stock_webhook.py` then close it to generate default settings file.
 
-2. Open `config.cfg` and add your discord webhook url for `url = `
+2. Open `config.cfg` and add your discord webhook url for `url = `.
 
-3. Configure the message content you want to send when a mousepad goes from out of stock to in stock.
+3. Edit `content = ` to configure the message content you want to send when a mousepad goes from out of stock to in stock.
 
     `{Role Ping}` sends the content set for the pad under `[webhook_role_pings]`.
 
