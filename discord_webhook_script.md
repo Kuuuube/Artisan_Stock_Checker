@@ -32,9 +32,9 @@ pip install requests
 
 4. Optionally, edit the delays in `config.cfg` to change the delay in seconds between checking stock, checking cart, looping batch, and request fail.
 
-    `stock_delay` adds a delay at the end of the stock check for a pad. For out of stock items this delay is after the stock request. For in stock items this delay is after the cart request and after the `cart_delay`.
+    `stock_delay` adds a delay after sending the stock check request.
 
-    `cart_delay` adds a delay before checking whether an item can be added to cart. Only used if an item is found in stock.
+    `cart_delay` adds a delay after sending the cart check request.
 
     `batch_delay` adds a delay between checking the full list of pads. Only used between the last item in the list and the first item in the list when looping back to the first item.
 

@@ -16,9 +16,9 @@ pip install requests
 
 2. Optionally, edit the delays in `config.cfg` to change the delay in seconds between checking stock, checking cart, and request fail. (`config.cfg` is generated after starting the script once)
 
-    `stock_delay` adds a delay at the end of the stock check for a pad. For out of stock items this delay is after the stock request. For in stock items this delay is after the cart request and after the `cart_delay`.
+    `stock_delay` adds a delay after sending the stock check request.
 
-    `cart_delay` adds a delay before checking whether an item can be added to cart. Only used if an item is found in stock.
+    `cart_delay` adds a delay after sending the cart check request.
 
     `batch_delay` is unused in the basic script. It is for the webhook only.
 
