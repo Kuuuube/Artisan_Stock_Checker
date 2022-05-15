@@ -1,5 +1,6 @@
 import json
 import time
+import hashlib
 
 def backup_bad_states(json_file):
     try:
@@ -35,6 +36,7 @@ def read_state_file(json_file,dict_key):
                     json.dump(states_dict, states)
 
                 return "False"
+            
         except Exception as e:
             print(e)
             if json_file == "stock_state.json":
