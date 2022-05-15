@@ -4,8 +4,8 @@ import config_handler
 import artisan_mousepads
 import stock_state_tracker
 
-def webhook_sender(item):
-    if stock_state_tracker.find_item_state(item,"True") == True:
+def webhook_sender(item,stock_state):
+    if stock_state == True:
         dict_mousepad_models = artisan_mousepads.mousepad_models()
         dict_hardnesses = artisan_mousepads.mousepad_hardnesses()
         dict_sizes = artisan_mousepads.mousepad_sizes()
