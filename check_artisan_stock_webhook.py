@@ -22,9 +22,8 @@ batch_delay = config_handler.read("config.cfg","stock","batch_delay")
 request_fail_delay = config_handler.read("config.cfg","stock","request_fail_delay")
 
 def stock_check_runner(request_data):
-    cart_info = "False"
-    
     for item in itertools.product (*request_data):
+        cart_info = "False"
         stock_info = stock_checker.stock_check_func(item)
         print("Stock delay. Waiting: " + str(stock_delay) + " seconds")
         time.sleep(float(stock_delay))
@@ -42,14 +41,14 @@ def stock_check_runner(request_data):
             #cart delay here to allow webhook to send without this delay before it
             print("Cart delay. Waiting: " + str(cart_delay) + " seconds")
             time.sleep(float(cart_delay))
-            
+
         elif stock_info[0] == "Request failed":
             print("Request fail delay. Waiting: " + str(request_fail_delay) + " seconds")
             time.sleep(float(request_fail_delay))
             
         else:
             stock_state_tracker.find_item_state(item,"False")
-
+            
         utc_time_print = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
         stock_message = utc_time_print + ", Stock check: " + str(stock_info[0]) + ", Cart check: " + cart_info + ", Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
         print(stock_message)
