@@ -18,7 +18,7 @@ pip install requests
 
 3. Edit `content = ` to configure the message content you want to send when a mousepad goes from out of stock to in stock.
 
-    `{Role Ping}` sends the content set for the pad under `[webhook_role_pings]`.
+    `{Role Ping}` sends the content set for the pad specified under `[webhook_role_pings]`. 
 
     `{Model}` sends the mousepad model.
 
@@ -127,6 +127,8 @@ def fx_shidenkai():
     function_list = [new_pad,cs_zero,fx_hayate,fx_hayate_otsu,fx_hayate_kou,fx_hien,fx_hien_ve,fx_zero,fx_raiden,fx_shidenkai]
     ```
 
+5. Add the new pad to the dictionaries in `webhook_handler.py` along with a new config file setting under `[webhook_role_pings]`. Adding it to the default config defined in `config_handler.py` may also be desirable but is not required.
+
 ### Adding new options to an existing pad
 
 1. Find the new hardnesses, sizes, or colors using your browser's developer/debug tools on the network tab. The data will be in the requests tab for `get_syouhin.php`. 
@@ -162,3 +164,9 @@ def fx_shidenkai():
     colors = ["8","9"]
     return [models,hardnesses,sizes,colors]
     ```
+
+## Troubleshooting
+
+To reset settings to default, delete `config.cfg` and run the script. A new `config.cfg` will be generated with defaults.
+
+To reset stock states and tracking, delete `stock_state.json`. This will remove the current stock data collected by the script. Upon running the script again it will rerecord the stock states. This will cause the script to resend webhook messages for items that had previously been recorded as in stock and have not had a change in state.

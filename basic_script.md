@@ -144,3 +144,7 @@ def fx_shidenkai():
     colors = ["8","9"]
     return [models,hardnesses,sizes,colors]
     ```
+
+## Troubleshooting
+
+To reset settings to default, delete `config.cfg` and run the script. A new `config.cfg` will be generated with defaults.
