@@ -1,6 +1,7 @@
 from configparser import ConfigParser
 import time
 import hashlib
+import error_logger
 
 def config_info(config_file):
     config = ConfigParser()
@@ -61,7 +62,7 @@ def read(config_file,section,name):
         except Exception as e:
             print(e)
             if config_file == "config.cfg":
-                print("Config corrupted. Reverting to default.")
+                error_logger.error_log("Config corrupted. Reverting to default:",e)
                 default_config(config_file)
             time.sleep(1)
 
@@ -78,6 +79,6 @@ def write(config_file,section,name,value):
         except Exception as e:
             print(e)
             if config_file == "config.cfg":
-                print("Config corrupted. Reverting to default.")
+                error_logger.error_log("Config corrupted. Reverting to default:",e)
                 default_config(config_file)
             time.sleep(1)

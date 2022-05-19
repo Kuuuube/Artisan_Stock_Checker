@@ -1,7 +1,6 @@
 import requests
 import re
-import time
-import config_handler
+import error_logger
 
 request_url = "https://www.artisan-jp.com/get_syouhin.php"
 cart_url = "https://www.artisan-jp.com/stock_recheck.php"
@@ -29,8 +28,7 @@ def cart_check_func(stock_check):
             return "False"
     
     except Exception as e:
-        print("Cart check failed:")
-        print(e)
+        error_logger.error_log("Cart check failed:",e)
         return "False"
     
 def stock_check_func(request_data):
@@ -56,8 +54,7 @@ def stock_check_func(request_data):
                 return ["False"]
                 
         except Exception as e:
-            print("Stock check failed:")
-            print(e)
+            error_logger.error_log("Stock check failed:",e)
             return ["Request failed"]
         
 
