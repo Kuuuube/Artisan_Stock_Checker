@@ -37,18 +37,11 @@ def stock_check_runner(request_data):
             cart_info = stock_checker.cart_check_func(stock_info[1])
             
             if cart_info == "True":
-                try:
-                    stock_state = stock_state_tracker.find_item_state(item,"True")
-                except Exception as e:
-                    error_logger.error_log("Could not open or write to stock states:",e)
+                stock_state = stock_state_tracker.find_item_state(item,"True")
                 webhook_handler.webhook_sender(item,stock_state,url)
                 
             else:
-                try:
-                    stock_state_tracker.find_item_state(item,"False")
-                except Exception as e:
-                    error_logger.error_log("Could not open or write to stock states:",e)
-                    webhook_handler.webhook_sender(item,stock_state)
+                stock_state_tracker.find_item_state(item,"False")
 
             #cart delay here to allow webhook to send without this delay before it
             print("Cart delay. Waiting: " + str(cart_delay) + " seconds")

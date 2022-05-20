@@ -54,10 +54,14 @@ def write_state_file(json_file,dict_key,value):
         json.dump(states_dict, states)
 
 def find_item_state(item,stock_state):
-    item_list_combined = "".join(item)
-    
-    if stock_state == read_state_file("stock_state.json",item_list_combined):
-        return False
-    else:
-        write_state_file("stock_state.json",item_list_combined,stock_state)
-        return True
+    try:
+        item_list_combined = "".join(item)
+        
+        if stock_state == read_state_file("stock_state.json",item_list_combined):
+            return False
+        else:
+            write_state_file("stock_state.json",item_list_combined,stock_state)
+            return True
+        
+        except Exception as e:
+            error_logger.error_log("Could not open or write to stock states:",e)
