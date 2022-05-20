@@ -63,5 +63,5 @@ def find_item_state(item,stock_state):
             write_state_file("stock_state.json",item_list_combined,stock_state)
             return True
         
-        except Exception as e:
-            error_logger.error_log("Could not open or write to stock states:",e)
+    except Exception as e:
+        error_logger.error_log("Could not open or write to stock states:",e)
