@@ -43,14 +43,11 @@ def stock_check_runner(request_data):
             elif cart_info == "False":
                 stock_state_tracker.find_item_state(item,"False")
 
-            elif cart_info == "Request failed":
-                error_logger.error_log("Cart check: Request failed",e)
-
             #cart delay here to allow webhook to send without this delay before it
             print("Cart delay. Waiting: " + str(cart_delay) + " seconds")
             time.sleep(float(cart_delay))
 
-        elif stock_info[0] == "Request failed":
+        elif stock_info[0] == "Request failed" or cart_info == "Request failed":
             print("Request fail delay. Waiting: " + str(request_fail_delay) + " seconds")
             time.sleep(float(request_fail_delay))
             
