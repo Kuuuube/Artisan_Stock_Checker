@@ -47,12 +47,13 @@ def stock_check_runner(request_data):
             print("Cart delay. Waiting: " + str(cart_delay) + " seconds")
             time.sleep(float(cart_delay))
 
-        elif stock_info[0] == "Request failed" or cart_info == "Request failed":
+        elif stock_info[0] == "False":
+            stock_state_tracker.find_item_state(item,"False")
+
+        #this must use if not elif since cart_info will never be checked otherwise
+        if stock_info[0] == "Request failed" or cart_info == "Request failed":
             print("Request fail delay. Waiting: " + str(request_fail_delay) + " seconds")
             time.sleep(float(request_fail_delay))
-            
-        else:
-            stock_state_tracker.find_item_state(item,"False")
             
         utc_time_print = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
         stock_message = utc_time_print + ", Stock check: " + str(stock_info[0]) + ", Cart check: " + cart_info + ", Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
