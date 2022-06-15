@@ -29,7 +29,7 @@ def cart_check_func(stock_check):
     
     except Exception as e:
         error_logger.error_log("Cart check failed:",e)
-        return "False"
+        return "Request failed"
     
 def stock_check_func(request_data):
         data = {
