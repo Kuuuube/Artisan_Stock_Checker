@@ -94,7 +94,7 @@ To remove hardnesses from CS pads, remove the model number that includes the har
 
 For example, to remove the XSoft check from the CS Raiden:
 
-Checking the CS section of the hardnesses list we can see that under `CS Raiden`, XSoft is labeled `6` so the model ending in `6` is the one that needs to be removed.
+Checking the CS section of the hardnesses list, we can see that under `CS Raiden`, XSoft is labeled `6` so the model ending in `6` is the one that needs to be removed.
 
 ```python
         #CS hardnesses are defined here
@@ -145,7 +145,7 @@ def cs_raiden():
 
     The color will be the number after `color`.
 
-2. Add the model to the dictionary in `artisan_mousepads.py` along with hardnesses, sizes, and colors if those are not already accounted for. Make sure you add the pad in the correct section, do not mix the dictionaries for CS and FX pads. For example, adding a new mousepad model named `new_pad`:
+2. Add the model to the dictionary in `artisan_mousepads.py` along with hardnesses, sizes, and colors if those are not already accounted for. Make sure you add the pad in the correct section; do not mix the dictionaries for CS and FX pads. For example, adding a new mousepad model named `new_pad`:
 
     ```python
     dict_mousepad_models = {
