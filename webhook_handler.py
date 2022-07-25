@@ -7,6 +7,7 @@ import error_logger
 def roles_dict(model,hardness):
     try:
         if len(hardness) == 1:
+            #FX models are defined here
             roles_dict = {
                 "11" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Hayate"),
                 "12" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Hayate_Otsu"),
@@ -18,6 +19,7 @@ def roles_dict(model,hardness):
                 "18" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Shidenkai")
             }
         else:
+            #CS models are defined here
             model = model + hardness
             roles_dict = {
                 "12" : config_handler.read("config.cfg","webhook_role_pings","role_CS_Zero"),
