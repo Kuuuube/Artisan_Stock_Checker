@@ -54,13 +54,13 @@ def stock_check_runner(request_data):
         stock_message = utc_time_print + ", Stock check: " + str(stock_info[0]) + ", Cart check: " + cart_info + ", Model: " + artisan_mousepads.mousepad_models(item[0],item[1]) + ", Hardness: " + artisan_mousepads.mousepad_hardnesses(item[0],item[1]) + ", Size: " + artisan_mousepads.mousepad_sizes(item[2]) + ", Color: " + artisan_mousepads.mousepad_colors(item[3])
         print(stock_message)
 
-    try:
-        with open ("artisan_stock_record_" + utc_time + ".txt", "a") as stock_record:
-                stock_record.write(stock_message)
-                stock_record.write("\n")
-                
-    except Exception as e:
-        error_logger.error_log("Could not open or write to file:",e)
+        try:
+            with open ("artisan_stock_record_" + utc_time + ".txt", "a") as stock_record:
+                    stock_record.write(stock_message)
+                    stock_record.write("\n")
+                    
+        except Exception as e:
+            error_logger.error_log("Could not open or write to file:",e)
 
 
 try:
