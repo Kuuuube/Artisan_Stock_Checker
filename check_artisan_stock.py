@@ -63,9 +63,14 @@ def stock_check_func(request_data):
             #in stock example: 4562332172443/FX-HI-XS-S-R/HIEN FX XSOFT S Wine red/2100.0/1/XSOFT/
             #out of stock example: NON/FX-HI-SF-XL-R/HIEN FX XSOFT S Wine red/2100.0/1/XSOFT/
             #out of stock example2: SELECT jan,model,sir,sir_eng,`in`,`out`,price,sale_price,kaigai_price,size,hardness FROM kai_price_local WHERE sir_id = 150 AND size = 3 AND color = 5
-            
+
+            #out of stock and not in production (example2)
+            if stock_regex == None:
+                stock_message = utc_time_print + ", Stock check: False, Cart check: False, Model: " + artisan_mousepads.mousepad_models(item[0],item[1]) + ", Hardness: " + artisan_mousepads.mousepad_hardnesses(item[0],item[1]) + ", Size: " + artisan_mousepads.mousepad_sizes(item[2]) + ", Color: " + artisan_mousepads.mousepad_colors(item[3])
+                no_stock_list.append(artisan_mousepads.mousepad_models(item[0],item[1]) + ", Hardness: " + artisan_mousepads.mousepad_hardnesses(item[0],item[1]) + ", Size: " + artisan_mousepads.mousepad_sizes(item[2]) + ", Color: " + artisan_mousepads.mousepad_colors(item[3]))
+                print(stock_message)
             #in stock
-            if stock_regex == None or stock_regex.group(0) != "NON":
+            elif stock_regex.group(0) != "NON":
                 cart = cart_check_func(stock_check.text)
                 if cart == True:
                     stock_message = utc_time_print + ", Stock check: True, Cart check: True, Model: " + artisan_mousepads.mousepad_models(item[0],item[1]) + ", Hardness: " + artisan_mousepads.mousepad_hardnesses(item[0],item[1]) + ", Size: " + artisan_mousepads.mousepad_sizes(item[2]) + ", Color: " + artisan_mousepads.mousepad_colors(item[3])
