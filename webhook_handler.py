@@ -4,25 +4,10 @@ import config_handler
 import artisan_mousepads
 import error_logger
 
-def webhook_sender(item,stock_state,url):
+def roles_dict(model,hardness):
     try:
-        if stock_state == True:
-            dict_mousepad_models = artisan_mousepads.mousepad_models()
-            dict_hardnesses = artisan_mousepads.mousepad_hardnesses()
-            dict_sizes = artisan_mousepads.mousepad_sizes()
-            dict_colors = artisan_mousepads.mousepad_colors()
-            dict_links = artisan_mousepads.mousepad_links()
-
-            Model = dict_mousepad_models[item[0]]
-            Hardness = dict_hardnesses[item[1]]
-            Size = dict_sizes[item[2]]
-            Color = dict_colors[item[3]]
-            Link = dict_links[item[0]]
-            
-            content = config_handler.read("config.cfg","webhook","content")
-
+        if len(hardness) == 1:
             roles_dict = {
-                "1" : config_handler.read("config.cfg","webhook_role_pings","role_CS_Zero"),
                 "11" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Hayate"),
                 "12" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Hayate_Otsu"),
                 "13" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Hayate_Kou"),
@@ -32,6 +17,32 @@ def webhook_sender(item,stock_state,url):
                 "17" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Raiden"),
                 "18" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Shidenkai")
             }
+        else:
+            model = model + hardness
+            roles_dict = {
+                "12" : config_handler.read("config.cfg","webhook_role_pings","role_CS_Zero"),
+                "13" : config_handler.read("config.cfg","webhook_role_pings","role_CS_Zero"),
+                "14" : config_handler.read("config.cfg","webhook_role_pings","role_CS_Zero"),
+                "15" : config_handler.read("config.cfg","webhook_role_pings","role_CS_Raiden"),
+                "16" : config_handler.read("config.cfg","webhook_role_pings","role_CS_Raiden"),
+            }
+            
+        return roles_dict[model]
+    except Exception as e:
+        error_logger.error_log("Could not read role pings in config",e)
+        return "Invalid role ping"
+
+def webhook_sender(item,stock_state,url):
+    try:
+        if stock_state == True:
+
+            Model = artisan_mousepads.mousepad_models(item[0],item[1])
+            Hardness = artisan_mousepads.mousepad_hardnesses(item[0],item[1])
+            Size = artisan_mousepads.mousepad_sizes(item[2])
+            Color = artisan_mousepads.mousepad_colors(item[3])
+            Link = artisan_mousepads.mousepad_links(item[0],item[1])
+            
+            content = config_handler.read("config.cfg","webhook","content")
 
             variable_dict = {
                 "{Model}" : Model,
@@ -39,9 +50,9 @@ def webhook_sender(item,stock_state,url):
                 "{Size}" : Size,
                 "{Color}" : Color,
                 "{Link}" : Link,
-                "{Role Ping}" : roles_dict[item[0]]
+                "{Role Ping}" : roles_dict(item[0],item[1])
             }
-
+            
             for key in variable_dict.keys():
                 content = re.sub(key, variable_dict[key], content)
 

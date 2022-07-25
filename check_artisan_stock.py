@@ -9,11 +9,6 @@ import config_handler
 request_url = "https://www.artisan-jp.com/get_syouhin.php"
 cart_url = "https://www.artisan-jp.com/stock_recheck.php"
 
-dict_mousepad_models = artisan_mousepads.mousepad_models()
-dict_hardnesses = artisan_mousepads.mousepad_hardnesses()
-dict_sizes = artisan_mousepads.mousepad_sizes()
-dict_colors = artisan_mousepads.mousepad_colors()
-
 in_cart_list = []
 only_stock_list = []
 no_stock_list = []
@@ -32,11 +27,12 @@ def cart_check_func(stock_check):
         split_request = stock_check.split("/")
         split_request[1] = split_request[1] + " " + split_request[2]
         split_request[2] = "1"
+        split_request[4] = "1"
         del split_request[5]
         del split_request[5]
         combined_request = ",".join(split_request)
         
-        cookies = {"cart":combined_request, "disc": "1", "lung": "jpf", "souryou": "800,SAL"}
+        cookies = {"cart":combined_request, "lung": "jpf"}
         print("Cart delay. Waiting: " + str(cart_delay) + " seconds")
         time.sleep(float(cart_delay))
         add_to_cart = requests.post(cart_url, cookies=cookies)
@@ -72,23 +68,23 @@ def stock_check_func(request_data):
             if stock_regex == None or stock_regex.group(0) != "NON":
                 cart = cart_check_func(stock_check.text)
                 if cart == True:
-                    stock_message = utc_time_print + ", Stock check: True, Cart check: True, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
-                    in_cart_list.append(dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]])
+                    stock_message = utc_time_print + ", Stock check: True, Cart check: True, Model: " + artisan_mousepads.mousepad_models(item[0],item[1]) + ", Hardness: " + artisan_mousepads.mousepad_hardnesses(item[0],item[1]) + ", Size: " + artisan_mousepads.mousepad_sizes(item[2]) + ", Color: " + artisan_mousepads.mousepad_colors(item[3])
+                    in_cart_list.append(artisan_mousepads.mousepad_models(item[0],item[1]) + ", Hardness: " + artisan_mousepads.mousepad_hardnesses(item[0],item[1]) + ", Size: " + artisan_mousepads.mousepad_sizes(item[2]) + ", Color: " + artisan_mousepads.mousepad_colors(item[3]))
                     print(stock_message)
                 else:
-                    stock_message = utc_time_print + ", Stock check: True, Cart check: False, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
-                    only_stock_list.append(dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]])
+                    stock_message = utc_time_print + ", Stock check: True, Cart check: False, Model: " + artisan_mousepads.mousepad_models(item[0],item[1]) + ", Hardness: " + artisan_mousepads.mousepad_hardnesses(item[0],item[1]) + ", Size: " + artisan_mousepads.mousepad_sizes(item[2]) + ", Color: " + artisan_mousepads.mousepad_colors(item[3])
+                    only_stock_list.append(artisan_mousepads.mousepad_models(item[0],item[1]) + ", Hardness: " + artisan_mousepads.mousepad_hardnesses(item[0],item[1]) + ", Size: " + artisan_mousepads.mousepad_sizes(item[2]) + ", Color: " + artisan_mousepads.mousepad_colors(item[3]))
                     print(stock_message)
             #out of stock
             else:
-                stock_message = utc_time_print + ", Stock check: False, Cart check: False, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
-                no_stock_list.append(dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]])
+                stock_message = utc_time_print + ", Stock check: False, Cart check: False, Model: " + artisan_mousepads.mousepad_models(item[0],item[1]) + ", Hardness: " + artisan_mousepads.mousepad_hardnesses(item[0],item[1]) + ", Size: " + artisan_mousepads.mousepad_sizes(item[2]) + ", Color: " + artisan_mousepads.mousepad_colors(item[3])
+                no_stock_list.append(artisan_mousepads.mousepad_models(item[0],item[1]) + ", Hardness: " + artisan_mousepads.mousepad_hardnesses(item[0],item[1]) + ", Size: " + artisan_mousepads.mousepad_sizes(item[2]) + ", Color: " + artisan_mousepads.mousepad_colors(item[3]))
                 print(stock_message)
                 
         except Exception as e:
             print("Stock check failed:")
             print(e)
-            stock_message = utc_time_print + ", Stock check: Request failed, Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
+            stock_message = utc_time_print + ", Stock check: Request failed, Model: " + artisan_mousepads.mousepad_models(item[0],item[1]) + ", Hardness: " + artisan_mousepads.mousepad_hardnesses(item[0],item[1]) + ", Size: " + artisan_mousepads.mousepad_sizes(item[2]) + ", Color: " + artisan_mousepads.mousepad_colors(item[3])
             print(stock_message)
             print("Request fail delay. Waiting: " + str(request_fail_delay) + " seconds")
             time.sleep(float(request_fail_delay))

@@ -10,11 +10,6 @@ import error_logger
 
 utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
 
-dict_mousepad_models = artisan_mousepads.mousepad_models()
-dict_hardnesses = artisan_mousepads.mousepad_hardnesses()
-dict_sizes = artisan_mousepads.mousepad_sizes()
-dict_colors = artisan_mousepads.mousepad_colors()
-
 stock_delay = config_handler.read("config.cfg","stock","stock_delay")
 cart_delay = config_handler.read("config.cfg","stock","cart_delay")
 batch_delay = config_handler.read("config.cfg","stock","batch_delay")
@@ -56,7 +51,7 @@ def stock_check_runner(request_data):
             time.sleep(float(request_fail_delay))
             
         utc_time_print = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
-        stock_message = utc_time_print + ", Stock check: " + str(stock_info[0]) + ", Cart check: " + cart_info + ", Model: " + dict_mousepad_models[item[0]] + ", Hardness: " + dict_hardnesses[item[1]] + ", Size: " + dict_sizes[item[2]] + ", Color: " + dict_colors[item[3]]
+        stock_message = utc_time_print + ", Stock check: " + str(stock_info[0]) + ", Cart check: " + cart_info + ", Model: " + artisan_mousepads.mousepad_models(item[0],item[1]) + ", Hardness: " + artisan_mousepads.mousepad_hardnesses(item[0],item[1]) + ", Size: " + artisan_mousepads.mousepad_sizes(item[2]) + ", Color: " + artisan_mousepads.mousepad_colors(item[3])
         print(stock_message)
 
     try:
