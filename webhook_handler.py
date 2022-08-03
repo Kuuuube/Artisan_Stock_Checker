@@ -80,7 +80,7 @@ def verify_webhook():
                 print("Status code returned: " + str(webhook_test.status_code) + ". Expected 200")
                 input()
             
-            check_url = re.search("https://(canary\\.|ptb\\.|)discord(app)*\\.com/api/webhooks/\\d{18}/(\\w|-|_)*(/?)",url)
+            check_url = re.search("https://(canary\\.|ptb\\.|)discord(app)*\\.com/api/webhooks/\\d+/(\\w|-|_)*(/?)",url)
             if check_url == None:
                 print("Webhook URL not valid. Check that you put the correct URL in config.cfg")
                 print("Regex validation failed. If you believe this is incorrect, contact the devs or edit verify_webhook in webhook_handler.py")
