@@ -12,7 +12,7 @@ pip install requests
 
 ## Usage
 
-1. Run `check_artisan_stock.py`
+1. Run `./basic_script/check_artisan_stock.py`
 
 2. Optionally, edit the delays in `config.cfg` to change the delay in seconds between checking stock, checking cart, and request fail. (`config.cfg` is generated after starting the script once)
 
@@ -28,7 +28,7 @@ pip install requests
 
 ### To entirely remove stock checks for a mousepad:
 
-Remove it from `function_list` in `artisan_mousepads.py`.
+Remove it from `function_list` in `./basic_script/artisan_mousepads.py`.
 
 For example, to remove all FX Shidenkai stock checks:
 
@@ -46,7 +46,7 @@ function_list = [cs_zero,fx_hayate,fx_hayate_otsu,fx_hayate_kou,fx_hien,fx_hien_
 
 ### To remove stock checks for specific hardnesses, sizes, or colors:
 
-Remove them from their respective lists within the functions in `artisan_mousepads.py`. Check the dictionaries to find what each number checks for.
+Remove them from their respective lists within the functions in `./basic_script/artisan_mousepads.py`. Check the dictionaries to find what each number checks for.
 
 For example, to remove the XSoft check from the FX Shidenkai:
 
@@ -128,7 +128,7 @@ def cs_raiden():
 
     The color will be the number after `color`.
 
-2. Add the model to the dictionary in `artisan_mousepads.py` along with hardnesses, sizes, and colors if those are not already accounted for. Make sure you add the pad in the correct section; do not mix the dictionaries for CS and FX pads. For example, adding a new mousepad model named `new_pad`:
+2. Add the model to the dictionary in `./basic_script/artisan_mousepads.py` along with hardnesses, sizes, and colors if those are not already accounted for. Make sure you add the pad in the correct section; do not mix the dictionaries for CS and FX pads. For example, adding a new mousepad model named `new_pad`:
 
     ```python
     dict_mousepad_models = {
@@ -144,7 +144,7 @@ def cs_raiden():
     }
     ```
 
-3. Make a new function for this new stock check in `artisan_mousepads.py`. For example, adding a function named `new_pad`:
+3. Make a new function for this new stock check in `./basic_script/artisan_mousepads.py`. For example, adding a function named `new_pad`:
 
     ```python
     def new_pad():
@@ -166,7 +166,7 @@ def cs_raiden():
         return [models,hardnesses,sizes,colors]
     ```
 
-4. Add this function to the functions list in `artisan_mousepads.py`. For example, adding the `new_pad` function to the list: 
+4. Add this function to the functions list in `./basic_script/artisan_mousepads.py`. For example, adding the `new_pad` function to the list: 
     ```python
     function_list = [new_pad,cs_zero,fx_hayate,fx_hayate_otsu,fx_hayate_kou,fx_hien,fx_hien_ve,fx_zero,fx_raiden,fx_shidenkai]
     ```
@@ -181,7 +181,7 @@ def cs_raiden():
 
     The color will be the number after `color`.
 
-2. Add the hardnesses, sizes, and colors to the dictionary if those are not already accounted for in `artisan_mousepads.py`. For example, adding color `9` as `New Color`:
+2. Add the hardnesses, sizes, and colors to the dictionary if those are not already accounted for in `./basic_script/artisan_mousepads.py`. For example, adding color `9` as `New Color`:
 
     ```python
     dict_colors = {
@@ -196,7 +196,7 @@ def cs_raiden():
     }
     ```
 
-3. Add the new hardnesses, sizes, or colors to the function in `artisan_mousepads.py`. For example, adding color `9` to the FX Raiden:
+3. Add the new hardnesses, sizes, or colors to the function in `./basic_script/artisan_mousepads.py`. For example, adding color `9` to the FX Raiden:
 
     ```python
     def fx_raiden():
