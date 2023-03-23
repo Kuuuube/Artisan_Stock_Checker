@@ -64,7 +64,8 @@ def mousepad_colors(colors):
         "5" : "Black",
         "6" : "White",
         "7" : "Pink",
-        "8" : "Brown"
+        "8" : "Brown",
+        "10" : "Orange"
     }
     return dict_colors[colors]
 
@@ -150,7 +151,7 @@ def fx_zero():
     models = ["16"]
     hardnesses = ["0","1","2"]
     sizes = ["1","2","3","4"]
-    colors = ["5"]
+    colors = ["5", "10"]
     return [models,hardnesses,sizes,colors]
 
 def fx_raiden():
