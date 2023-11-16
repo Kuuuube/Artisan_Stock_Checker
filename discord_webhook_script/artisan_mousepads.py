@@ -11,7 +11,8 @@ def mousepad_models(model,hardness):
             "15" : "FX Hien VE",
             "16" : "FX Zero",
             "17" : "FX Raiden",
-            "18" : "FX Shidenkai"
+            "18" : "FX Shidenkai",
+            "19" : "FX Shidenkai",
         }
     else:
         #CS models are defined here

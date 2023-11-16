@@ -17,6 +17,7 @@ def roles_dict(model,hardness):
                 "16" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Zero"),
                 "17" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Raiden"),
                 "18" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Shidenkai")
+                "19" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Shidenkai")
             }
         else:
             #CS models are defined here
