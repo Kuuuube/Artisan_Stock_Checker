@@ -65,7 +65,8 @@ def mousepad_colors(colors):
         "6" : "White",
         "7" : "Pink",
         "8" : "Brown",
-        "10" : "Orange"
+        "10" : "Orange",
+        "11" : "Black"
     }
     return dict_colors[colors]
 
@@ -162,10 +163,10 @@ def fx_raiden():
     return [models,hardnesses,sizes,colors]
 
 def fx_shidenkai():
-    models = ["18"]
+    models = ["19"]
     hardnesses = ["0","2"]
-    sizes = ["1","2","3","4"]
-    colors = ["3","6","7"]
+    sizes = ["3","4"]
+    colors = ["6","10", "11"]
     return [models,hardnesses,sizes,colors]
 
 #list of all items to check stock for
