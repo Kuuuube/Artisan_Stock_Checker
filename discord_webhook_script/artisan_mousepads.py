@@ -113,13 +113,6 @@ def cs_raiden():
     colors = ["8"]
     return [models,hardnesses,sizes,colors]
 
-def fx_hayate():
-    models = ["11"]
-    hardnesses = ["0","1","2"]
-    sizes = ["2","3","4"]
-    colors = ["5"]
-    return [models,hardnesses,sizes,colors]
-
 def fx_hayate_otsu():
     models = ["12"]
     hardnesses = ["0","1","2"]
@@ -139,13 +132,6 @@ def fx_hien():
     hardnesses = ["0","1","2"]
     sizes = ["1","2","3","4"]
     colors = ["1","5"]
-    return [models,hardnesses,sizes,colors]
-
-def fx_hien_ve():
-    models = ["15"]
-    hardnesses = ["0"]
-    sizes = ["1","2","3"]
-    colors = ["1","2","5"]
     return [models,hardnesses,sizes,colors]
 
 def fx_zero():
@@ -172,5 +158,5 @@ def fx_shidenkai():
 #list of all items to check stock for
 #to skip checking items they can be removed from this list
 def active_functions():
-    function_list = [cs_zero,cs_raiden,fx_hayate,fx_hayate_otsu,fx_hayate_kou,fx_hien,fx_hien_ve,fx_zero,fx_raiden,fx_shidenkai]
+    function_list = [cs_zero,cs_raiden,fx_hayate_otsu,fx_hayate_kou,fx_hien,fx_zero,fx_raiden,fx_shidenkai]
     return function_list
