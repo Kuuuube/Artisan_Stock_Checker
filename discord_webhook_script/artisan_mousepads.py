@@ -53,7 +53,8 @@ def mousepad_sizes(sizes):
         "1" : "S",
         "2" : "M",
         "3" : "L",
-        "4" : "XL"
+        "4" : "XL",
+        "5" : "XXL"
     }
     return dict_sizes[sizes]
 
@@ -117,7 +118,7 @@ def cs_raiden():
 def fx_hayate_otsu():
     models = ["12"]
     hardnesses = ["0","1","2"]
-    sizes = ["2","3","4"]
+    sizes = ["2","3","4","5"]
     colors = ["1","5"]
     return [models,hardnesses,sizes,colors]
 
@@ -131,22 +132,22 @@ def fx_hayate_kou():
 def fx_hien():
     models = ["14"]
     hardnesses = ["0","1","2"]
-    sizes = ["1","2","3","4"]
+    sizes = ["1","2","3","4","5"]
     colors = ["1","5"]
     return [models,hardnesses,sizes,colors]
 
 def fx_zero():
     models = ["16"]
     hardnesses = ["0","1","2"]
-    sizes = ["1","2","3","4"]
+    sizes = ["1","2","3","4","5"]
     colors = ["5", "10"]
     return [models,hardnesses,sizes,colors]
 
 def fx_raiden():
     models = ["17"]
-    hardnesses = ["0","2"]
-    sizes = ["2","3","4"]
-    colors = ["8"]
+    hardnesses = ["0","1","2"]
+    sizes = ["2","3","4","5"]
+    colors = ["8","10"]
     return [models,hardnesses,sizes,colors]
 
 def fx_shidenkai():
