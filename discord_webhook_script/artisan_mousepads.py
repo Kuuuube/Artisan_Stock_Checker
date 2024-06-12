@@ -88,7 +88,9 @@ def mousepad_links(model,hardness):
             "15" : "https://www.artisan-jp.com/fx-hien-ve.html",
             "16" : "https://www.artisan-jp.com/fx-zero-eng.html",
             "17" : "https://www.artisan-jp.com/fx-raiden-eng.html",
-            "18" : "https://www.artisan-jp.com/fx-shidenkai-eng.html"
+            "18" : "https://www.artisan-jp.com/fx-shidenkai-eng.html",
+            "19" : "https://www.artisan-jp.com/fx-shidenkai-eng.html",
+            "21" : "https://www.artisan-jp.com/fx-99-eng.html"
         }
     else:
         #CS models are defined here
@@ -97,8 +99,8 @@ def mousepad_links(model,hardness):
             "12" : "https://www.artisan-jp.com/cs-zero-eng.html",
             "13" : "https://www.artisan-jp.com/cs-zero-eng.html",
             "14" : "https://www.artisan-jp.com/cs-zero-eng.html",
-            "15" : "https://artisan-jp.com/cs-raiden-eng.html",
-            "16" : "https://artisan-jp.com/cs-raiden-eng.html"
+            "15" : "https://www.artisan-jp.com/cs-raiden-eng.html",
+            "16" : "https://www.artisan-jp.com/cs-raiden-eng.html"
         }
     return dict_links[model]
 
@@ -128,7 +130,7 @@ def fx_hayate_otsu():
 def fx_hayate_kou():
     models = ["13"]
     hardnesses = ["0","1","2"]
-    sizes = ["2","3","4"]
+    sizes = ["2","3","4","5"]
     colors = ["3"]
     return [models,hardnesses,sizes,colors]
 

@@ -90,7 +90,7 @@ def mousepad_links(model,hardness):
             "17" : "https://www.artisan-jp.com/fx-raiden-eng.html",
             "18" : "https://www.artisan-jp.com/fx-shidenkai-eng.html",
             "19" : "https://www.artisan-jp.com/fx-shidenkai-eng.html",
-            "21" : "https://artisan-jp.com/fx-99-eng.html"
+            "21" : "https://www.artisan-jp.com/fx-99-eng.html"
         }
     else:
         #CS models are defined here
@@ -99,8 +99,8 @@ def mousepad_links(model,hardness):
             "12" : "https://www.artisan-jp.com/cs-zero-eng.html",
             "13" : "https://www.artisan-jp.com/cs-zero-eng.html",
             "14" : "https://www.artisan-jp.com/cs-zero-eng.html",
-            "15" : "https://artisan-jp.com/cs-raiden-eng.html",
-            "16" : "https://artisan-jp.com/cs-raiden-eng.html"
+            "15" : "https://www.artisan-jp.com/cs-raiden-eng.html",
+            "16" : "https://www.artisan-jp.com/cs-raiden-eng.html"
         }
     return dict_links[model]
 
