@@ -88,7 +88,9 @@ def mousepad_links(model,hardness):
             "15" : "https://www.artisan-jp.com/fx-hien-ve.html",
             "16" : "https://www.artisan-jp.com/fx-zero-eng.html",
             "17" : "https://www.artisan-jp.com/fx-raiden-eng.html",
-            "18" : "https://www.artisan-jp.com/fx-shidenkai-eng.html"
+            "18" : "https://www.artisan-jp.com/fx-shidenkai-eng.html",
+            "19" : "https://www.artisan-jp.com/fx-shidenkai-eng.html",
+            "21" : "https://artisan-jp.com/fx-99-eng.html"
         }
     else:
         #CS models are defined here
