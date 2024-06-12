@@ -66,7 +66,6 @@ def read(config_file,section,name):
             function_success == True
             
         except Exception:
-            print(e)
             if config_file == "config.cfg":
                 error_logger.error_log("Config corrupted. Reverting to default:", traceback.format_exc())
                 default_config(config_file)
@@ -83,7 +82,6 @@ def write(config_file,section,name,value):
             function_success = True
             
         except Exception:
-            print(e)
             if config_file == "config.cfg":
                 error_logger.error_log("Config corrupted. Reverting to default:", traceback.format_exc())
                 default_config(config_file)
