@@ -1,3 +1,8 @@
+config.cfg
+error_log.txt
+stock_state.json
+artisan_stock_record_*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
