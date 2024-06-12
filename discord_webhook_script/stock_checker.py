@@ -1,5 +1,6 @@
 import requests
 import re
+import traceback
 import error_logger
 
 request_url = "https://www.artisan-jp.com/get_syouhin.php"
@@ -27,8 +28,8 @@ def cart_check_func(stock_check):
         else:
             return "False"
     
-    except Exception as e:
-        error_logger.error_log("Cart check failed:",e)
+    except Exception:
+        error_logger.error_log("Cart check failed:", traceback.format_exc())
         return "Request failed"
     
 def stock_check_func(request_data):
@@ -57,8 +58,8 @@ def stock_check_func(request_data):
             else:
                 return ["False"]
                 
-        except Exception as e:
-            error_logger.error_log("Stock check failed:",e)
+        except Exception:
+            error_logger.error_log("Stock check failed:", traceback.format_exc())
             return ["Request failed"]
         
 

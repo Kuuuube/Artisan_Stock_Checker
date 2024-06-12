@@ -42,9 +42,9 @@ def cart_check_func(stock_check):
             cart = False
         return cart
     
-    except Exception as e:
+    except Exception:
         print("Cart check failed:")
-        print(e)
+        print(traceback.format_exc())
         cart = False
         return cart
     
@@ -86,9 +86,9 @@ def stock_check_func(request_data):
                 no_stock_list.append(artisan_mousepads.mousepad_models(item[0],item[1]) + ", Hardness: " + artisan_mousepads.mousepad_hardnesses(item[0],item[1]) + ", Size: " + artisan_mousepads.mousepad_sizes(item[2]) + ", Color: " + artisan_mousepads.mousepad_colors(item[3]))
                 print(stock_message)
                 
-        except Exception as e:
+        except Exception:
             print("Stock check failed:")
-            print(e)
+            print(traceback.format_exc())
             stock_message = utc_time_print + ", Stock check: Request failed, Model: " + artisan_mousepads.mousepad_models(item[0],item[1]) + ", Hardness: " + artisan_mousepads.mousepad_hardnesses(item[0],item[1]) + ", Size: " + artisan_mousepads.mousepad_sizes(item[2]) + ", Color: " + artisan_mousepads.mousepad_colors(item[3])
             print(stock_message)
             print("Request fail delay. Waiting: " + str(request_fail_delay) + " seconds")
@@ -99,9 +99,9 @@ def stock_check_func(request_data):
                 stock_record.write(stock_message)
                 stock_record.write("\n")
                 
-        except Exception as e:
+        except Exception:
             print("Could not open or write to file:")
-            print(e)
+            print(traceback.format_exc())
             input()
             
         print("Stock delay. Waiting: " + str(stock_delay) + " seconds")
@@ -142,9 +142,9 @@ try:
                 stock_summary.write(item)
                 print(item)
 
-except Exception as e:
+except Exception:
     print("Could not open or write to file:")
-    print(e)
+    print(traceback.format_exc())
     input()
 
 input()

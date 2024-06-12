@@ -1,5 +1,6 @@
 import re
 import requests
+import traceback
 import config_handler
 import artisan_mousepads
 import error_logger
@@ -30,8 +31,8 @@ def roles_dict(model,hardness):
             }
             
         return roles_dict[model]
-    except Exception as e:
-        error_logger.error_log("Could not read role pings in config",e)
+    except Exception:
+        error_logger.error_log("Could not read role pings in config", traceback.format_exc())
         return "Invalid role ping"
 
 def get_webhook_url(size,fallback_url):
@@ -84,9 +85,9 @@ def webhook_sender(item,stock_state,fallback_url):
                 url = fallback_url
             
             requests.post(url,json=data)
-    except Exception as e:
+    except Exception:
         print("!! SENDING WEBHOOK FAILED !!")
-        error_logger.error_log("!! SENDING WEBHOOK FAILED !!",e)
+        error_logger.error_log("!! SENDING WEBHOOK FAILED !!", traceback.format_exc())
     
 def verify_webhook():
     try:
@@ -105,12 +106,12 @@ def verify_webhook():
                 print("Regex validation failed. If you believe this is incorrect, contact the devs or edit verify_webhook in webhook_handler.py")
                 input()
             
-        except Exception as e:
-            error_logger.error_log("Webhook URL not valid. Check that you put the correct URL in config.cfg:",e)
+        except Exception:
+            error_logger.error_log("Webhook URL not valid. Check that you put the correct URL in config.cfg:", traceback.format_exc())
             input()
         
-    except Exception as e:
-        error_logger.error_log("Webhook URL not found. Add the URL in config.cfg:",e)
+    except Exception:
+        error_logger.error_log("Webhook URL not found. Add the URL in config.cfg:", traceback.format_exc())
         input()
     
 

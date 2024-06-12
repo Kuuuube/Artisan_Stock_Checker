@@ -7,9 +7,9 @@ def error_log(message,error):
             log_file.write("\n")
             log_file.write(utc_time + ", ")
             log_file.write(message + ", ")
-            log_file.write(str(error))
+            log_file.write(str(error).replace("\n", "\\n"))
         print(message)
-        print(error)
+        print(str(error).replace("\n", "\\n"))
     except Exception as e:
         print("Could not write to error log:")
         print(e)

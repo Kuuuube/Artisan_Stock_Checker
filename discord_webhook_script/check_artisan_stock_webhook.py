@@ -1,6 +1,7 @@
 import itertools
 import time
 from datetime import datetime,timezone
+import traceback
 import webhook_handler
 import artisan_mousepads
 import config_handler
@@ -59,14 +60,14 @@ def stock_check_runner(request_data):
                     stock_record.write(stock_message)
                     stock_record.write("\n")
                     
-        except Exception as e:
-            error_logger.error_log("Could not open or write to file:",e)
+        except Exception:
+            error_logger.error_log("Could not open or write to file:", traceback.format_exc())
 
 
 try:
     function_list = artisan_mousepads.active_functions()
-except Exception as e:
-    error_logger.error_log("Functions list not set properly:",e)
+except Exception:
+    error_logger.error_log("Functions list not set properly:", traceback.format_exc())
     input()
 
 while True:
@@ -75,5 +76,5 @@ while True:
             stock_check_runner(element())
         print("Batch delay. Waiting: " + str(batch_delay) + " seconds")
         time.sleep(float(batch_delay))
-    except Exception as e:
-        error_logger.error_log("Critical failure in stock_check_runner:",e)
+    except Exception:
+        error_logger.error_log("Critical failure in stock_check_runner:", traceback.format_exc())

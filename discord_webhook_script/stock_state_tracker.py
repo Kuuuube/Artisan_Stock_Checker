@@ -1,6 +1,7 @@
 import json
 import time
 import hashlib
+import traceback
 import error_logger
 
 def backup_bad_states(json_file):
@@ -38,9 +39,9 @@ def read_state_file(json_file,dict_key):
 
                 return "False"
             
-        except Exception as e:
+        except Exception:
             if json_file == "stock_state.json":
-                error_logger.error_log("Stock states corrupted. Reverting to default:",e)
+                error_logger.error_log("Stock states corrupted. Reverting to default:", traceback.format_exc())
                 default_json(json_file)
             time.sleep(1)
             
@@ -63,5 +64,5 @@ def find_item_state(item,stock_state):
             write_state_file("stock_state.json",item_list_combined,stock_state)
             return True
         
-    except Exception as e:
-        error_logger.error_log("Could not open or write to stock states:",e)
+    except Exception:
+        error_logger.error_log("Could not open or write to stock states:", traceback.format_exc())
