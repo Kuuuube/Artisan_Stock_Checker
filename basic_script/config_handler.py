@@ -39,11 +39,9 @@ def default_config(config_file):
     defaults["webhook_role_pings"] = {
         "role_CS_Zero": "<@&>",
         "role_CS_Raiden": "<@&>",
-        "role_FX_Hayate": "<@&>",
         "role_FX_Hayate_Otsu": "<@&>",
         "role_FX_Hayate_Kou": "<@&>",
         "role_FX_Hien": "<@&>",
-        "role_FX_Hien_VE": "<@&>",
         "role_FX_Zero": "<@&>",
         "role_FX_Raiden": "<@&>",
         "role_FX_Shidenkai": "<@&>",

@@ -9,11 +9,9 @@ def roles_dict(model,hardness):
         if len(hardness) == 1:
             #FX models are defined here
             roles_dict = {
-                "11" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Hayate"),
                 "12" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Hayate_Otsu"),
                 "13" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Hayate_Kou"),
                 "14" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Hien"),
-                "15" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Hien_VE"),
                 "16" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Zero"),
                 "17" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Raiden"),
                 "18" : config_handler.read("config.cfg","webhook_role_pings","role_FX_Shidenkai"),
