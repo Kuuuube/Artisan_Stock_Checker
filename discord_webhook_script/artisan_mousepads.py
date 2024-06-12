@@ -13,6 +13,7 @@ def mousepad_models(model,hardness):
             "17" : "FX Raiden",
             "18" : "FX Shidenkai",
             "19" : "FX Shidenkai",
+            "21" : "FX TYPE-99"
         }
     else:
         #CS models are defined here
@@ -68,7 +69,9 @@ def mousepad_colors(colors):
         "7" : "Pink",
         "8" : "Brown",
         "10" : "Orange",
-        "11" : "Black"
+        "11" : "Black",
+        "12" : "Matcha",
+        "13" : "Gray"
     }
     return dict_colors[colors]
 
@@ -157,8 +160,15 @@ def fx_shidenkai():
     colors = ["6","10", "11"]
     return [models,hardnesses,sizes,colors]
 
+def fx_type99():
+    models = ["21"]
+    hardnesses = ["0","1","2"]
+    sizes = ["3","4","5"]
+    colors = ["5","12", "13"]
+    return [models,hardnesses,sizes,colors]
+
 #list of all items to check stock for
 #to skip checking items they can be removed from this list
 def active_functions():
-    function_list = [cs_zero,cs_raiden,fx_hayate_otsu,fx_hayate_kou,fx_hien,fx_zero,fx_raiden,fx_shidenkai]
+    function_list = [cs_zero,cs_raiden,fx_hayate_otsu,fx_hayate_kou,fx_hien,fx_zero,fx_raiden,fx_shidenkai,fx_type99]
     return function_list
