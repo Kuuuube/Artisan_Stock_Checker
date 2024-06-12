@@ -14,7 +14,9 @@ pip install requests
 
 1. Run `./discord_webhook_script/check_artisan_stock_webhook.py` then close it to generate default settings file.
 
-2. Open `config.cfg` and add your discord webhook url for `url = `.
+2. Open `config.cfg` and add your discord webhook url for `fallback_url = `.
+
+    Optionally, add multiple webhook urls to the different sizes (`s_url`, `m_url`, ...) to send to separate webhooks for pads of the specified size.
 
 3. Edit `content = ` to configure the message content you want to send when a mousepad goes from out of stock to in stock.
 

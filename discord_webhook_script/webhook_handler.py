@@ -34,7 +34,22 @@ def roles_dict(model,hardness):
         error_logger.error_log("Could not read role pings in config",e)
         return "Invalid role ping"
 
-def webhook_sender(item,stock_state,url):
+def get_webhook_url(size,fallback_url):
+    match size:
+        case "S":
+            return config_handler.read("config.cfg","webhook","s_url")
+        case "M":
+            return config_handler.read("config.cfg","webhook","m_url")
+        case "L":
+            return config_handler.read("config.cfg","webhook","l_url")
+        case "XL":
+            return config_handler.read("config.cfg","webhook","xl_url")
+        case "XXL":
+            return config_handler.read("config.cfg","webhook","xxl_url")
+        case _:
+            return fallback_url
+
+def webhook_sender(item,stock_state,fallback_url):
     try:
         if stock_state == True:
 
@@ -63,6 +78,10 @@ def webhook_sender(item,stock_state,url):
             data = {
                 "content" : content
             }
+
+            url = get_webhook_url(Size,fallback_url)
+            if not url:
+                url = fallback_url
             
             requests.post(url,json=data)
     except Exception as e:
@@ -71,7 +90,7 @@ def webhook_sender(item,stock_state,url):
     
 def verify_webhook():
     try:
-        url = config_handler.read("config.cfg","webhook","url")
+        url = config_handler.read("config.cfg","webhook","fallback_url")
 
         try:
             webhook_test = requests.get(url)

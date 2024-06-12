@@ -15,11 +15,11 @@ cart_delay = config_handler.read("config.cfg","stock","cart_delay")
 batch_delay = config_handler.read("config.cfg","stock","batch_delay")
 request_fail_delay = config_handler.read("config.cfg","stock","request_fail_delay")
 
-#verify that the webhook url is set and valid
+#verify that the webhook fallback_url is set and valid
 webhook_handler.verify_webhook()
 
-#define the url here for extra stability incase the config gets reset
-url = config_handler.read("config.cfg","webhook","url")
+#define the fallback_url here for extra stability incase the config gets reset
+fallback_url = config_handler.read("config.cfg","webhook","fallback_url")
 
 def stock_check_runner(request_data):
     for item in itertools.product (*request_data):
@@ -33,7 +33,7 @@ def stock_check_runner(request_data):
             
             if cart_info == "True":
                 stock_state = stock_state_tracker.find_item_state(item,"True")
-                webhook_handler.webhook_sender(item,stock_state,url)
+                webhook_handler.webhook_sender(item,stock_state,fallback_url)
                 
             elif cart_info == "False":
                 stock_state_tracker.find_item_state(item,"False")
