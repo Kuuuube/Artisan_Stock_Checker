@@ -14,7 +14,7 @@ pip install requests
 
 1. Run `./discord_webhook_script/check_artisan_stock_webhook.py` then close it to generate default settings file.
 
-2. Open `config.cfg` and add your discord webhook url for `fallback_url = `.
+2. Open `config.cfg` and add your discord webhook url for `fallback_url = `. The fallback url is always required even if all size urls are present.
 
     Optionally, add multiple webhook urls to the different sizes (`s_url`, `m_url`, ...) to send to separate webhooks for pads of the specified size.
 
