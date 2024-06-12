@@ -128,7 +128,7 @@ def fx_hayate_otsu():
 def fx_hayate_kou():
     models = ["13"]
     hardnesses = ["0","1","2"]
-    sizes = ["2","3","4"]
+    sizes = ["2","3","4","5"]
     colors = ["3"]
     return [models,hardnesses,sizes,colors]
 
