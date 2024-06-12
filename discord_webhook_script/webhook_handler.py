@@ -114,4 +114,9 @@ def verify_webhook():
         error_logger.error_log("Webhook URL not found. Add the URL in config.cfg:", traceback.format_exc())
         input()
     
-
+def send_uptime_webhook(data):
+    try:
+        url = config_handler.read("config.cfg","webhook","uptime_url")
+        requests.post(url = url, json = data)
+    except Exception:
+        error_logger.error_log("Uptime webhook failed", traceback.format_exc())

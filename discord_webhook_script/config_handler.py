@@ -40,6 +40,7 @@ def default_config(config_file):
         "XL_url": "",
         "XXL_url": "",
         "content": "{Role Ping} In Stock!\\nModel: {Model}, Hardness: {Hardness}, Size: {Size}, Color: {Color}\\nLink: {Link}",
+        "uptime_url": ""
     }
     
     defaults["webhook_role_pings"] = {

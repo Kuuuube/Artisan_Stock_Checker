@@ -70,11 +70,18 @@ except Exception:
     error_logger.error_log("Functions list not set properly:", traceback.format_exc())
     input()
 
+webhook_handler.send_uptime_webhook({"content": "","embeds": [{"title": "Bot started","description": utc_time}]})
+
 while True:
     try:
         for element in function_list:
             stock_check_runner(element())
         print("Batch delay. Waiting: " + str(batch_delay) + " seconds")
+
+        utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
+        webhook_handler.send_uptime_webhook({"content": "","embeds": [{"title": "Batch complete","description": utc_time}]})
         time.sleep(float(batch_delay))
     except Exception:
         error_logger.error_log("Critical failure in stock_check_runner:", traceback.format_exc())
+        webhook_handler.send_uptime_webhook({"content": "","embeds": [{"title": "Crash in main process","description": "Attempting to recover in " + str(batch_delay) + " seconds\n```\n" + str(traceback.format_exc()) + "\n```"}]})
+        time.sleep(float(batch_delay))
