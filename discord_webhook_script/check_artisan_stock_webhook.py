@@ -14,7 +14,7 @@ utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
 stock_delay = config_handler.read("config.cfg","stock","stock_delay")
 cart_delay = config_handler.read("config.cfg","stock","cart_delay")
 batch_delay = config_handler.read("config.cfg","stock","batch_delay")
-request_fail_delay = config_handler.read("config.cfg","stock","request_fail_delay")
+request_fail_delay = float(config_handler.read("config.cfg","stock","request_fail_delay"))
 
 #verify that the webhook fallback_url is set and valid
 webhook_handler.verify_webhook(request_fail_delay)

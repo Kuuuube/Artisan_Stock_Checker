@@ -15,7 +15,7 @@ no_stock_list = []
 cart = False
 stock_delay = config_handler.read("config.cfg","stock","stock_delay")
 cart_delay = config_handler.read("config.cfg","stock","cart_delay")
-request_fail_delay = config_handler.read("config.cfg","stock","request_fail_delay")
+request_fail_delay = float(config_handler.read("config.cfg","stock","request_fail_delay"))
 
 utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
 
