@@ -50,7 +50,7 @@ def get_webhook_url(size,fallback_url):
         case _:
             return fallback_url
 
-def webhook_sender(item,stock_state,fallback_url):
+def webhook_sender(item, stock_state, fallback_url, request_fail_delay = 240):
     try:
         if stock_state == True:
 
@@ -84,17 +84,17 @@ def webhook_sender(item,stock_state,fallback_url):
             if not url:
                 url = fallback_url
             
-            requests.post(url,json=data)
+            requests.post(url,json=data, timeout=request_fail_delay)
     except Exception:
         print("!! SENDING WEBHOOK FAILED !!")
         error_logger.error_log("!! SENDING WEBHOOK FAILED !!", traceback.format_exc())
     
-def verify_webhook():
+def verify_webhook(request_fail_delay = 240):
     try:
         url = config_handler.read("config.cfg","webhook","fallback_url")
 
         try:
-            webhook_test = requests.get(url)
+            webhook_test = requests.get(url, timeout=request_fail_delay)
             if webhook_test.status_code != 200:
                 print("Webhook URL not valid. Check that you put the correct URL in config.cfg.")
                 print("Status code returned: " + str(webhook_test.status_code) + ". Expected 200")
@@ -114,9 +114,9 @@ def verify_webhook():
         error_logger.error_log("Webhook URL not found. Add the URL in config.cfg:", traceback.format_exc())
         input()
     
-def send_uptime_webhook(data):
+def send_uptime_webhook(data, request_fail_delay = 240):
     try:
         url = config_handler.read("config.cfg","webhook","uptime_url")
-        requests.post(url = url, json = data)
+        requests.post(url = url, json = data, timeout=request_fail_delay)
     except Exception:
         error_logger.error_log("Uptime webhook failed", traceback.format_exc())

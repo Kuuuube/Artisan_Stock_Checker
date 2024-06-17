@@ -6,7 +6,7 @@ import error_logger
 request_url = "https://www.artisan-jp.com/get_syouhin.php"
 cart_url = "https://www.artisan-jp.com/stock_recheck.php"
 
-def cart_check_func(stock_check):
+def cart_check_func(stock_check, request_fail_delay = 240):
     try:
         #what this witchcraft does:
         #takes for example this: 4562332172443/FX-HI-XS-S-R/HIEN FX XSOFT S Wine red/2100.0/1/XSOFT/
@@ -21,7 +21,7 @@ def cart_check_func(stock_check):
         cookies = {"cart": combined_request, "disc": "1", "lung": "jpf", "souryou": "800,SAL"}
 
         #delay before request due to check cart being called right after the stock check request
-        add_to_cart = requests.post(cart_url, cookies=cookies)
+        add_to_cart = requests.post(cart_url, cookies=cookies, timeout=request_fail_delay)
         
         if combined_request == add_to_cart.text:
             return "True"
@@ -32,7 +32,7 @@ def cart_check_func(stock_check):
         error_logger.error_log("Cart check failed:", traceback.format_exc())
         return "Request failed"
     
-def stock_check_func(request_data):
+def stock_check_func(request_data, request_fail_delay = 240):
         data = {
             "kuni": "on", #this uses the english site and is required for cart check to work in a simple way
             "sir": request_data[0] + request_data[1],
@@ -40,7 +40,7 @@ def stock_check_func(request_data):
             "color": request_data[3]
         }
         try:
-            stock_check = requests.post(request_url, data)
+            stock_check = requests.post(request_url, data, timeout=request_fail_delay)
             stock_regex = re.search("^[0-z]+(?=\/)",stock_check.text)
             #in stock example: 4562332172443/FX-HI-XS-S-R/HIEN FX XSOFT S Wine red/2100.0/1/XSOFT/
             #out of stock example: NON/FX-HI-SF-XL-R/HIEN FX XSOFT S Wine red/2100.0/1/XSOFT/
