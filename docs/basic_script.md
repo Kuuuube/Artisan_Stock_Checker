@@ -24,7 +24,7 @@ pip install requests
 
     `request_fail_delay` adds a delay after a request fails before resuming the sending of requests.
 
-## Removing stock checks
+## Removing stock checks (Optional)
 
 ### To entirely remove stock checks for a mousepad:
 
@@ -114,7 +114,7 @@ def cs_raiden():
     return [models,hardnesses,sizes,colors]
 ```
 
-## Adding stock checks
+## Adding stock checks (Optional)
 
 ### Adding an entirely new pad
 

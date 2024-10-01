@@ -48,7 +48,7 @@ pip install requests
 
 5. Run `./discord_webhook_script/check_artisan_stock_webhook.py`
 
-## Removing stock checks
+## Removing stock checks (Optional)
 
 ### To entirely remove stock checks for a mousepad:
 
@@ -137,7 +137,7 @@ def cs_raiden():
     return [models,hardnesses,sizes,colors]
 ```
 
-## Adding stock checks
+## Adding stock checks (Optional)
 
 ### Adding an entirely new pad
 
