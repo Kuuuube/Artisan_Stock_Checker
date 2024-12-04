@@ -171,8 +171,15 @@ def fx_type99():
     colors = ["5","12", "13"]
     return [models,hardnesses,sizes,colors]
 
+def fx_key83():
+    models = ["22"]
+    hardnesses = ["0","1","2"]
+    sizes = ["2","3","4","5"]
+    colors = ["5"]
+    return [models,hardnesses,sizes,colors]
+
 #list of all items to check stock for
 #to skip checking items they can be removed from this list
 def active_functions():
-    function_list = [cs_zero,cs_raiden,fx_hayate_otsu,fx_hayate_kou,fx_hien,fx_zero,fx_raiden,fx_shidenkai,fx_type99]
+    function_list = [cs_zero,cs_raiden,fx_hayate_otsu,fx_hayate_kou,fx_hien,fx_zero,fx_raiden,fx_shidenkai,fx_type99,fx_key83]
     return function_list
