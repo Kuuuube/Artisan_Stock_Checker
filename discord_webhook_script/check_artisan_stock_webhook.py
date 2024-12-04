@@ -1,4 +1,5 @@
 import itertools
+import os
 import time
 import traceback
 from datetime import datetime, timezone
@@ -12,18 +13,29 @@ import webhook_handler
 
 utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
 
-stock_delay = config_handler.read("config.cfg", "stock", "stock_delay")
-cart_delay = config_handler.read("config.cfg", "stock", "cart_delay")
-batch_delay = config_handler.read("config.cfg", "stock", "batch_delay")
+# Introduce CONFIG_PATH variable, get from environment variable if set
+CONFIG_PATH = os.environ.get('CONFIG_PATH', '.')
+
+# Define config and state file paths
+if CONFIG_PATH and os.path.exists(CONFIG_PATH):
+    config_file = os.path.join(CONFIG_PATH, "config.cfg")
+    stock_state_file = os.path.join(CONFIG_PATH, "stock_state.json")
+else:
+    config_file = "config.cfg"
+    stock_state_file = "stock_state.json"
+
+stock_delay = config_handler.read(config_file, "stock", "stock_delay")
+cart_delay = config_handler.read(config_file, "stock", "cart_delay")
+batch_delay = config_handler.read(config_file, "stock", "batch_delay")
 request_fail_delay = float(
-    config_handler.read("config.cfg", "stock", "request_fail_delay")
+    config_handler.read(config_file, "stock", "request_fail_delay")
 )
 
 # verify that the webhook fallback_url is set and valid
-webhook_handler.verify_webhook(request_fail_delay)
+webhook_handler.verify_webhook(request_fail_delay, config_file=config_file)
 
 # define the fallback_url here for extra stability incase the config gets reset
-fallback_url = config_handler.read("config.cfg", "webhook", "fallback_url")
+fallback_url = config_handler.read(config_file, "webhook", "fallback_url")
 
 
 def stock_check_runner(request_data):
@@ -70,8 +82,13 @@ def stock_check_runner(request_data):
         )
         print(stock_message)
 
+        # Ensure the stock_record directory exists
+        logs_dir = os.path.join(CONFIG_PATH, "stock_record")
+        os.makedirs(logs_dir, exist_ok=True)
+        log_file_path = os.path.join(logs_dir, f"artisan_stock_record_{utc_time}.txt")
+
         try:
-            with open(f"artisan_stock_record_{utc_time}.txt", "a") as stock_record:
+            with open(log_file_path, "a") as stock_record:
                 stock_record.write(stock_message)
                 stock_record.write("\n")
 
@@ -90,13 +107,14 @@ except Exception:
 webhook_handler.send_uptime_webhook(
     {"content": "", "embeds": [{"title": "Bot started", "description": utc_time}]},
     request_fail_delay,
+    config_file=config_file
 )
 
 while True:
     try:
         for element in function_list:
             stock_check_runner(element())
-        print("Batch delay. Waiting: " + str(batch_delay) + " seconds")
+        print(f"Batch delay. Waiting: {str(batch_delay)} seconds.")
 
         utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
         webhook_handler.send_uptime_webhook(
@@ -105,6 +123,7 @@ while True:
                 "embeds": [{"title": "Batch complete", "description": utc_time}],
             },
             request_fail_delay,
+            config_file=config_file
         )
         time.sleep(float(batch_delay))
     except Exception:

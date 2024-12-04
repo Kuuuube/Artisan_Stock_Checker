@@ -4,14 +4,15 @@ import hashlib
 import traceback
 import error_logger
 
+DEFAULT_CONFIG_FILE = "config.cfg"
 
-def config_info(config_file):
+def config_info(config_file=DEFAULT_CONFIG_FILE):
     config = ConfigParser()
     config.read(config_file)
     return config
 
 
-def backup_bad_config(config_file):
+def backup_bad_config(config_file=DEFAULT_CONFIG_FILE):
     try:
         with open(config_file, "rb") as hashfile:
             bytes = hashfile.read()
@@ -26,7 +27,7 @@ def backup_bad_config(config_file):
         pass
 
 
-def default_config(config_file):
+def default_config(config_file=DEFAULT_CONFIG_FILE):
     backup_bad_config(config_file)
 
     defaults = ConfigParser()
