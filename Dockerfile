@@ -1,4 +1,4 @@
-FROM lscr.io/linuxserver/baseimage-alpine:latest
+FROM ghcr.io/linuxserver/baseimage-alpine:3.20
 
 ENV CONFIG_PATH=/config
 
