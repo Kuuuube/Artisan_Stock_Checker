@@ -1,0 +1,10 @@
+services:
+  artisan-checker:
+    image: matthewdesouza/artisan-stock-checker
+    container_name: artisan-stock-checker
+    user: ${PUID:-1000}:${PGID:-1001}
+    environment:
+      - CONFIG_PATH=${CONFIG_PATH:-/config}
+    volumes:
+      - ${DATA_PATH:-./artisan_data}=${CONFIG_PATH:-/config}
+    restart: unless-stopped
