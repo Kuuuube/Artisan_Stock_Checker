@@ -42,7 +42,7 @@ def roles_dict(model, hardness, config_file=DEFAULT_CONFIG_FILE):
             }
         else:
             # CS models are defined here
-            model = model + hardness
+            model_full = model + hardness
             roles_dict = {
                 "12": config_handler.read(
                     config_file, "webhook_role_pings", "role_CS_Zero"
@@ -60,7 +60,7 @@ def roles_dict(model, hardness, config_file=DEFAULT_CONFIG_FILE):
                     config_file, "webhook_role_pings", "role_CS_Raiden"
                 ),
             }
-
+            model = model_full;
         return roles_dict[model]
     except Exception:
         error_logger.error_log(
