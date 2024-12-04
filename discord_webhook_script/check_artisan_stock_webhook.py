@@ -13,7 +13,7 @@ import error_logger
 utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
 
 # Introduce CONFIG_PATH variable, get from environment variable if set
-CONFIG_PATH = os.environ.get('CONFIG_PATH')
+CONFIG_PATH = os.environ.get('CONFIG_PATH', '.')
 
 # Define config and state file paths
 if CONFIG_PATH and os.path.exists(CONFIG_PATH):
@@ -83,14 +83,19 @@ def stock_check_runner(request_data):
         )
         print(stock_message)
 
+        # Ensure the stock_record directory exists
+        logs_dir = os.path.join(CONFIG_PATH, "stock_record")
+        os.makedirs(logs_dir, exist_ok=True)
+        log_file_path = os.path.join(logs_dir, f"artisan_stock_record_{utc_time}.txt")
+
         try:
-            with open(f"artisan_stock_record_{utc_time}.txt", "a") as stock_record:
+            with open(log_file_path, "a") as stock_record:
                 stock_record.write(stock_message)
                 stock_record.write("\n")
-        except FileNotFoundError | Exception:
-            error_logger.error_log("Could not open or write to file:", traceback.format_exc())
+        except Exception:
+            error_logger.error_log("Could not open or write to log file:", traceback.format_exc())
 
-
+# Fix the exception handling syntax
 try:
     function_list = artisan_mousepads.active_functions()
 except Exception:
