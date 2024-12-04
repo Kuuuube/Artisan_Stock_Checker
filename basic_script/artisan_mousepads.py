@@ -13,7 +13,8 @@ def mousepad_models(model,hardness):
             "17" : "FX Raiden",
             "18" : "FX Shidenkai",
             "19" : "FX Shidenkai",
-            "21" : "FX TYPE-99"
+            "21" : "FX TYPE-99",
+            "22" : "FX KEY83"
         }
     else:
         #CS models are defined here
@@ -90,7 +91,8 @@ def mousepad_links(model,hardness):
             "17" : "https://www.artisan-jp.com/fx-raiden-eng.html",
             "18" : "https://www.artisan-jp.com/fx-shidenkai-eng.html",
             "19" : "https://www.artisan-jp.com/fx-shidenkai-eng.html",
-            "21" : "https://www.artisan-jp.com/fx-99-eng.html"
+            "21" : "https://www.artisan-jp.com/fx-99-eng.html",
+            "22" : "https://www.artisan-jp.com/fx-k83-eng.html"
         }
     else:
         #CS models are defined here
