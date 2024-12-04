@@ -38,7 +38,7 @@ def roles_dict(model, hardness, config_file=DEFAULT_CONFIG_FILE):
                 ),
                 "22": config_handler.read(
                     config_file, "webhook_role_pings", "role_FX_KEY83"
-                ),
+                )
             }
         else:
             # CS models are defined here
@@ -94,6 +94,7 @@ def webhook_sender(item, stock_state, fallback_url, request_fail_delay=240, conf
             Size = artisan_mousepads.mousepad_sizes(item[2])
             Color = artisan_mousepads.mousepad_colors(item[3])
             Link = artisan_mousepads.mousepad_links(item[0], item[1])
+            role_ping = roles_dict(item[0], item[1], config_file)
 
             content = config_handler.read(config_file, "webhook", "content")
 
@@ -103,7 +104,7 @@ def webhook_sender(item, stock_state, fallback_url, request_fail_delay=240, conf
                 "{Size}": Size,
                 "{Color}": Color,
                 "{Link}": Link,
-                "{Role Ping}": roles_dict(item[0], item[1]),
+                "{Role Ping}": role_ping,
             }
 
             for key in variable_dict.keys():
@@ -113,7 +114,7 @@ def webhook_sender(item, stock_state, fallback_url, request_fail_delay=240, conf
 
             data = {"content": content}
 
-            url = get_webhook_url(Size, fallback_url)
+            url = get_webhook_url(Size, fallback_url, config_file)
             if not url:
                 url = fallback_url
 
