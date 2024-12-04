@@ -2,6 +2,7 @@ config.cfg
 error_log.txt
 stock_state.json
 artisan_stock_record_*
+artisan_stock_summary_*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
