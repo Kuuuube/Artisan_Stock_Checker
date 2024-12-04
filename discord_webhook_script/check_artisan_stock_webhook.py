@@ -141,5 +141,6 @@ while True:
                 ],
             },
             request_fail_delay,
+            config_file=config_file
         )
         time.sleep(float(batch_delay))
