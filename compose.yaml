@@ -2,11 +2,8 @@ services:
   artisan-checker:
     image: matthewdesouza/artisan-stock-checker
     container_name: artisan-stock-checker
-    user: ${PUID}:${PGID}
+    user: ${PUID:-1000}:${PGID:-1001}
     environment:
-      - PUID=${PUID:-1000}
-      - PGID=${PGID:-1001}
-      - TZ=${TZ:-Etc/UTC}
       - CONFIG_PATH=${CONFIG_PATH:-/config}
     volumes:
       - ${DATA_PATH:-./config}=${CONFIG_PATH:-/config}
