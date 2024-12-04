@@ -25,4 +25,4 @@ jobs:
       with:
        context:
        push: true
-       tags: matthewdesouza/artisan-stock-checker:latest
+       tags: ${{ secrets.DOCKERHUB_USERNAME }}/artisan-stock-checker:latest
