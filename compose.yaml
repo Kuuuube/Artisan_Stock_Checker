@@ -2,6 +2,7 @@ services:
   artisan-checker:
     image: matthewdesouza/artisan-stock-checker
     container_name: artisan-stock-checker
+    user: ${PUID}:${PGID}
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1001}
