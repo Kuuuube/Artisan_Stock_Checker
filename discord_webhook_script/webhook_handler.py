@@ -21,6 +21,7 @@ def roles_dict(model, hardness, config_file=DEFAULT_CONFIG_FILE):
                 "18": config_handler.read(config_file, "webhook_role_pings", "role_FX_Shidenkai"),
                 "19": config_handler.read(config_file, "webhook_role_pings", "role_FX_Shidenkai"),
                 "21": config_handler.read(config_file, "webhook_role_pings", "role_FX_TYPE99"),
+                "22": config_handler.read(config_file, "webhook_role_pings", "role_FX_KEY83")
             }
         else:
             # CS models are defined here
