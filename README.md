@@ -10,3 +10,6 @@ Single run stock checking in command line.
 
 Automated stock checking and notifying through discord webhook.
 
+## [Docker Deployment](./docs/docker.md)
+
+Automated stock checking and notifying through Discord webhook, deployed through Docker.
