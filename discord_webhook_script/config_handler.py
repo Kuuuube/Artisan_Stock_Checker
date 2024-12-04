@@ -71,7 +71,7 @@ def read(config_file, section, name):
         try:
             config = config_info(config_file)
             return config.get(section, name)
-            function_success == True
+            function_success = True
 
         except Exception:
             error_logger.error_log(
