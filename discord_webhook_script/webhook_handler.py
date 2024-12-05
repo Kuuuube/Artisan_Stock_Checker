@@ -7,6 +7,7 @@ import error_logger
 
 DEFAULT_CONFIG_FILE = "config.cfg"
 
+
 def roles_dict(model, hardness, config_file=DEFAULT_CONFIG_FILE):
     try:
         if len(hardness) == 1:
@@ -38,11 +39,11 @@ def roles_dict(model, hardness, config_file=DEFAULT_CONFIG_FILE):
                 ),
                 "22": config_handler.read(
                     config_file, "webhook_role_pings", "role_FX_KEY83"
-                )
+                ),
             }
         else:
             # CS models are defined here
-            model_full = model + hardness
+            model = model + hardness
             roles_dict = {
                 "12": config_handler.read(
                     config_file, "webhook_role_pings", "role_CS_Zero"
@@ -60,7 +61,6 @@ def roles_dict(model, hardness, config_file=DEFAULT_CONFIG_FILE):
                     config_file, "webhook_role_pings", "role_CS_Raiden"
                 ),
             }
-            model = model_full;
         return roles_dict[model]
     except Exception:
         error_logger.error_log(
@@ -85,7 +85,13 @@ def get_webhook_url(size, fallback_url, config_file=DEFAULT_CONFIG_FILE):
             return fallback_url
 
 
-def webhook_sender(item, stock_state, fallback_url, request_fail_delay=240, config_file=DEFAULT_CONFIG_FILE):
+def webhook_sender(
+    item,
+    stock_state,
+    fallback_url,
+    request_fail_delay=240,
+    config_file=DEFAULT_CONFIG_FILE,
+):
     try:
         if stock_state == True:
 

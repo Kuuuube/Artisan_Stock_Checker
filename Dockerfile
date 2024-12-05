@@ -1,6 +1,6 @@
 FROM python:3.10
 
-ENV CONFIG_PATH=/config
+ENV ARTISAN_STOCK_CHECKER_CONFIG_DIR=/config
 
 RUN pip install --no-cache-dir requests
 

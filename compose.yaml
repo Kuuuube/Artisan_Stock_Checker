@@ -4,7 +4,7 @@ services:
     container_name: artisan-stock-checker
     user: ${PUID:-1000}:${PGID:-1001}
     environment:
-      - CONFIG_PATH=${CONFIG_PATH:-/config}
+      - ARTISAN_STOCK_CHECKER_CONFIG_DIR=${CONFIG_DIR:-/config}
     volumes:
-      - ${DATA_PATH:-./artisan_data}=${CONFIG_PATH:-/config}
+      - ${DATA_PATH:-./artisan_data}=${CONFIG_DIR:-/config}
     restart: unless-stopped

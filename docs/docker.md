@@ -15,7 +15,7 @@ docker run -d \
   --restart unless-stopped \
   --name artisan-stock-checker \
   --user $(id -u):$(id -g) \
-  -e CONFIG_PATH=/config \
+  -e ARTISAN_STOCK_CHECKER_CONFIG_DIR=/config \
   -v $(pwd)/artisan-data:/config \
   matthewdesouza/artisan-stock-checker:latest
 ```
@@ -32,4 +32,4 @@ Ensure that you properly set the .env file, otherwise default values will be use
 | :------: | :-----------: | :-------: |:----------------------------------------------------------------------:|
 | PUID | 1000 | ❌ |            Set which user the container will deploy under.             |
 | PGID | 1001 | ❌ |            Set which group the container will deploy under.            |
-| CONFIG_PATH | /config | ❌ | Set which folder will contain the generated data within the container. |
+| ARTISAN_STOCK_CHECKER_CONFIG_DIR | /config | ❌ | Set which folder will contain the generated data within the container. |
