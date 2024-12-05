@@ -13,13 +13,13 @@ import webhook_handler
 
 utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
 
-# Introduce CONFIG_PATH variable, get from environment variable if set
-CONFIG_PATH = os.environ.get('CONFIG_PATH', '.')
+# Introduce CONFIG_DIR variable, get from environment variable if set
+CONFIG_DIR = os.environ.get('ARTISAN_STOCK_CHECKER_CONFIG_DIR', '.')
 
 # Define config and state file paths
-if CONFIG_PATH and os.path.exists(CONFIG_PATH):
-    config_file = os.path.join(CONFIG_PATH, "config.cfg")
-    stock_state_file = os.path.join(CONFIG_PATH, "stock_state.json")
+if CONFIG_DIR and os.path.exists(CONFIG_DIR):
+    config_file = os.path.join(CONFIG_DIR, "config.cfg")
+    stock_state_file = os.path.join(CONFIG_DIR, "stock_state.json")
 else:
     config_file = "config.cfg"
     stock_state_file = "stock_state.json"
@@ -83,7 +83,7 @@ def stock_check_runner(request_data):
         print(stock_message)
 
         # Ensure the stock_record directory exists
-        logs_dir = os.path.join(CONFIG_PATH, "stock_record")
+        logs_dir = os.path.join(CONFIG_DIR, "stock_record")
         os.makedirs(logs_dir, exist_ok=True)
         log_file_path = os.path.join(logs_dir, f"artisan_stock_record_{utc_time}.txt")
 
