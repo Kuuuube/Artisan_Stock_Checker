@@ -5,38 +5,40 @@ import config_handler
 import artisan_mousepads
 import error_logger
 
+DEFAULT_CONFIG_FILE = "config.cfg"
 
-def roles_dict(model, hardness):
+
+def roles_dict(model, hardness, config_file=DEFAULT_CONFIG_FILE):
     try:
         if len(hardness) == 1:
             # FX models are defined here
             roles_dict = {
                 "12": config_handler.read(
-                    "config.cfg", "webhook_role_pings", "role_FX_Hayate_Otsu"
+                    config_file, "webhook_role_pings", "role_FX_Hayate_Otsu"
                 ),
                 "13": config_handler.read(
-                    "config.cfg", "webhook_role_pings", "role_FX_Hayate_Kou"
+                    config_file, "webhook_role_pings", "role_FX_Hayate_Kou"
                 ),
                 "14": config_handler.read(
-                    "config.cfg", "webhook_role_pings", "role_FX_Hien"
+                    config_file, "webhook_role_pings", "role_FX_Hien"
                 ),
                 "16": config_handler.read(
-                    "config.cfg", "webhook_role_pings", "role_FX_Zero"
+                    config_file, "webhook_role_pings", "role_FX_Zero"
                 ),
                 "17": config_handler.read(
-                    "config.cfg", "webhook_role_pings", "role_FX_Raiden"
+                    config_file, "webhook_role_pings", "role_FX_Raiden"
                 ),
                 "18": config_handler.read(
-                    "config.cfg", "webhook_role_pings", "role_FX_Shidenkai"
+                    config_file, "webhook_role_pings", "role_FX_Shidenkai"
                 ),
                 "19": config_handler.read(
-                    "config.cfg", "webhook_role_pings", "role_FX_Shidenkai"
+                    config_file, "webhook_role_pings", "role_FX_Shidenkai"
                 ),
                 "21": config_handler.read(
-                    "config.cfg", "webhook_role_pings", "role_FX_TYPE99"
+                    config_file, "webhook_role_pings", "role_FX_TYPE99"
                 ),
                 "22": config_handler.read(
-                    "config.cfg", "webhook_role_pings", "role_FX_KEY83"
+                    config_file, "webhook_role_pings", "role_FX_KEY83"
                 ),
             }
         else:
@@ -44,22 +46,21 @@ def roles_dict(model, hardness):
             model = model + hardness
             roles_dict = {
                 "12": config_handler.read(
-                    "config.cfg", "webhook_role_pings", "role_CS_Zero"
+                    config_file, "webhook_role_pings", "role_CS_Zero"
                 ),
                 "13": config_handler.read(
-                    "config.cfg", "webhook_role_pings", "role_CS_Zero"
+                    config_file, "webhook_role_pings", "role_CS_Zero"
                 ),
                 "14": config_handler.read(
-                    "config.cfg", "webhook_role_pings", "role_CS_Zero"
+                    config_file, "webhook_role_pings", "role_CS_Zero"
                 ),
                 "15": config_handler.read(
-                    "config.cfg", "webhook_role_pings", "role_CS_Raiden"
+                    config_file, "webhook_role_pings", "role_CS_Raiden"
                 ),
                 "16": config_handler.read(
-                    "config.cfg", "webhook_role_pings", "role_CS_Raiden"
+                    config_file, "webhook_role_pings", "role_CS_Raiden"
                 ),
             }
-
         return roles_dict[model]
     except Exception:
         error_logger.error_log(
@@ -68,23 +69,29 @@ def roles_dict(model, hardness):
         return "Invalid role ping"
 
 
-def get_webhook_url(size, fallback_url):
+def get_webhook_url(size, fallback_url, config_file=DEFAULT_CONFIG_FILE):
     match size:
         case "S":
-            return config_handler.read("config.cfg", "webhook", "s_url")
+            return config_handler.read(config_file, "webhook", "s_url")
         case "M":
-            return config_handler.read("config.cfg", "webhook", "m_url")
+            return config_handler.read(config_file, "webhook", "m_url")
         case "L":
-            return config_handler.read("config.cfg", "webhook", "l_url")
+            return config_handler.read(config_file, "webhook", "l_url")
         case "XL":
-            return config_handler.read("config.cfg", "webhook", "xl_url")
+            return config_handler.read(config_file, "webhook", "xl_url")
         case "XXL":
-            return config_handler.read("config.cfg", "webhook", "xxl_url")
+            return config_handler.read(config_file, "webhook", "xxl_url")
         case _:
             return fallback_url
 
 
-def webhook_sender(item, stock_state, fallback_url, request_fail_delay=240):
+def webhook_sender(
+    item,
+    stock_state,
+    fallback_url,
+    request_fail_delay=240,
+    config_file=DEFAULT_CONFIG_FILE,
+):
     try:
         if stock_state == True:
 
@@ -93,8 +100,9 @@ def webhook_sender(item, stock_state, fallback_url, request_fail_delay=240):
             Size = artisan_mousepads.mousepad_sizes(item[2])
             Color = artisan_mousepads.mousepad_colors(item[3])
             Link = artisan_mousepads.mousepad_links(item[0], item[1])
+            role_ping = roles_dict(item[0], item[1], config_file)
 
-            content = config_handler.read("config.cfg", "webhook", "content")
+            content = config_handler.read(config_file, "webhook", "content")
 
             variable_dict = {
                 "{Model}": Model,
@@ -102,7 +110,7 @@ def webhook_sender(item, stock_state, fallback_url, request_fail_delay=240):
                 "{Size}": Size,
                 "{Color}": Color,
                 "{Link}": Link,
-                "{Role Ping}": roles_dict(item[0], item[1]),
+                "{Role Ping}": role_ping,
             }
 
             for key in variable_dict.keys():
@@ -112,7 +120,7 @@ def webhook_sender(item, stock_state, fallback_url, request_fail_delay=240):
 
             data = {"content": content}
 
-            url = get_webhook_url(Size, fallback_url)
+            url = get_webhook_url(Size, fallback_url, config_file)
             if not url:
                 url = fallback_url
 
@@ -122,9 +130,9 @@ def webhook_sender(item, stock_state, fallback_url, request_fail_delay=240):
         error_logger.error_log("!! SENDING WEBHOOK FAILED !!", traceback.format_exc())
 
 
-def verify_webhook(request_fail_delay=240):
+def verify_webhook(request_fail_delay=240, config_file=DEFAULT_CONFIG_FILE):
     try:
-        url = config_handler.read("config.cfg", "webhook", "fallback_url")
+        url = config_handler.read(config_file, "webhook", "fallback_url")
 
         try:
             webhook_test = requests.get(url, timeout=request_fail_delay)
@@ -166,9 +174,9 @@ def verify_webhook(request_fail_delay=240):
         input()
 
 
-def send_uptime_webhook(data, request_fail_delay=240):
+def send_uptime_webhook(data, request_fail_delay=240, config_file=DEFAULT_CONFIG_FILE):
     try:
-        url = config_handler.read("config.cfg", "webhook", "uptime_url")
+        url = config_handler.read(config_file, "webhook", "uptime_url")
         requests.post(url=url, json=data, timeout=request_fail_delay)
     except Exception:
         error_logger.error_log("Uptime webhook failed", traceback.format_exc())
