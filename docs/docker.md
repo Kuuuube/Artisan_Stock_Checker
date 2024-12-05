@@ -1,5 +1,7 @@
 # Discord Webhook Script Docker Deployment
 
+Note: Docker images are not maintained by Kuuuube.
+
 ## Requirements
 
 Docker: [Installation Guide](https://docs.docker.com/engine/install/)
