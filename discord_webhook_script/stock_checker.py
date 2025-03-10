@@ -43,7 +43,7 @@ def cart_check_func(stock_check, request_fail_delay=240):
 
 def stock_check_func(request_data, request_fail_delay=240):
     data = {
-        "kuni": "on",  # this uses the english site and is required for cart check to work in a simple way
+        "kuni": "on",  # This uses the english site and is required for cart check to work. The japanese site never does a stock check beyond the (unreliable) preliminary one.
         "sir": request_data[0] + request_data[1],
         "size": request_data[2],
         "color": request_data[3],
