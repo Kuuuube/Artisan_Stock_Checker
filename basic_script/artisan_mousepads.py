@@ -17,7 +17,7 @@ def mousepad_models(model, hardness):
             "22": "FX KEY83",
         }
     else:
-        # CS models are defined here
+        # CS models and skates are defined here
         model = model + hardness
         dict_mousepad_models = {
             "12": "CS Zero",
@@ -25,6 +25,7 @@ def mousepad_models(model, hardness):
             "14": "CS Zero",
             "15": "CS Raiden",
             "16": "CS Raiden",
+            "1000": "Mizugumo Futae P8",
         }
     return dict_mousepad_models[model]
 
@@ -45,6 +46,8 @@ def mousepad_hardnesses(model, hardness):
             "6": "XSoft",
             "5": "Mid",
         }
+    if hardness not in dict_hardnesses:
+        return "N/A"
     return dict_hardnesses[hardness]
 
 
@@ -67,6 +70,8 @@ def mousepad_colors(colors):
         "12": "Matcha",
         "13": "Gray",
     }
+    if colors not in dict_colors:
+        return "N/A"
     return dict_colors[colors]
 
 
@@ -180,6 +185,14 @@ def fx_key83():
     hardnesses = ["0", "1", "2"]
     sizes = ["2", "3", "4", "5"]
     colors = ["5"]
+    return [models, hardnesses, sizes, colors]
+
+
+def skates():
+    models = ["10"]
+    hardnesses = ["00"]
+    sizes = ["1"]
+    colors = ["0"]
     return [models, hardnesses, sizes, colors]
 
 

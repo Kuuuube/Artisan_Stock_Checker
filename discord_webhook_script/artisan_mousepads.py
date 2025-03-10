@@ -14,10 +14,10 @@ def mousepad_models(model, hardness):
             "18": "FX Shidenkai",
             "19": "FX Shidenkai",
             "21": "FX TYPE-99",
-            "22": "FX KEY83"
+            "22": "FX KEY83",
         }
     else:
-        # CS models are defined here
+        # CS models and skates are defined here
         model = model + hardness
         dict_mousepad_models = {
             "12": "CS Zero",
@@ -25,6 +25,7 @@ def mousepad_models(model, hardness):
             "14": "CS Zero",
             "15": "CS Raiden",
             "16": "CS Raiden",
+            "1000": "Mizugumo Futae P8",
         }
     return dict_mousepad_models[model]
 
@@ -32,11 +33,7 @@ def mousepad_models(model, hardness):
 def mousepad_hardnesses(model, hardness):
     if len(hardness) == 1:
         # FX hardnesses are defined here
-        dict_hardnesses = {
-            "0": "XSoft",
-            "1": "Soft",
-            "2": "Mid"
-        }
+        dict_hardnesses = {"0": "XSoft", "1": "Soft", "2": "Mid"}
     else:
         # CS hardnesses are defined here
         hardness = model[-1]
@@ -47,19 +44,15 @@ def mousepad_hardnesses(model, hardness):
             "2": "Mid",
             # CS Raiden
             "6": "XSoft",
-            "5": "Mid"
+            "5": "Mid",
         }
+    if hardness not in dict_hardnesses:
+        return "N/A"
     return dict_hardnesses[hardness]
 
 
 def mousepad_sizes(sizes):
-    dict_sizes = {
-        "1": "S",
-        "2": "M",
-        "3": "L",
-        "4": "XL",
-        "5": "XXL"
-    }
+    dict_sizes = {"1": "S", "2": "M", "3": "L", "4": "XL", "5": "XXL"}
     return dict_sizes[sizes]
 
 
@@ -75,8 +68,10 @@ def mousepad_colors(colors):
         "10": "Orange",
         "11": "Black",
         "12": "Matcha",
-        "13": "Gray"
+        "13": "Gray",
     }
+    if colors not in dict_colors:
+        return "N/A"
     return dict_colors[colors]
 
 
@@ -96,7 +91,7 @@ def mousepad_links(model, hardness):
             "18": "https://www.artisan-jp.com/fx-shidenkai-eng.html",
             "19": "https://www.artisan-jp.com/fx-shidenkai-eng.html",
             "21": "https://www.artisan-jp.com/fx-99-eng.html",
-            "22": "https://www.artisan-jp.com/fx-k83-eng.html"
+            "22": "https://www.artisan-jp.com/fx-k83-eng.html",
         }
     else:
         # CS models are defined here
@@ -106,7 +101,7 @@ def mousepad_links(model, hardness):
             "13": "https://www.artisan-jp.com/cs-zero-eng.html",
             "14": "https://www.artisan-jp.com/cs-zero-eng.html",
             "15": "https://www.artisan-jp.com/cs-raiden-eng.html",
-            "16": "https://www.artisan-jp.com/cs-raiden-eng.html"
+            "16": "https://www.artisan-jp.com/cs-raiden-eng.html",
         }
     return dict_links[model]
 
@@ -190,6 +185,14 @@ def fx_key83():
     hardnesses = ["0", "1", "2"]
     sizes = ["2", "3", "4", "5"]
     colors = ["5"]
+    return [models, hardnesses, sizes, colors]
+
+
+def skates():
+    models = ["10"]
+    hardnesses = ["00"]
+    sizes = ["1"]
+    colors = ["0"]
     return [models, hardnesses, sizes, colors]
 
 
