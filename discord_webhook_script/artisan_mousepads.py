@@ -102,6 +102,7 @@ def mousepad_links(model, hardness):
             "14": "https://www.artisan-jp.com/cs-zero-eng.html",
             "15": "https://www.artisan-jp.com/cs-raiden-eng.html",
             "16": "https://www.artisan-jp.com/cs-raiden-eng.html",
+            "1000": "https://artisan-jp.com/fx-sole305_eng.html",
         }
     return dict_links[model]
 
