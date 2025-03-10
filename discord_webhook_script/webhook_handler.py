@@ -84,6 +84,8 @@ def get_webhook_url(size, fallback_url, config_file=DEFAULT_CONFIG_FILE):
             return config_handler.read(config_file, "webhook", "xl_url")
         case "XXL":
             return config_handler.read(config_file, "webhook", "xxl_url")
+        case "N/A":
+            return config_handler.read(config_file, "webhook", "na_url")
         case _:
             return fallback_url
 
@@ -100,7 +102,7 @@ def webhook_sender(
 
             Model = artisan_mousepads.mousepad_models(item[0], item[1])
             Hardness = artisan_mousepads.mousepad_hardnesses(item[0], item[1])
-            Size = artisan_mousepads.mousepad_sizes(item[2])
+            Size = artisan_mousepads.mousepad_sizes(item[0], item[1], item[2])
             Color = artisan_mousepads.mousepad_colors(item[3])
             Link = artisan_mousepads.mousepad_links(item[0], item[1])
             role_ping = roles_dict(item[0], item[1], config_file)

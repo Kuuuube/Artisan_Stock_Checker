@@ -44,6 +44,7 @@ def default_config(config_file=DEFAULT_CONFIG_FILE):
         "L_url": "",
         "XL_url": "",
         "XXL_url": "",
+        "na_url": "",
         "content": "{Role Ping} In Stock!\\nModel: {Model}, Hardness: {Hardness}, Size: {Size}, Color: {Color}\\nLink: {Link}",
         "uptime_url": "",
     }

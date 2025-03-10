@@ -51,9 +51,11 @@ def mousepad_hardnesses(model, hardness):
     return dict_hardnesses[hardness]
 
 
-def mousepad_sizes(sizes):
+def mousepad_sizes(model, hardness, size):
+    if len(model + hardness) == 4:
+        return "N/A"
     dict_sizes = {"1": "S", "2": "M", "3": "L", "4": "XL", "5": "XXL"}
-    return dict_sizes[sizes]
+    return dict_sizes[size]
 
 
 def mousepad_colors(colors):

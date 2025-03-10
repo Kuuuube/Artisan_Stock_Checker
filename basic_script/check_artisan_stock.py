@@ -78,7 +78,7 @@ def stock_check_func(request_data):
                     + ", Hardness: "
                     + artisan_mousepads.mousepad_hardnesses(item[0], item[1])
                     + ", Size: "
-                    + artisan_mousepads.mousepad_sizes(item[2])
+                    + artisan_mousepads.mousepad_sizes(item[0], item[1], item[2])
                     + ", Color: "
                     + artisan_mousepads.mousepad_colors(item[3])
                 )
@@ -87,7 +87,7 @@ def stock_check_func(request_data):
                     + ", Hardness: "
                     + artisan_mousepads.mousepad_hardnesses(item[0], item[1])
                     + ", Size: "
-                    + artisan_mousepads.mousepad_sizes(item[2])
+                    + artisan_mousepads.mousepad_sizes(item[0], item[1], item[2])
                     + ", Color: "
                     + artisan_mousepads.mousepad_colors(item[3])
                 )
@@ -103,7 +103,7 @@ def stock_check_func(request_data):
                         + ", Hardness: "
                         + artisan_mousepads.mousepad_hardnesses(item[0], item[1])
                         + ", Size: "
-                        + artisan_mousepads.mousepad_sizes(item[2])
+                        + artisan_mousepads.mousepad_sizes(item[0], item[1], item[2])
                         + ", Color: "
                         + artisan_mousepads.mousepad_colors(item[3])
                     )
@@ -112,7 +112,7 @@ def stock_check_func(request_data):
                         + ", Hardness: "
                         + artisan_mousepads.mousepad_hardnesses(item[0], item[1])
                         + ", Size: "
-                        + artisan_mousepads.mousepad_sizes(item[2])
+                        + artisan_mousepads.mousepad_sizes(item[0], item[1], item[2])
                         + ", Color: "
                         + artisan_mousepads.mousepad_colors(item[3])
                     )
@@ -125,7 +125,7 @@ def stock_check_func(request_data):
                         + ", Hardness: "
                         + artisan_mousepads.mousepad_hardnesses(item[0], item[1])
                         + ", Size: "
-                        + artisan_mousepads.mousepad_sizes(item[2])
+                        + artisan_mousepads.mousepad_sizes(item[0], item[1], item[2])
                         + ", Color: "
                         + artisan_mousepads.mousepad_colors(item[3])
                     )
@@ -134,7 +134,7 @@ def stock_check_func(request_data):
                         + ", Hardness: "
                         + artisan_mousepads.mousepad_hardnesses(item[0], item[1])
                         + ", Size: "
-                        + artisan_mousepads.mousepad_sizes(item[2])
+                        + artisan_mousepads.mousepad_sizes(item[0], item[1], item[2])
                         + ", Color: "
                         + artisan_mousepads.mousepad_colors(item[3])
                     )
@@ -148,7 +148,7 @@ def stock_check_func(request_data):
                     + ", Hardness: "
                     + artisan_mousepads.mousepad_hardnesses(item[0], item[1])
                     + ", Size: "
-                    + artisan_mousepads.mousepad_sizes(item[2])
+                    + artisan_mousepads.mousepad_sizes(item[0], item[1], item[2])
                     + ", Color: "
                     + artisan_mousepads.mousepad_colors(item[3])
                 )
@@ -157,7 +157,7 @@ def stock_check_func(request_data):
                     + ", Hardness: "
                     + artisan_mousepads.mousepad_hardnesses(item[0], item[1])
                     + ", Size: "
-                    + artisan_mousepads.mousepad_sizes(item[2])
+                    + artisan_mousepads.mousepad_sizes(item[0], item[1], item[2])
                     + ", Color: "
                     + artisan_mousepads.mousepad_colors(item[3])
                 )
@@ -173,7 +173,7 @@ def stock_check_func(request_data):
                 + ", Hardness: "
                 + artisan_mousepads.mousepad_hardnesses(item[0], item[1])
                 + ", Size: "
-                + artisan_mousepads.mousepad_sizes(item[2])
+                + artisan_mousepads.mousepad_sizes(item[0], item[1], item[2])
                 + ", Color: "
                 + artisan_mousepads.mousepad_colors(item[3])
             )

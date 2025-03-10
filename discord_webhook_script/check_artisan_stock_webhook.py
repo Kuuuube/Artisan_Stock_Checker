@@ -77,7 +77,7 @@ def stock_check_runner(request_data):
             f"Cart check: {cart_info}, "
             f"Model: {artisan_mousepads.mousepad_models(item[0], item[1])}, "
             f"Hardness: {artisan_mousepads.mousepad_hardnesses(item[0], item[1])}, "
-            f"Size: {artisan_mousepads.mousepad_sizes(item[2])}, "
+            f"Size: {artisan_mousepads.mousepad_sizes(item[0], item[1], item[2])}, "
             f"Color: {artisan_mousepads.mousepad_colors(item[3])}"
         )
         print(stock_message)
