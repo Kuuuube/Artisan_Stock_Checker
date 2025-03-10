@@ -2,6 +2,7 @@ import requests
 import re
 import itertools
 import time
+import traceback
 from datetime import datetime, timezone
 import artisan_mousepads
 import config_handler
