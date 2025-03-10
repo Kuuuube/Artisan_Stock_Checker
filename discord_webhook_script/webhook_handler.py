@@ -177,6 +177,7 @@ def verify_webhook(request_fail_delay=240, config_file=DEFAULT_CONFIG_FILE):
 def send_uptime_webhook(data, request_fail_delay=240, config_file=DEFAULT_CONFIG_FILE):
     try:
         url = config_handler.read(config_file, "webhook", "uptime_url")
-        requests.post(url=url, json=data, timeout=request_fail_delay)
+        if len(url) > 0:
+            requests.post(url=url, json=data, timeout=request_fail_delay)
     except Exception:
         error_logger.error_log("Uptime webhook failed", traceback.format_exc())
