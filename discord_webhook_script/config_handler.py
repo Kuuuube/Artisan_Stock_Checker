@@ -59,6 +59,7 @@ def default_config(config_file=DEFAULT_CONFIG_FILE):
         "role_FX_Shidenkai": "<@&>",
         "role_FX_TYPE99": "<@&>",
         "role_FX_KEY83": "<@&>",
+        "role_skates": "<@&>",
     }
 
     with open(config_file, "w") as conf:

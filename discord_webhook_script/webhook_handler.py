@@ -60,6 +60,9 @@ def roles_dict(model, hardness, config_file=DEFAULT_CONFIG_FILE):
                 "16": config_handler.read(
                     config_file, "webhook_role_pings", "role_CS_Raiden"
                 ),
+                "1000": config_handler.read(
+                    config_file, "webhook_role_pings", "role_skates"
+                ),
             }
         return roles_dict[model]
     except Exception:
