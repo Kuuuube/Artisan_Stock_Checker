@@ -213,5 +213,6 @@ def active_functions():
         fx_shidenkai,
         fx_type99,
         fx_key83,
+        skates,
     ]
     return function_list

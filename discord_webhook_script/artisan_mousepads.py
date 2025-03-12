@@ -202,6 +202,17 @@ def skates():
 # list of all items to check stock for
 # to skip checking items they can be removed from this list
 def active_functions():
-    function_list = [cs_zero, cs_raiden, fx_hayate_otsu, fx_hayate_kou, fx_hien, fx_zero, fx_raiden, fx_shidenkai,
-                     fx_type99, fx_key83]
+    function_list = [
+        cs_zero,
+        cs_raiden,
+        fx_hayate_otsu,
+        fx_hayate_kou,
+        fx_hien,
+        fx_zero,
+        fx_raiden,
+        fx_shidenkai,
+        fx_type99,
+        fx_key83,
+        skates,
+    ]
     return function_list
