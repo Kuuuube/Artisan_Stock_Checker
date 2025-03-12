@@ -56,7 +56,7 @@ def cart_check_func(stock_check):
 def stock_check_func(request_data):
     for item in itertools.product(*request_data):
         data = {
-            "kuni": "on",  # this uses the english site and is required for cart check to work in a simple way
+            "kuni": "on",  # This uses the english site and is required for cart check to work. The japanese site never does a stock check beyond the (unreliable) preliminary one.
             "sir": item[0] + item[1],
             "size": item[2],
             "color": item[3],
