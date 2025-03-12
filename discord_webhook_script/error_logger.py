@@ -1,12 +1,13 @@
 from datetime import datetime, timezone
 import os
 
+
 def error_log(message, error):
     try:
         utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
 
         # Get ARTISAN_STOCK_CHECKER_CONFIG_DIR from environment or default to local path
-        config_dir = os.environ.get('ARTISAN_STOCK_CHECKER_CONFIG_DIR', '.')
+        config_dir = os.environ.get("ARTISAN_STOCK_CHECKER_CONFIG_DIR", ".")
 
         # Ensure the logs directory exists
         logs_dir = os.path.join(config_dir, "logs")

@@ -99,7 +99,6 @@ def webhook_sender(
 ):
     try:
         if stock_state == True:
-
             Model = artisan_mousepads.mousepad_models(item[0], item[1])
             Hardness = artisan_mousepads.mousepad_hardnesses(item[0], item[1])
             Size = artisan_mousepads.mousepad_sizes(item[0], item[1], item[2])
