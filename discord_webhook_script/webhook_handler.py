@@ -44,7 +44,7 @@ def roles_dict(model, hardness, config_file=DEFAULT_CONFIG_FILE):
         elif len(hardness) == 1 and int(hardness) > 2:
             roles_dict = {
                 "22": config_handler.read(
-                    config_file, "webhook_role_pings", "role_FX_Otsu_V2"
+                    config_file, "webhook_role_pings", "role_FX_Hayate_Otsu_V2"
                 ),
             }
         else:
