@@ -51,6 +51,7 @@ def default_config(config_file=DEFAULT_CONFIG_FILE):
         "role_CS_Zero": "<@&>",
         "role_CS_Raiden": "<@&>",
         "role_FX_Hayate_Otsu": "<@&>",
+        "role_FX_Hayate_Otsu_V2": "<@&>",
         "role_FX_Hayate_Kou": "<@&>",
         "role_FX_Hien": "<@&>",
         "role_FX_Zero": "<@&>",

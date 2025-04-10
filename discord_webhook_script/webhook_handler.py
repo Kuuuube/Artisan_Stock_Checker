@@ -10,7 +10,7 @@ DEFAULT_CONFIG_FILE = "config.cfg"
 
 def roles_dict(model, hardness, config_file=DEFAULT_CONFIG_FILE):
     try:
-        if len(hardness) == 1:
+        if len(hardness) == 1 and int(hardness) <= 2:
             # FX models are defined here
             roles_dict = {
                 "12": config_handler.read(
@@ -39,6 +39,12 @@ def roles_dict(model, hardness, config_file=DEFAULT_CONFIG_FILE):
                 ),
                 "22": config_handler.read(
                     config_file, "webhook_role_pings", "role_FX_KEY83"
+                ),
+            }
+        elif len(hardness) == 1 and int(hardness) > 2:
+            roles_dict = {
+                "22": config_handler.read(
+                    config_file, "webhook_role_pings", "role_FX_Otsu_V2"
                 ),
             }
         else:

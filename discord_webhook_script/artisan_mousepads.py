@@ -1,7 +1,7 @@
 # when adding a new mousepad model it must be added into the models dictionary
 # new pads will likely fit existing hardness, size, and colors so those may not need to be edited
 def mousepad_models(model, hardness):
-    if len(hardness) == 1:
+    if len(hardness) == 1 and int(hardness) <= 2:
         # FX models are defined here
         dict_mousepad_models = {
             "11": "FX Hayate",
@@ -15,6 +15,10 @@ def mousepad_models(model, hardness):
             "19": "FX Shidenkai",
             "21": "FX TYPE-99",
             "22": "FX KEY83",
+        }
+    elif len(hardness) == 1 and int(hardness) > 2:
+        dict_mousepad_models = {
+            "22": "FX Hayate Otsu V2",
         }
     else:
         # CS models and skates are defined here
@@ -33,7 +37,8 @@ def mousepad_models(model, hardness):
 def mousepad_hardnesses(model, hardness):
     if len(hardness) == 1:
         # FX hardnesses are defined here
-        dict_hardnesses = {"0": "XSoft", "1": "Soft", "2": "Mid"}
+        # Most pads are hardness 0-2, FX Hayate Otsu v2 is weird and takes up 3-5
+        dict_hardnesses = {"0": "XSoft", "1": "Soft", "2": "Mid", "3": "XSoft", "4": "Soft", "5": "Mid"}
     else:
         # CS hardnesses are defined here
         hardness = model[-1]
@@ -79,7 +84,7 @@ def mousepad_colors(colors):
 
 # uses the same numbers as mousepad_models to find links
 def mousepad_links(model, hardness):
-    if len(hardness) == 1:
+    if len(hardness) == 1 and int(hardness) <= 2:
         # FX links are defined here
         dict_links = {
             "1": "https://www.artisan-jp.com/cs-zero-eng.html",
@@ -94,6 +99,10 @@ def mousepad_links(model, hardness):
             "19": "https://www.artisan-jp.com/fx-shidenkai-eng.html",
             "21": "https://www.artisan-jp.com/fx-99-eng.html",
             "22": "https://www.artisan-jp.com/fx-k83-eng.html",
+        }
+    elif len(hardness) == 1 and int(hardness) > 2:
+        dict_links = {
+            "22": "https://artisan-jp.com/fx-hayate-otsu-v2-eng.html",
         }
     else:
         # CS models are defined here
@@ -130,6 +139,14 @@ def cs_raiden():
 def fx_hayate_otsu():
     models = ["12"]
     hardnesses = ["0", "1", "2"]
+    sizes = ["2", "3", "4", "5"]
+    colors = ["1", "5"]
+    return [models, hardnesses, sizes, colors]
+
+
+def fx_hayate_otsu_v2():
+    models = ["22"]
+    hardnesses = ["3", "4", "5"]
     sizes = ["2", "3", "4", "5"]
     colors = ["1", "5"]
     return [models, hardnesses, sizes, colors]
@@ -206,6 +223,7 @@ def active_functions():
         cs_zero,
         cs_raiden,
         fx_hayate_otsu,
+        fx_hayate_otsu_v2,
         fx_hayate_kou,
         fx_hien,
         fx_zero,
