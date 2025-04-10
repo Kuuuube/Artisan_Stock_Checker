@@ -228,7 +228,6 @@ def active_functions():
         fx_hien,
         fx_zero,
         fx_raiden,
-        fx_shidenkai,
         fx_type99,
         fx_key83,
         skates,
