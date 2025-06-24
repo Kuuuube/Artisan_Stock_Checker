@@ -164,7 +164,7 @@ def fx_hien():
     models = ["14"]
     hardnesses = ["0", "1", "2"]
     sizes = ["1", "2", "3", "4", "5"]
-    colors = ["1", "5"]
+    colors = ["1", "5", "2"]
     return [models, hardnesses, sizes, colors]
 
 
