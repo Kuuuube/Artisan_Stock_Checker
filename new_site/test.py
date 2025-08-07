@@ -7,13 +7,22 @@ artisan_cert_path = "www-artisan-jp-com.pem" # shim due to requests not recogniz
 response = requests.get(artisan_fx_url, verify = artisan_cert_path)
 
 response_text_stripped = response.text.replace("\n", "").replace("\r", "")
-magneto_init_jsons = re.findall('(?<=<script type=\\"text/x-magento-init\\">).*?(?=</script>)', response_text_stripped)
-stock_magneto_jsons = []
-for magneto_init_json in magneto_init_jsons:
-    magneto_json_parsed = json.loads(magneto_init_json)
-    for key in magneto_json_parsed.keys():
-        if "[data-role=swatch-option-" in key:
-            stock_magneto_jsons.append(magneto_json_parsed[key]["Magento_Swatches/js/swatch-renderer"])
+# magento_init_jsons = re.findall('(?<=<script type=\\"text/x-magento-init\\">).*?(?=</script>)', response_text_stripped)
+product_containers = re.findall('<li class="item product product-item">.*?</li>', response_text_stripped)
+stock_magento_jsons = []
+for product_container in product_containers:
+    magento_jsons = re.findall('(?<=<script type="text/x-magento-init">).*?(?=</script>)', product_container)
+    product_link_container = re.search('<a class="product-item-link".*?</a>', product_container)[0]
+    product_name = re.search('(?<=>).*?(?=<)', product_link_container)[0].strip()
+    product_link = re.search('(?<=href=").*?(?=")', product_link_container)[0].strip()
+    for magento_json in magento_jsons:
+        magento_json_parsed = json.loads(magento_json)
+        for key in magento_json_parsed.keys():
+            if "[data-role=swatch-option-" in key:
+                truncated_magento_json = magento_json_parsed[key]["Magento_Swatches/js/swatch-renderer"]
+                truncated_magento_json["product_name"] = product_name
+                truncated_magento_json["product_link"] = product_link
+                stock_magento_jsons.append(truncated_magento_json)
 
 
 product_info_dict = {}
@@ -29,6 +38,8 @@ def init_product_info_dict(stock_magento_json):
                     product_info_dict[product_id][attribute_code] = option_label
                 else:
                     product_info_dict[product_id] = {
+                        product_name: stock_magento_json["product_name"],
+                        product_link: stock_magento_json["product_link"],
                         attribute_code: option_label,
                         # set defaults
                         "in_stock": False,
