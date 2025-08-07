@@ -69,8 +69,9 @@ def get_product_info(url):
                         product_info_dict[product_id][attribute_code] = option_label
                     else:
                         product_info_dict[product_id] = {
-                            "product_name": raw_stock_data_json["product_name"],
-                            "product_link": raw_stock_data_json["product_link"],
+                            "product_id": product_id,
+                            "product_name": magento_swatch_stock_data_json["product_name"],
+                            "product_link": magento_swatch_stock_data_json["product_link"],
                             attribute_code: option_label,
                             # set defaults
                             "in_stock": False,
@@ -89,6 +90,8 @@ def get_product_info(url):
         for product_id, sku in skus.items():
             if product_id in product_info_dict:
                 product_info_dict[product_id]["sku"] = sku
+                product_info_dict[sku] = product_info_dict[product_id]
+                del product_info_dict[product_id]
 
         option_prices = magento_swatch_stock_data_json["jsonConfig"]["optionPrices"]
         for product_id, prices in option_prices.items():
