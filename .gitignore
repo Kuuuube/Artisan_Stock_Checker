@@ -1,5 +1,6 @@
 config.cfg
 config.cfg.bak*
+log.txt
 error_log.txt
 stock_state.json
 artisan_stock_record_*
