@@ -20,7 +20,6 @@ ignore = [
     "INP001", #Checks for packages that are missing an __init__.py file.
     "PTH110", #Checks for uses of os.path.exists.
 ]
-target-version = "py39" #Set minimum version to 3.9 due to Anki still shipping 3.9 in windows packages as of 24.11 (Nov 26, 2024)
 
 [lint.per-file-ignores]
 "logger.py" = [
