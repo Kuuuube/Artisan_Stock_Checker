@@ -2,6 +2,7 @@ import requests
 import re
 import json
 
+
 def get_raw_stock_data():
     artisan_fx_url = "https://artisan-jp.com/global/products/ninja-fx-series.html"
     artisan_cert_path = "www-artisan-jp-com.pem" # shim due to requests not recognizing `GlobalSign nv-sa` cert
