@@ -66,10 +66,9 @@ def get_stock_data(url: str, request_timeout: int) -> dict:
     }
 
 
-def get_product_info(url: str) -> dict:
+def parse_stock_data(full_stock_data: dict) -> dict:
     product_info_dict = {}
 
-    full_stock_data = get_stock_data(url)
     for magento_swatch_stock_data_json in full_stock_data["magento_swatch_stock_data"]:
         attributes = magento_swatch_stock_data_json["jsonConfig"]["attributes"]
         for attribute_value in attributes.values():
