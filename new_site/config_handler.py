@@ -1,43 +1,20 @@
+import configparser
 import hashlib
 import os
 import time
 import traceback
-from configparser import ConfigParser
 
-import error_logger
+import logger
 
-DEFAULT_CONFIG_FILE = os.path.dirname(__file__) + "config.cfg"
+DEFAULT_CONFIG_FILE_PATH = os.path.dirname(__file__) + "/config.cfg"
 
-
-def config_info(config_file = DEFAULT_CONFIG_FILE):
-    config = ConfigParser()
-    config.read(config_file)
-    return config
-
-
-def backup_bad_config(config_file = DEFAULT_CONFIG_FILE) -> None:
-    try:
-        with open(config_file, "rb") as hashfile:
-            bytes = hashfile.read()
-            hash_value = hashlib.md5(bytes).hexdigest()
-        backup_file = config_file + ".bak" + hash_value
-        with open(config_file) as conf, open(backup_file, "w") as backup:
-            backup.writelines(conf)
-    except Exception:
-        pass
-
-
-def default_config(config_file = DEFAULT_CONFIG_FILE):
-    backup_bad_config(config_file)
-
-    defaults = ConfigParser()
-    defaults["stock"] = {
+DEFAULT_CONFIG = {
+    "stock": {
         "stock_delay": "30",
         "batch_delay": "0",
         "request_fail_delay": "120",
-    }
-
-    defaults["webhook"] = {
+    },
+    "webhook": {
         "fallback_url": "",
         "S_url": "",
         "M_url": "",
@@ -47,9 +24,8 @@ def default_config(config_file = DEFAULT_CONFIG_FILE):
         "na_url": "",
         "content": "{Role Ping} In Stock!\\nModel: {Model}, Hardness: {Hardness}, Size: {Size}, Color: {Color}\\nLink: {Link}",
         "uptime_url": "",
-    }
-
-    defaults["webhook_role_pings"] = {
+    },
+    "webhook_role_pings": {
         "role_CS_Zero": "<@&>",
         "role_CS_Raiden": "<@&>",
         "role_FX_Hayate_Otsu": "<@&>",
@@ -62,38 +38,62 @@ def default_config(config_file = DEFAULT_CONFIG_FILE):
         "role_FX_TYPE99": "<@&>",
         "role_FX_KEY83": "<@&>",
         "role_skates": "<@&>",
-    }
+    },
+}
 
-    with open(config_file, "w") as conf:
+def get_config_parser(config_file_path: str = DEFAULT_CONFIG_FILE_PATH) -> configparser.ConfigParser:
+    config = configparser.ConfigParser()
+    config.read(config_file_path)
+    return config
+
+
+def backup_bad_config(config_file_path: str = DEFAULT_CONFIG_FILE_PATH) -> None:
+    try:
+        with open(config_file_path, "rb") as hashfile:
+            hash_value = hashlib.md5(hashfile.read(), usedforsecurity = False).hexdigest()
+        backup_file = config_file_path + ".bak" + hash_value
+        with open(config_file_path) as config_file, open(backup_file, "w") as backup:
+            backup.writelines(config_file)
+    except Exception:  # noqa: BLE001
+        logger.error_log("Failed to backup config: ", traceback.format_exc())
+
+
+def default_config(config_file_path: str = DEFAULT_CONFIG_FILE_PATH) -> None:
+    backup_bad_config(config_file_path)
+
+    defaults = configparser.ConfigParser()
+    for key in DEFAULT_CONFIG:
+        defaults[key] = DEFAULT_CONFIG[key]
+
+    with open(config_file_path, "w") as conf:
         defaults.write(conf)
 
 
-def read(config_file, section, name):
-    function_success = False
-    while not function_success:
+def read(config_file_path: str, section: str, name: str) -> str:
+    while True:
         try:
-            config = config_info(config_file)
-            return config.get(section, name)
-            function_success = True
+            config_parser = get_config_parser(config_file_path)
+            return config_parser.get(section, name)
 
-        except Exception:
-            error_logger.error_log("Config corrupted. Reverting to default:", traceback.format_exc())
-            default_config(config_file)
+        except Exception:  # noqa: BLE001, PERF203
+            logger.error_log("Config corrupted. Reverting to default:", traceback.format_exc())
+            default_config(config_file_path)
             time.sleep(1)
 
+    return None
 
-def write(config_file, section, name, value) -> None:
-    function_success = False
-    while not function_success:
+
+def write(config_file_path: str, section: str, name: str, value: str) -> None:
+    while True:
         try:
-            config = config_info(config_file)
-            if not config.has_section(section):
-                config.add_section(section)
-            config[section][name] = value
-            with open(config_file, "w") as conf:
-                config.write(conf)
-            function_success = True
-        except Exception:
-            error_logger.error_log("Config corrupted. Reverting to default:", traceback.format_exc())
-            default_config(config_file)
+            config_parser = get_config_parser(config_file_path)
+            if not config_parser.has_section(section):
+                config_parser.add_section(section)
+            config_parser[section][name] = value
+            with open(config_file_path, "w") as conf:
+                config_parser.write(conf)
+            break
+        except Exception:  # noqa: BLE001
+            logger.error_log("Config corrupted. Reverting to default:", traceback.format_exc())
+            default_config(config_file_path)
             time.sleep(1)
