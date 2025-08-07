@@ -17,9 +17,9 @@ for magneto_init_json in magneto_init_jsons:
 
 
 product_info_dict = {}
-def init_product_info_dict(stock_magneto_json):
+def init_product_info_dict(stock_magento_json):
     global product_info_dict
-    attributes = stock_magneto_json["jsonConfig"]["attributes"]
+    attributes = stock_magento_json["jsonConfig"]["attributes"]
     for attribute_value in attributes.values():
         attribute_code = attribute_value["code"] # name of attribute
         for option in attribute_value["options"]:
@@ -36,25 +36,26 @@ def init_product_info_dict(stock_magneto_json):
                         "price": 0,
                     }
 
-    salable = stock_magneto_json["jsonConfig"]["salable"]
+    salable = stock_magento_json["jsonConfig"]["salable"]
     for salable_value in salable.values():
         for product_ids in salable_value.values():
             for product_id in product_ids:
                 if product_id in product_info_dict:
                     product_info_dict[product_id]["in_stock"] = True
 
-    skus = stock_magneto_json["jsonConfig"]["sku"]
+    skus = stock_magento_json["jsonConfig"]["sku"]
     for product_id, sku in skus.items():
         if product_id in product_info_dict:
             product_info_dict[product_id]["sku"] = sku
 
-    option_prices = stock_magneto_json["jsonConfig"]["optionPrices"]
+    option_prices = stock_magento_json["jsonConfig"]["optionPrices"]
     for product_id, prices in option_prices.items():
         if product_id in product_info_dict:
             product_info_dict[product_id]["price"] = prices["finalPrice"]["amount"]
 
-for stock_magneto_json in stock_magneto_jsons:
-    init_product_info_dict(stock_magneto_json)
+for stock_magento_json in stock_magento_jsons:
+    init_product_info_dict(stock_magento_json)
 
+# print(json.dumps(stock_magento_jsons))
 print(json.dumps(product_info_dict))
 
