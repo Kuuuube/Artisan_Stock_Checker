@@ -8,9 +8,9 @@ artisan_fx_url = "https://artisan-jp.com/global/products/ninja-fx-series.html"
 artisan_classic_url = "https://artisan-jp.com/global/products/classic-series.html"
 artisan_accessories_url = "https://artisan-jp.com/global/products/accessories.html"
 
-def get_stock_data(url: str) -> dict:
+def get_stock_data(url: str, request_timeout: int) -> dict:
     artisan_cert_path = "www-artisan-jp-com.pem" # shim due to requests not recognizing `GlobalSign nv-sa` cert
-    response = requests.get(url, verify = artisan_cert_path)
+    response = requests.get(url, verify = artisan_cert_path, timeout = request_timeout)
 
     response_text_stripped = response.text.replace("\n", "").replace("\r", "")
     product_containers = re.findall('<li class="item product product-item">.*?</li>', response_text_stripped)
@@ -116,6 +116,3 @@ def get_product_info(url: str) -> dict:
     product_info_dict["skuless_products"] = full_stock_data["skuless_products"]
 
     return product_info_dict
-
-# print(json.dumps(get_product_info(artisan_accessories_url)))
-print(json.dumps(get_product_info(artisan_fx_url)))
