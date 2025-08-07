@@ -19,6 +19,7 @@ ignore = [
     "PLR0912", #Checks for functions or methods with too many branches, including (nested) if, elif, and else branches, for loops, try-except clauses, and match and case statements.
     "INP001", #Checks for packages that are missing an __init__.py file.
     "PTH110", #Checks for uses of os.path.exists.
+    "PTH118", #Checks for uses of os.path.join.
 ]
 
 [lint.per-file-ignores]

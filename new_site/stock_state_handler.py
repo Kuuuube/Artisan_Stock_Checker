@@ -26,50 +26,51 @@ def default_json(stock_state_file_path: str = DEFAULT_STOCK_STATE_FILE_PATH) -> 
         json.dump({}, jsonfile)
 
 
-def read_state_file(json_file: str, dict_key: str):
+def read_state_file(dict_key: str, stock_state_file_path: str = DEFAULT_STOCK_STATE_FILE_PATH):
     while True:
         try:
-            if not os.path.exists(json_file):
-                default_json(json_file)
-            with open(json_file) as states:
+            states_dict = {}
+            if not os.path.exists(stock_state_file_path):
+                default_json(stock_state_file_path)
+            with open(stock_state_file_path) as states:
                 states_dict = json.load(states)
             if dict_key in states_dict:
                 return states_dict[dict_key]
             else:
                 states_dict[dict_key] = "False"
-                with open(json_file, "w") as states:
+                with open(stock_state_file_path, "w") as states:
                     json.dump(states_dict, states)
                 return "False"
         except Exception:  # noqa: BLE001, PERF203
             logger.error_log("Stock states corrupted. Reverting to default:", traceback.format_exc())
-            default_json(json_file)
+            default_json(stock_state_file_path)
             time.sleep(1)
 
 
-def write_state_file(json_file: str, dict_key: str, value: str) -> None:
+def write_state_file(dict_key: str, value: str, stock_state_file_path: str = DEFAULT_STOCK_STATE_FILE_PATH) -> None:
     while True:
         try:
             states_dict = {}
-            with open(json_file) as states:
+            with open(stock_state_file_path) as states:
                 states_dict = json.load(states)
             states_dict[dict_key] = value
-            with open(json_file, "w") as states:
+            with open(stock_state_file_path, "w") as states:
                 json.dump(states_dict, states)
             break
         except Exception:  # noqa: BLE001
             logger.error_log("Could not write to stock states:", traceback.format_exc())
-            default_json(json_file)
+            default_json(stock_state_file_path)
             time.sleep(1)
 
 
-def find_item_state(item: str, stock_state: bool, stock_state_file_path: str = DEFAULT_STOCK_STATE_FILE_PATH) -> bool:
+def find_item_state(item: str, current_stock_state: bool, stock_state_file_path: str = DEFAULT_STOCK_STATE_FILE_PATH) -> bool:
     try:
         item_list_combined = "".join(item)
-        current_state = read_state_file(stock_state_file_path, item_list_combined)
-        if stock_state == current_state:
+        recorded_stock_state = read_state_file(stock_state_file_path, item_list_combined)
+        if "in_stock" in recorded_stock_state and current_stock_state == recorded_stock_state["in_stock"]:
             return False
         else:
-            write_state_file(stock_state_file_path, item_list_combined, stock_state)
+            write_state_file(stock_state_file_path, item_list_combined, current_stock_state)
             return True
 
     except Exception:

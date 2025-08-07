@@ -4,10 +4,6 @@ import re
 import logger
 import requests
 
-artisan_fx_url = "https://artisan-jp.com/global/products/ninja-fx-series.html"
-artisan_classic_url = "https://artisan-jp.com/global/products/classic-series.html"
-artisan_accessories_url = "https://artisan-jp.com/global/products/accessories.html"
-
 artisan_cert_path = "www-artisan-jp-com.pem" # shim due to requests not recognizing `GlobalSign nv-sa` cert
 
 def get_stock_data(url: str, request_timeout: int) -> dict:

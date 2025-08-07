@@ -3,6 +3,8 @@ config.cfg.bak*
 log.txt
 error_log.txt
 stock_state.json
+full_stock_data_*
+product_infos_*
 artisan_stock_record_*
 artisan_stock_summary_*
 
