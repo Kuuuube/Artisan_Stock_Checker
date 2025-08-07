@@ -16,6 +16,7 @@ def get_stock_data(url):
     product_containers = re.findall('<li class="item product product-item">.*?</li>', response_text_stripped)
     magento_swatch_stock_data_jsons = []
     single_sku_stock_data_dicts = []
+    skuless_products = []
     for product_container in product_containers:
         magento_jsons = re.findall('(?<=<script type="text/x-magento-init">).*?(?=</script>)', product_container)
         product_link_container = re.search('<a class="product-item-link".*?</a>', product_container)[0]
@@ -32,6 +33,12 @@ def get_stock_data(url):
             sku_search = re.search('(?<=data-product-sku=").*?(?=")', product_container)
             if (not sku_search):
                 logger.log("Single sku item failed to find sku, product_container: " + product_container)
+                skuless_data = {
+                    "product_name": product_name,
+                    "product_link": product_link,
+                    "in_stock": bool(in_stock),
+                }
+                skuless_products.append(skuless_data)
                 continue
 
             stock_data = {
@@ -52,13 +59,19 @@ def get_stock_data(url):
                     truncated_magento_json["product_link"] = product_link
                     magento_swatch_stock_data_jsons.append(truncated_magento_json)
 
-    return {"magento_swatch_stock_data": magento_swatch_stock_data_jsons, "single_sku_stock_data_dicts": single_sku_stock_data_dicts}
+    full_stock_data = {
+        "magento_swatch_stock_data": magento_swatch_stock_data_jsons,
+        "single_sku_stock_data_dicts": single_sku_stock_data_dicts,
+        "skuless_products": skuless_products,
+    }
+
+    return full_stock_data
 
 def get_product_info(url):
     product_info_dict = {}
 
-    stock_data_jsons = get_stock_data(url)
-    for magento_swatch_stock_data_json in stock_data_jsons["magento_swatch_stock_data"]:
+    full_stock_data = get_stock_data(url)
+    for magento_swatch_stock_data_json in full_stock_data["magento_swatch_stock_data"]:
         attributes = magento_swatch_stock_data_json["jsonConfig"]["attributes"]
         for attribute_value in attributes.values():
             attribute_code = attribute_value["code"] # name of attribute
@@ -98,7 +111,12 @@ def get_product_info(url):
             if product_id in product_info_dict:
                 product_info_dict[product_id]["price"] = prices["finalPrice"]["amount"]
 
-    for single_sku_stock_data_dict in stock_data_jsons["single_sku_stock_data_dicts"]:
+    for single_sku_stock_data_dict in full_stock_data["single_sku_stock_data_dicts"]:
         product_info_dict[single_sku_stock_data_dict["sku"]] = single_sku_stock_data_dict
 
+    product_info_dict["skuless_products"] = full_stock_data["skuless_products"]
+
     return product_info_dict
+
+# print(json.dumps(get_product_info(artisan_accessories_url)))
+print(json.dumps(get_product_info(artisan_fx_url)))
