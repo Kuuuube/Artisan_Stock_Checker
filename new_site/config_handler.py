@@ -49,6 +49,7 @@ def get_config_parser(config_file_path: str = DEFAULT_CONFIG_FILE_PATH) -> confi
 
 def backup_bad_config(config_file_path: str = DEFAULT_CONFIG_FILE_PATH) -> None:
     try:
+        hash_value = ""
         with open(config_file_path, "rb") as hashfile:
             hash_value = hashlib.md5(hashfile.read(), usedforsecurity = False).hexdigest()
         backup_file = config_file_path + ".bak" + hash_value
