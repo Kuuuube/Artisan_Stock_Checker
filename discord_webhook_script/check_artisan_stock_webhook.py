@@ -20,25 +20,25 @@ artisan_fx_url = "https://artisan-jp.com/global/products/ninja-fx-series.html?pr
 artisan_classic_url = "https://artisan-jp.com/global/products/classic-series.html?product_list_limit=25"
 artisan_accessories_url = "https://artisan-jp.com/global/products/accessories.html?product_list_limit=25"
 
+config_file_path = config_handler.DEFAULT_CONFIG_FILE_PATH
+stock_state_file_path = stock_state_handler.DEFAULT_STOCK_STATE_FILE_PATH
+
 CONFIG_DIR = os.environ.get("ARTISAN_STOCK_CHECKER_CONFIG_DIR", ".")
 if CONFIG_DIR and os.path.exists(CONFIG_DIR):
-    config_file = os.path.join(CONFIG_DIR, "config.cfg")
-    stock_state_file = os.path.join(CONFIG_DIR, "stock_state.json")
-else:
-    config_file = config_handler.DEFAULT_CONFIG_FILE_PATH
-    stock_state_file = stock_state_handler.DEFAULT_STOCK_STATE_FILE_PATH
+    config_file_path = os.path.join(CONFIG_DIR, "config.cfg")
+    stock_state_file_path = os.path.join(CONFIG_DIR, "stock_state.json")
 
 STOCK_RECORD_DIRECTORY = os.path.dirname(__file__) + "/stock_record/"
 
-stock_delay = float(config_handler.read(config_file, "stock", "stock_delay"))
-batch_delay = float(config_handler.read(config_file, "stock", "batch_delay"))
-request_fail_delay = float(config_handler.read(config_file, "stock", "request_fail_delay"))
-webhook_send_delay = float(config_handler.read(config_file, "webhook", "webhook_send_delay"))
+stock_delay = float(config_handler.read(config_file_path, "stock", "stock_delay"))
+batch_delay = float(config_handler.read(config_file_path, "stock", "batch_delay"))
+request_fail_delay = float(config_handler.read(config_file_path, "stock", "request_fail_delay"))
+webhook_send_delay = float(config_handler.read(config_file_path, "webhook", "webhook_send_delay"))
 
-uptime_webhook_url = config_handler.read(config_file, "webhook", "uptime_url")
-critical_error_webhook_url = config_handler.read(config_file, "webhook", "critical_error_url")
+uptime_webhook_url = config_handler.read(config_file_path, "webhook", "uptime_url")
+critical_error_webhook_url = config_handler.read(config_file_path, "webhook", "critical_error_url")
 
-request_headers_override = config_handler.read(config_file, "stock", "request_headers_override")
+request_headers_override = config_handler.read(config_file_path, "stock", "request_headers_override")
 request_headers_override = json.loads(request_headers_override) if len(request_headers_override) > 0 else None
 
 def safe_write_stock_json(json_file_name: str, json_data: dict) -> None:
