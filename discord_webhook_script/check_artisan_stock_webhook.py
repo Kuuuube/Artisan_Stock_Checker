@@ -65,7 +65,7 @@ while True:
         del product_infos["skuless_products"] # ignore skuless products list
 
         for sku, product_info in product_infos.items():
-            previously_in_stock = stock_state_handler.find_item_state(sku, product_info)
+            previously_in_stock = stock_state_handler.find_item_state(sku, product_info, stock_state_file_path)
             if not previously_in_stock and product_info["in_stock"]:
                 webhook_handler.send_webhook(webhook_assembler.get_webhook_url(product_info), webhook_assembler.assemble_webhook(product_info), webhook_send_delay, request_fail_delay)
                 time.sleep(webhook_send_delay)
