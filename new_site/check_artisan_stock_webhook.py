@@ -58,9 +58,13 @@ while True:
 
         product_infos = stock_checker.parse_stock_data(full_stock_data)
         safe_write_stock_json("product_infos_" + current_epoch_time_ms_str + ".json", product_infos)
+        del product_infos["skuless_products"] # ignore skuless products list
 
         for sku, product_info in product_infos.items():
-            stock_state_handler.write_state_file(sku, product_info)
+            previously_in_stock = stock_state_handler.find_item_state(sku, product_info)
+            if not previously_in_stock and product_info["in_stock"]:
+                # webhook_handler.send_webhook()
+                print("send a webhook here")
 
         utc_time = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
 

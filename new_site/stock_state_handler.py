@@ -37,10 +37,7 @@ def read_state_file(dict_key: str, stock_state_file_path: str = DEFAULT_STOCK_ST
             if dict_key in states_dict:
                 return states_dict[dict_key]
             else:
-                states_dict[dict_key] = "False"
-                with open(stock_state_file_path, "w") as states:
-                    json.dump(states_dict, states)
-                return "False"
+                return False
         except Exception:  # noqa: BLE001, PERF203
             logger.error_log("Stock states corrupted. Reverting to default:", traceback.format_exc())
             default_json(stock_state_file_path)
@@ -63,15 +60,13 @@ def write_state_file(dict_key: str, value: str, stock_state_file_path: str = DEF
             time.sleep(1)
 
 
-def find_item_state(item: str, current_stock_state: bool, stock_state_file_path: str = DEFAULT_STOCK_STATE_FILE_PATH) -> bool:
+def find_item_state(dict_key: str, value: dict, stock_state_file_path: str = DEFAULT_STOCK_STATE_FILE_PATH) -> bool:
     try:
-        item_list_combined = "".join(item)
-        recorded_stock_state = read_state_file(stock_state_file_path, item_list_combined)
-        if "in_stock" in recorded_stock_state and current_stock_state == recorded_stock_state["in_stock"]:
+        recorded_stock_state = read_state_file(dict_key, stock_state_file_path)
+        write_state_file(dict_key, value, stock_state_file_path)
+        if not recorded_stock_state:
             return False
-        else:
-            write_state_file(stock_state_file_path, item_list_combined, current_stock_state)
-            return True
+        return recorded_stock_state["in_stock"]
 
     except Exception:
         logger.error_log("Could not open or write to stock states:", traceback.format_exc())
