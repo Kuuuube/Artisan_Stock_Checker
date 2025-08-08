@@ -24,6 +24,7 @@ def assemble_webhook(product_info: dict) -> dict:
                 "footer": {
                     "text": utc_time,
                 },
+                "color": get_int_color(product_info),
             },
         ],
     }
@@ -80,6 +81,13 @@ def get_role_ping(product_info: dict) -> str:
     }
     config_key = safe_dict_index(product_name_mappings, safe_dict_index(product_info, "product_name", ""), "Unknown Product")
     return config_handler.read(config_handler.DEFAULT_CONFIG_FILE_PATH, "webhook_role_pings", config_key)
+
+
+def get_int_color(product_info: dict) -> int:
+    if "hex_color" not in product_info:
+        return ""
+
+    return int(product_info["hex_color"].replace("#", ""), 16)
 
 
 def safe_dict_index(dictionary: dict, key: str, default):  # noqa: ANN001, ANN201
