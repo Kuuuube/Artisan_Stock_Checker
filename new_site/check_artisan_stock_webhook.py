@@ -45,10 +45,10 @@ while True:
         current_epoch_time_ms_str = str(int(datetime.datetime.now(tz = datetime.timezone.utc).timestamp() * 1000))
 
         full_stock_data = stock_checker.get_stock_data(artisan_all_products_url, request_fail_delay)
-        safe_write_stock_json("full_stock_data_" + current_epoch_time_ms_str, full_stock_data)
+        safe_write_stock_json("full_stock_data_" + current_epoch_time_ms_str + ".json", full_stock_data)
 
         product_infos = stock_checker.parse_stock_data(full_stock_data)
-        safe_write_stock_json("product_infos_" + current_epoch_time_ms_str, full_stock_data)
+        safe_write_stock_json("product_infos_" + current_epoch_time_ms_str + ".json", product_infos)
 
         for sku, product_info in product_infos.items():
             stock_state_handler.write_state_file(sku, product_info)
