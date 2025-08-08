@@ -68,5 +68,5 @@ def find_item_state(dict_key: str, value: dict, stock_state_file_path: str = DEF
             return False
         return recorded_stock_state["in_stock"]
 
-    except Exception:
+    except Exception:  # noqa: BLE001
         logger.error_log("Could not open or write to stock states:", traceback.format_exc())
