@@ -6,8 +6,8 @@ import requests
 
 artisan_cert_path = "www-artisan-jp-com.pem" # shim due to requests not recognizing `GlobalSign nv-sa` cert
 
-def get_stock_data(url: str, request_timeout: int) -> dict:
-    response = requests.get(url, verify = artisan_cert_path, timeout = request_timeout)
+def get_stock_data(url: str, request_timeout: int, request_headers_override: dict) -> dict:
+    response = requests.get(url, verify = artisan_cert_path, timeout = request_timeout, headers = request_headers_override)
 
     response_text_stripped = response.text.replace("\n", "").replace("\r", "")
     product_containers = re.findall('<li class="item product product-item">.*?</li>', response_text_stripped)

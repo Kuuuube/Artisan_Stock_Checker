@@ -38,6 +38,9 @@ webhook_send_delay = float(config_handler.read(config_file, "webhook", "webhook_
 uptime_webhook_url = config_handler.read(config_file, "webhook", "uptime_url")
 critical_error_webhook_url = config_handler.read(config_file, "webhook", "critical_error_url")
 
+request_headers_override = config_handler.read(config_file, "stock", "request_headers_override")
+request_headers_override = json.loads(request_headers_override) if len(request_headers_override) > 0 else None
+
 def safe_write_stock_json(json_file_name: str, json_data: dict) -> None:
     try:
         os.makedirs(STOCK_RECORD_DIRECTORY, exist_ok = True)
@@ -54,7 +57,7 @@ while True:
     try:
         current_epoch_time_ms_str = str(int(datetime.datetime.now(tz = datetime.timezone.utc).timestamp() * 1000))
 
-        full_stock_data = stock_checker.get_stock_data(artisan_all_products_url, request_fail_delay)
+        full_stock_data = stock_checker.get_stock_data(artisan_all_products_url, request_fail_delay, request_headers_override)
         safe_write_stock_json("full_stock_data_" + current_epoch_time_ms_str + ".json", full_stock_data)
 
         product_infos = stock_checker.parse_stock_data(full_stock_data)

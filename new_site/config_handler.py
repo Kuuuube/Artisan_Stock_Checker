@@ -13,6 +13,7 @@ DEFAULT_CONFIG = {
         "stock_delay": "10",
         "batch_delay": "300",
         "request_fail_delay": "120",
+        "request_headers_override": "",
     },
     "webhook": {
         "webhook_send_delay": "1",
