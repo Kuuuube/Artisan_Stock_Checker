@@ -85,7 +85,7 @@ def get_role_ping(product_info: dict) -> str:
 
 def get_int_color(product_info: dict) -> int:
     if "hex_color" not in product_info:
-        return ""
+        return None
 
     return int(product_info["hex_color"].replace("#", ""), 16)
 
