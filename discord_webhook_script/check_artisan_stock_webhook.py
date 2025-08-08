@@ -79,7 +79,7 @@ while True:
     except Exception:  # noqa: BLE001, PERF203
         try:
             logger.error_log("Crash in main process, attempting to recover in " + str(batch_delay) + " seconds", traceback.format_exc())
-            critical_error_webhook_data = {"content": "","embeds": [{"title": "Crash in main process","description": "Attempting to recover in " + str(batch_delay) + " seconds\n```\n" + str(traceback.format_exc()) + "\n```"}]}
+            critical_error_webhook_data = {"content": "","embeds": [{"title": "Crash in main process","description": "Attempting to recover in " + str(batch_delay) + " seconds\n```\n" + str(traceback.format_exc())[:2048] + "\n```"}]}
             webhook_handler.send_unhandled_webhook(critical_error_webhook_url, request_fail_delay, critical_error_webhook_data)
             time.sleep(batch_delay)
         except Exception:  # noqa: BLE001
