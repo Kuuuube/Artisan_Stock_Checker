@@ -8,6 +8,7 @@ import config_handler
 import logger
 import stock_checker
 import stock_state_handler
+import webhook_handler
 
 utc_time = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
 
@@ -33,6 +34,9 @@ batch_delay = float(config_handler.read(config_file, "stock", "batch_delay"))
 request_fail_delay = float(config_handler.read(config_file, "stock", "request_fail_delay"))
 webhook_send_delay = float(config_handler.read(config_file, "webhook", "webhook_send_delay"))
 
+uptime_webhook_url = config_handler.read(config_file, "webhook", "uptime_url")
+critical_error_webhook_url = config_handler.read(config_file, "webhook", "critical_error_url")
+
 def safe_write_stock_json(json_file_name: str, json_data: dict) -> None:
     try:
         os.makedirs(STOCK_RECORD_DIRECTORY, exist_ok = True)
@@ -40,6 +44,10 @@ def safe_write_stock_json(json_file_name: str, json_data: dict) -> None:
             json.dump(json_data, json_file)
     except Exception:  # noqa: BLE001
         logger.error_log("Failed to write json:", traceback.format_exc())
+
+#send bot started notification to uptime webhook
+utc_time = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
+webhook_handler.send_unhandled_webhook(uptime_webhook_url, request_fail_delay, data = {"content": "","embeds": [{"title": "Bot started","description": utc_time}]})
 
 while True:
     try:
@@ -54,6 +62,17 @@ while True:
         for sku, product_info in product_infos.items():
             stock_state_handler.write_state_file(sku, product_info)
 
-        time.sleep(stock_delay)
+        utc_time = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
+
+        logger.log(utc_time + " Batch complete, waiting: " + str(batch_delay) + " seconds")
+        webhook_handler.send_unhandled_webhook(uptime_webhook_url, request_fail_delay, data = {"content": "","embeds": [{"title": "Batch complete","description": utc_time}]})
+
+        time.sleep(batch_delay)
     except Exception:  # noqa: BLE001, PERF203
-        logger.error_log("Critical failure in stock_check_runner:", traceback.format_exc())
+        try:
+            logger.error_log("Crash in main process, attempting to recover in " + str(batch_delay) + " seconds", traceback.format_exc())
+            critical_error_webhook_data = {"content": "","embeds": [{"title": "Crash in main process","description": "Attempting to recover in " + str(batch_delay) + " seconds\n```\n" + str(traceback.format_exc()) + "\n```"}]}
+            webhook_handler.send_unhandled_webhook(critical_error_webhook_url, request_fail_delay, critical_error_webhook_data)
+            time.sleep(batch_delay)
+        except Exception:  # noqa: BLE001
+            logger.error_log("Crash in main process, failed to send critical error webhook", traceback.format_exc())

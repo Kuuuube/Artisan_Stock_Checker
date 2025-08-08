@@ -58,7 +58,7 @@ def resend_unsent(url: str, webhook_send_delay: float, request_timeout: float) -
         for unsent_webhooks_json in unsent_webhooks_json_list:
             unsent_webhooks_file.write(json.dumps(unsent_webhooks_json) + "\n")
 
-def send_unhandled_webhook(url: str, data: dict, request_timeout: float) -> None:
+def send_unhandled_webhook(url: str, request_timeout: float, data: dict) -> None:
     try:
         if url == "":
             return
