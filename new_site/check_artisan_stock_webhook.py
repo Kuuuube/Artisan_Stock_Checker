@@ -31,6 +31,7 @@ STOCK_RECORD_DIRECTORY = os.path.dirname(__file__) + "/stock_record/"
 stock_delay = float(config_handler.read(config_file, "stock", "stock_delay"))
 batch_delay = float(config_handler.read(config_file, "stock", "batch_delay"))
 request_fail_delay = float(config_handler.read(config_file, "stock", "request_fail_delay"))
+webhook_send_delay = float(config_handler.read(config_file, "webhook", "webhook_send_delay"))
 
 def safe_write_stock_json(json_file_name: str, json_data: dict) -> None:
     try:

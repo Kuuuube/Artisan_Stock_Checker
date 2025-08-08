@@ -15,6 +15,7 @@ DEFAULT_CONFIG = {
         "request_fail_delay": "120",
     },
     "webhook": {
+        "webhook_send_delay": "1",
         "fallback_url": "",
         "S_url": "",
         "M_url": "",
