@@ -84,3 +84,4 @@ while True:
             time.sleep(batch_delay)
         except Exception:  # noqa: BLE001
             logger.error_log("Crash in main process, failed to send critical error webhook", traceback.format_exc())
+            time.sleep(batch_delay)
