@@ -10,8 +10,8 @@ DEFAULT_CONFIG_FILE_PATH = os.path.dirname(__file__) + "/config.cfg"
 
 DEFAULT_CONFIG = {
     "stock": {
-        "stock_delay": "30",
-        "batch_delay": "0",
+        "stock_delay": "10",
+        "batch_delay": "300",
         "request_fail_delay": "120",
     },
     "webhook": {
