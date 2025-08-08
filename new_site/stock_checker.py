@@ -72,15 +72,18 @@ def parse_stock_data(full_stock_data: dict) -> dict:
             attribute_code = attribute_value["code"] # name of attribute
             for option in attribute_value["options"]:
                 option_label = option["label"]
+                option_id = option["id"]
                 for product_id in option["products"]:
                     if product_id in product_info_dict:
                         product_info_dict[product_id][attribute_code] = option_label
+                        product_info_dict[product_id][attribute_code + "_id"] = option_id
                     else:
                         product_info_dict[product_id] = {
                             "product_id": product_id,
                             "product_name": magento_swatch_stock_data_json["product_name"],
                             "product_link": magento_swatch_stock_data_json["product_link"],
                             attribute_code: option_label,
+                            attribute_code + "_id": option_id,
                             # set defaults
                             "in_stock": False,
                             "sku": "",
@@ -99,6 +102,12 @@ def parse_stock_data(full_stock_data: dict) -> dict:
         for product_id, prices in option_prices.items():
             if product_id in product_info_dict:
                 product_info_dict[product_id]["price"] = price_pattern.replace(r"%s", str(prices["finalPrice"]["amount"]))
+
+        swatch_config = magento_swatch_stock_data_json["jsonSwatchConfig"]
+        for _attribute_id, attribute_swatch_info in swatch_config.items():
+            for product_id in product_info_dict:
+                if "color_id" in product_info_dict[product_id] and product_info_dict[product_id]["color_id"] in attribute_swatch_info:
+                    product_info_dict[product_id]["hex_color"] = attribute_swatch_info[product_info_dict[product_id]["color_id"]]["value"]
 
         # switch from product id sorted to sku last due to id use within magento json
         skus = magento_swatch_stock_data_json["jsonConfig"]["sku"]
