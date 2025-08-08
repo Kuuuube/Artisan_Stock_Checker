@@ -25,6 +25,7 @@ DEFAULT_CONFIG = {
         "na_url": "",
         "content": "{Role Ping} In Stock!\\nModel: {Model}, Hardness: {Hardness}, Size: {Size}, Color: {Color}\\nLink: {Link}",
         "uptime_url": "",
+        "critical_error_url": "",
     },
     "webhook_role_pings": {
         "role_CS_Zero": "<@&>",
