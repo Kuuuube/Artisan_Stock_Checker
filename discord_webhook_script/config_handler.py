@@ -1,6 +1,5 @@
 import configparser
 import hashlib
-import os
 import time
 import traceback
 
