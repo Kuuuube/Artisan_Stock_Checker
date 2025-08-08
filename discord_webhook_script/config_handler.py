@@ -6,7 +6,7 @@ import traceback
 
 import logger
 
-DEFAULT_CONFIG_FILE_PATH = "/config.cfg"
+DEFAULT_CONFIG_FILE_PATH = "config.cfg"
 
 DEFAULT_CONFIG = {
     "stock": {
