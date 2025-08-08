@@ -14,7 +14,7 @@ pip install requests
 
 1. Run `./discord_webhook_script/check_artisan_stock_webhook.py` then close it to generate default settings file.
 
-    By default, `config.cfg` is expected to be in the current working directory. If you want to put it somewhere else, set this env var: `ARTISAN_STOCK_CHECKER_CONFIG_DIR`.
+    By default, `config.cfg` is expected to be in the current working directory. If you want to put it somewhere else, specify a directory with this env var: `ARTISAN_STOCK_CHECKER_CONFIG_DIR`.
 
 2. Open `config.cfg` and add your Discord webhook url for `fallback_url = `. The fallback url is always required even if all size urls are present.
 
