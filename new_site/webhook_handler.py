@@ -54,8 +54,6 @@ def resend_unsent(url: str, webhook_send_delay: float, request_timeout: float) -
             logger.error_log("Resend unsent webhook response bad status code: " + str(webhook_request.status_code) + ", Response headers: " + str(webhook_request.headers) + ", Request response: " + str(webhook_request.text) + ", Webhook data: " + str(unsent_webhooks_json), "")
             break
 
-        time.sleep(webhook_send_delay)
-
     with open(DEFAULT_UNSENT_WEBHOOKS_FILE_PATH, "w", encoding="utf8") as unsent_webhooks_file:
         for unsent_webhooks_json in unsent_webhooks_json_list:
             unsent_webhooks_file.write(json.dumps(unsent_webhooks_json) + "\n")
