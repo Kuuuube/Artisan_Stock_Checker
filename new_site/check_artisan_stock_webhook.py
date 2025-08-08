@@ -8,6 +8,7 @@ import config_handler
 import logger
 import stock_checker
 import stock_state_handler
+import webhook_assembler
 import webhook_handler
 
 utc_time = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
@@ -63,8 +64,8 @@ while True:
         for sku, product_info in product_infos.items():
             previously_in_stock = stock_state_handler.find_item_state(sku, product_info)
             if not previously_in_stock and product_info["in_stock"]:
-                # webhook_handler.send_webhook()
-                print("send a webhook here")
+                webhook_handler.send_webhook(webhook_assembler.get_webhook_url(product_info), webhook_assembler.assemble_webhook(product_info), webhook_send_delay, request_fail_delay)
+                time.sleep(webhook_send_delay)
 
         utc_time = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
 
