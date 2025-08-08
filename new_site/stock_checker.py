@@ -94,17 +94,19 @@ def parse_stock_data(full_stock_data: dict) -> dict:
                     if product_id in product_info_dict:
                         product_info_dict[product_id]["in_stock"] = True
 
+        option_prices = magento_swatch_stock_data_json["jsonConfig"]["optionPrices"]
+        price_pattern = magento_swatch_stock_data_json["jsonConfig"]["priceFormat"]["pattern"]
+        for product_id, prices in option_prices.items():
+            if product_id in product_info_dict:
+                product_info_dict[product_id]["price"] = price_pattern.replace(r"%s", str(prices["finalPrice"]["amount"]))
+
+        # switch from product id sorted to sku last due to id use within magento json
         skus = magento_swatch_stock_data_json["jsonConfig"]["sku"]
         for product_id, sku in skus.items():
             if product_id in product_info_dict:
                 product_info_dict[product_id]["sku"] = sku
                 product_info_dict[sku] = product_info_dict[product_id]
                 del product_info_dict[product_id]
-
-        option_prices = magento_swatch_stock_data_json["jsonConfig"]["optionPrices"]
-        for product_id, prices in option_prices.items():
-            if product_id in product_info_dict:
-                product_info_dict[product_id]["price"] = prices["finalPrice"]["amount"]
 
     for single_sku_stock_data_dict in full_stock_data["single_sku_stock_data_dicts"]:
         product_info_dict[single_sku_stock_data_dict["sku"]] = single_sku_stock_data_dict

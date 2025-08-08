@@ -29,8 +29,15 @@ def assemble_webhook(product_info: dict) -> dict:
     }
 
 
-def assemble_embed_field(product_info: dict):
+def assemble_embed_field(product_info: dict) -> str:
     assembled_string = ""
+    exposed_details = {"product_name": "Model", "base_type": "Hardness", "size": "Size", "color": "Color", "price": "Price"}
+    details_strings = []
+    for exposed_key, exposed_string in exposed_details.items():
+        if exposed_key in product_info:
+            details_strings.append(exposed_string + ": " + product_info[exposed_key].strip())
+
+    assembled_string += "\n".join(details_strings)
 
     return assembled_string
 
