@@ -1,9 +1,9 @@
 import json
-import os
 import re
 
 import logger
 import requests
+
 
 def get_stock_data(url: str, request_timeout: int, request_headers_override: dict) -> dict:
     response = requests.get(url, timeout = request_timeout, headers = request_headers_override)
@@ -103,7 +103,7 @@ def parse_stock_data(full_stock_data: dict) -> dict:
                 product_info_dict[product_id]["price"] = price_pattern.replace(r"%s", str(prices["finalPrice"]["amount"]))
 
         swatch_config = magento_swatch_stock_data_json["jsonSwatchConfig"]
-        for _attribute_id, attribute_swatch_info in swatch_config.items():
+        for attribute_swatch_info in swatch_config.values():
             for product_id in product_info_dict:
                 if "color_id" in product_info_dict[product_id] and product_info_dict[product_id]["color_id"] in attribute_swatch_info:
                     product_info_dict[product_id]["hex_color"] = attribute_swatch_info[product_info_dict[product_id]["color_id"]]["value"]

@@ -16,10 +16,10 @@ def send_webhook(url: str, data: dict, webhook_send_delay: float, request_timeou
     if webhook_request.status_code in accepted_status_codes:
         resend_unsent(url, webhook_send_delay, request_timeout)
         return True
-    else:
-        logger.error_log("Webhook response bad status code: " + str(webhook_request.status_code) + ", Response headers: " + str(webhook_request.headers) + ", Request response: " + str(webhook_request.text) + ", Webhook data: " + str(data), "")
-        log_unsent(data)
-        return False
+
+    logger.error_log("Webhook response bad status code: " + str(webhook_request.status_code) + ", Response headers: " + str(webhook_request.headers) + ", Request response: " + str(webhook_request.text) + ", Webhook data: " + str(data), "")
+    log_unsent(data)
+    return False
 
 def log_unsent(data: dict) -> None:
     with open(DEFAULT_UNSENT_WEBHOOKS_FILE_PATH, "a", encoding="utf8") as unsent_webhooks_file:

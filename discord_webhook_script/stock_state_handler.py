@@ -26,7 +26,7 @@ def default_json(stock_state_file_path: str = DEFAULT_STOCK_STATE_FILE_PATH) -> 
         json.dump({}, jsonfile)
 
 
-def read_state_file(dict_key: str, stock_state_file_path: str = DEFAULT_STOCK_STATE_FILE_PATH):
+def read_state_file(dict_key: str, stock_state_file_path: str = DEFAULT_STOCK_STATE_FILE_PATH) -> bool:
     while True:
         try:
             states_dict = {}
