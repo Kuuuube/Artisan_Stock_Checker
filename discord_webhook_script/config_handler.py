@@ -39,6 +39,7 @@ DEFAULT_CONFIG = {
         "role_FX_TYPE99": "<@&>",
         "role_FX_KEY83": "<@&>",
         "role_skates": "<@&>",
+        "role_misc": "<@&>",
     },
 }
 
