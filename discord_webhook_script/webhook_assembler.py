@@ -1,6 +1,7 @@
 import datetime
 
 import config_handler
+import logger
 
 DEFAULT_ARTISAN_URL = "https://artisan-jp.com/global/"
 
@@ -84,6 +85,7 @@ def get_role_ping(product_info: dict) -> str:
     }
     config_key = safe_dict_index(product_name_mappings, safe_dict_index(product_info, "product_name", ""), UNKNOWN_PRODUCT_STRING)
     if config_key == UNKNOWN_PRODUCT_STRING:
+        logger.error_log("Unknown product found: " + str(product_info))
         return ""
     return config_handler.read(config_handler.DEFAULT_CONFIG_FILE_PATH, "webhook_role_pings", config_key)
 
