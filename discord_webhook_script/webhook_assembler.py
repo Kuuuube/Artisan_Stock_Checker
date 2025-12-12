@@ -4,6 +4,8 @@ import config_handler
 
 DEFAULT_ARTISAN_URL = "https://artisan-jp.com/global/"
 
+UNKNOWN_PRODUCT_STRING = "Unknown Product"
+
 def assemble_webhook(product_info: dict) -> dict:
     utc_time = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
     return {
@@ -80,7 +82,9 @@ def get_role_ping(product_info: dict) -> str:
         "MIZUGUMO FUTAE-P8": "role_skates",
         "Mousepad Sweeper MS-01": "role_misc",
     }
-    config_key = safe_dict_index(product_name_mappings, safe_dict_index(product_info, "product_name", ""), "Unknown Product")
+    config_key = safe_dict_index(product_name_mappings, safe_dict_index(product_info, "product_name", ""), UNKNOWN_PRODUCT_STRING)
+    if config_key == UNKNOWN_PRODUCT_STRING:
+        return ""
     return config_handler.read(config_handler.DEFAULT_CONFIG_FILE_PATH, "webhook_role_pings", config_key)
 
 
