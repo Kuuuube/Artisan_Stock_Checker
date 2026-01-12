@@ -15,10 +15,10 @@ utc_time = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d_%H-%M
 
 # all of these pages max out at 25 products
 # if artisan ever has more products, scraping multiple pages will need to be added (not skus, product variations dont count)
-artisan_all_products_url = "https://artisan-jp.com/global/products.html?product_list_limit=25"
-artisan_fx_url = "https://artisan-jp.com/global/products/ninja-fx-series.html?product_list_limit=25"
-artisan_classic_url = "https://artisan-jp.com/global/products/classic-series.html?product_list_limit=25"
-artisan_accessories_url = "https://artisan-jp.com/global/products/accessories.html?product_list_limit=25"
+artisan_all_products_url = "https://artisan-jp.com/global/products?product_list_limit=25"
+artisan_fx_url = "https://artisan-jp.com/global/products/ninja-fx-series?product_list_limit=25"
+artisan_classic_url = "https://artisan-jp.com/global/products/classic-series?product_list_limit=25"
+artisan_accessories_url = "https://artisan-jp.com/global/products/accessories?product_list_limit=25"
 
 config_file_path = config_handler.DEFAULT_CONFIG_FILE_PATH
 stock_state_file_path = stock_state_handler.DEFAULT_STOCK_STATE_FILE_PATH
