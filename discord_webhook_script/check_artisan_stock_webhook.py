@@ -63,6 +63,7 @@ while True:
         product_infos = stock_checker.parse_stock_data(full_stock_data)
         safe_write_stock_json("product_infos_" + current_epoch_time_ms_str + ".json", product_infos)
         del product_infos["skuless_products"] # ignore skuless products list
+        product_infos_length = len(product_infos)
 
         for sku, product_info in product_infos.items():
             previously_in_stock = stock_state_handler.find_item_state(sku, product_info, stock_state_file_path)
@@ -72,8 +73,11 @@ while True:
 
         utc_time = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
 
-        logger.log(utc_time + " Batch complete, waiting: " + str(batch_delay) + " seconds")
-        webhook_handler.send_unhandled_webhook(uptime_webhook_url, request_fail_delay, data = {"content": "","embeds": [{"title": "Batch complete","description": utc_time}]})
+        logger.log(utc_time + " Batch complete, found " + str(product_infos_length) + " products, waiting: " + str(batch_delay) + " seconds")
+        webhook_handler.send_unhandled_webhook(uptime_webhook_url, request_fail_delay, data = {"content": "","embeds": [{"title": "Batch complete","description": "Found " + str(product_infos_length) + " products\n" + utc_time}]})
+
+        if product_infos_length == 0:
+            webhook_handler.send_unhandled_webhook(critical_error_webhook_url, request_fail_delay, data = {"content": "","embeds": [{"title": "Zero products found in batch. Potential silent failure or blocked by Artisan's site.","description": "Product info dict: ```\n" + str(product_infos)[:2048] + "\n```"}]})
 
         time.sleep(batch_delay)
     except Exception:  # noqa: BLE001, PERF203
