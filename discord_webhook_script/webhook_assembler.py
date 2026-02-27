@@ -94,7 +94,12 @@ def get_int_color(product_info: dict) -> int:
     if "hex_color" not in product_info:
         return None
 
-    return int(product_info["hex_color"].replace("#", ""), 16)
+    # hex_color can be weird things such as an image url
+    try:
+        return int(product_info["hex_color"].replace("#", ""), 16)
+    except ValueError:
+        logger.error_log("Bad hex color found: " + str(product_info["hex_color"]))
+        return None
 
 
 def safe_dict_index(dictionary: dict, key: str, default):  # noqa: ANN001, ANN201
