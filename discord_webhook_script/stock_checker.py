@@ -19,8 +19,19 @@ def get_stock_data(url: str, request_timeout: int, request_headers_override: dic
         product_name = re.search("(?<=>).*?(?=<)", product_link_container)[0].strip()
         product_link = re.search('(?<=href=").*?(?=")', product_link_container)[0].strip()
 
+        found_magento_data = False
+        for magento_json in magento_jsons:
+            magento_json_parsed = json.loads(magento_json)
+            for key in magento_json_parsed:
+                if "[data-role=swatch-option-" in key:
+                    found_magento_data = True
+                    truncated_magento_json = magento_json_parsed[key]["Magento_Swatches/js/swatch-renderer"]
+                    truncated_magento_json["product_name"] = product_name
+                    truncated_magento_json["product_link"] = product_link
+                    magento_swatch_stock_data_jsons.append(truncated_magento_json)
+
         # product with no selectable options, single sku
-        if (len(magento_jsons) == 0):
+        if not found_magento_data:
             in_stock = re.search("Add( |&#x20;)to( |&#x20;)Cart", product_container)
             out_of_stock = re.search("(Out of stock|stock unavailable)", product_container)
             if (bool(in_stock) == bool(out_of_stock)):
@@ -45,15 +56,6 @@ def get_stock_data(url: str, request_timeout: int, request_headers_override: dic
             }
 
             single_sku_stock_data_dicts.append(stock_data)
-
-        for magento_json in magento_jsons:
-            magento_json_parsed = json.loads(magento_json)
-            for key in magento_json_parsed:
-                if "[data-role=swatch-option-" in key:
-                    truncated_magento_json = magento_json_parsed[key]["Magento_Swatches/js/swatch-renderer"]
-                    truncated_magento_json["product_name"] = product_name
-                    truncated_magento_json["product_link"] = product_link
-                    magento_swatch_stock_data_jsons.append(truncated_magento_json)
 
     return {
         "magento_swatch_stock_data": magento_swatch_stock_data_jsons,
