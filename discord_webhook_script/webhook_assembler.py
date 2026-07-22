@@ -82,6 +82,7 @@ def get_role_ping(product_info: dict) -> str:
         "NINJA FX KEY-83": "role_fx_key83",
         "MIZUGUMO FUTAE-P8": "role_skates",
         "MIZUGUMO FUTAE-P6": "role_skates",
+        "MIZUGUMO RIN-P7": "role_skates",
         "Mousepad Sweeper MS-01": "role_misc",
     }
     config_key = safe_dict_index(product_name_mappings, safe_dict_index(product_info, "product_name", ""), UNKNOWN_PRODUCT_STRING)
