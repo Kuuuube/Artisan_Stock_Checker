@@ -76,6 +76,7 @@ def get_role_ping(product_info: dict) -> str:
         "NINJA FX HAYATE-KOU": "role_fx_hayate_kou",
         "NINJA FX HIEN": "role_fx_hien",
         "NINJA FX ZERO": "role_fx_zero",
+        "NINJA FX ZERO TENZ RED": "role_fx_zero",
         "NINJA FX RAIDEN": "role_fx_raiden",
         "NINJA FX SHIDENKAI V2": "role_fx_shidenkai",
         "NINJA FX TYPE-99": "role_fx_type99",
