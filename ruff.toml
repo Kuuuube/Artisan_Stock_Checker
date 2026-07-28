@@ -20,6 +20,7 @@ ignore = [
     "INP001", #Checks for packages that are missing an __init__.py file.
     "PTH110", #Checks for uses of os.path.exists.
     "PTH118", #Checks for uses of os.path.join.
+    "CPY001", #Checks for the absence of copyright notices within Python files.
 ]
 
 [lint.per-file-ignores]
