@@ -65,7 +65,11 @@ while True:
         del product_infos["skuless_products"] # ignore skuless products list
         product_infos_length = len(product_infos)
 
+        unknown_products = []
         for sku, product_info in product_infos.items():
+            if webhook_assembler.get_role_ping(product_info) == "":
+                unknown_products.append(str(product_info))
+
             previously_in_stock = stock_state_handler.find_item_state(sku, product_info, stock_state_file_path)
             if not previously_in_stock and product_info["in_stock"]:
                 webhook_handler.send_webhook(webhook_assembler.get_webhook_url(product_info), webhook_assembler.assemble_webhook(product_info), webhook_send_delay, request_fail_delay)
@@ -78,6 +82,8 @@ while True:
 
         if product_infos_length == 0:
             webhook_handler.send_unhandled_webhook(critical_error_webhook_url, request_fail_delay, data = {"content": "","embeds": [{"title": "Zero products found in batch. Potential silent failure or blocked by Artisan's site.","description": "Product info dict: ```\n" + str(product_infos)[:2048] + "\n```"}]})
+        if len(unknown_products) > 0:
+            webhook_handler.send_unhandled_webhook(critical_error_webhook_url, request_fail_delay, data = {"content": "","embeds": [{"title": "Unknown products not in `product_name_mappings` found.","description": "Unknown products: ```\n" + str(unknown_products)[:2048] + "\n```"}]})
 
         time.sleep(batch_delay)
     except Exception:  # noqa: BLE001, PERF203
