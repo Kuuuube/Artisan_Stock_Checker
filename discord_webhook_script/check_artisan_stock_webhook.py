@@ -1,3 +1,4 @@
+import argparse
 import datetime
 import json
 import os
@@ -12,6 +13,10 @@ import webhook_assembler
 import webhook_handler
 
 utc_time = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
+
+args_parser = argparse.ArgumentParser("check_artisan_stock_webhook")
+args_parser.add_argument("--dry-run", help="Run without sending anything to main webhooks (will still send to uptime and critical error webhooks)", action="store_true")
+args = args_parser.parse_args()
 
 # all of these pages max out at 25 products
 # if artisan ever has more products, scraping multiple pages will need to be added (not skus, product variations dont count)
@@ -71,7 +76,7 @@ while True:
                 unknown_products.append(str(product_info))
 
             previously_in_stock = stock_state_handler.find_item_state(sku, product_info, stock_state_file_path)
-            if not previously_in_stock and product_info["in_stock"]:
+            if not previously_in_stock and product_info["in_stock"] and not args.dry_run:
                 webhook_handler.send_webhook(webhook_assembler.get_webhook_url(product_info), webhook_assembler.assemble_webhook(product_info), webhook_send_delay, request_fail_delay)
                 time.sleep(webhook_send_delay)
 
